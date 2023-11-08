@@ -1,6 +1,11 @@
+// module imports and configs
 const express = require('express');
 const router = express.Router();
 
+// multer configurations imports
+const { upload } = require('../Config/multer_config');
+
+// model imports
 const { userSchema } = require('../Models/user');
 const { responseInstance } = require('../Models/response');
 
