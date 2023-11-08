@@ -9,6 +9,7 @@
   "author": "abelmaireg amanuelwonde",
   "license": "ISC",
   "dependencies": {
+    "config": "1.31",
     "debug": "^4.3.4",
     "express": "^4.18.2",
     "joi": "^17.11.0",
