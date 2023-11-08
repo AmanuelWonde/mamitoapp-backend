@@ -15,4 +15,6 @@ const userSchema = Joi.object({
         longitude: Joi.number()
     }),
     password: Joi.string().min(8).required(),
-})
+});
+
+module.exports = { userSchema };
