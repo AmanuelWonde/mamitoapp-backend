@@ -2,8 +2,8 @@ const Joi = require('joi');
 
 const userSchema = Joi.object({
     username: Joi.string().min(6).alphanum().required(),
-    sex: Joi.string().length(1).required(),
-    phone: Joi.string().pattern(/^+251[7|9]d{8}$/),
+    gender: Joi.string().length(1).required(),
+    phone: Joi.string().pattern(/^251[7,9]\d{8}$/),
     age: Joi.number().integer().min(13).required(),
     email: Joi.string().email().required(),
     educationalStatus: Joi.string(),
