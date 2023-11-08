@@ -1,0 +1,16 @@
+{
+  "name": "mamito",
+  "version": "1.0.0",
+  "description": "a chatting application",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "abelmaireg amanuelwonde",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.0.1"
+  }
+}
