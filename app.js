@@ -1,6 +1,5 @@
 const express = require('express');
 const mysql = require('mysql');
-const multer = require('multer');
 
 const app = express();
 app.use(express.json());

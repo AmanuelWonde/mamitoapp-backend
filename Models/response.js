@@ -1,8 +1,15 @@
-class responseInstance {
-    constructor(status, message) {
-        this.status = status,
-            this.message = message
+class status {
+    constructor(code, discription) {
+        this.code = code;
+        this.discription = discription
     }
 }
 
-module.exports = { responseInstance };
+class responseInstance {
+    constructor(status, message) {
+        this.status = status;
+        this.message = message;
+    }
+}
+
+module.exports = { status, responseInstance };
