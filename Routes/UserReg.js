@@ -1,5 +1,8 @@
 // module imports and configs
 const bcrypt = require('bcryptjs');
+const JWT = require('jsonwebtoken');
+
+// express router declaretion
 const express = require('express');
 const router = express.Router();
 
@@ -120,14 +123,18 @@ router.post('/signup', (req, res) => {
                         debug(`Error: ${error}`);
                         reject(new responseInstance(new status(6013, 'unable to save user\'s data to the database'), 'this is backend issue'));
                     }
-                    resolve(result);
+                    resolve(body);
                 })
             })
         })
     }
 
-    function sender(heir) {
-        res.send(new responseInstance('passed the test', heir));
+    function sender(body) {
+        const auth_token = JWT.sign({
+            username: body.username,
+            birthdate: body.birthdate,
+        }, process.env.jwtPrivateKey);
+        res.setHeader('auth-token', auth_token).send(new responseInstance(new status(1000, 'user registed'), "user is created successfully"));
     }
 
     p1
