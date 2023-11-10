@@ -40,9 +40,32 @@ router.post('/signup', (req, res) => {
                 }
 
                 connection.query(`CALL GetUserByUsername(\'${body.username}\')`, (error, result, fields) => {
-                    debug('error', error); debug('results', result); debug('fields', fields);
-                    if (error) reject(new responseInstance(`Error: unknown issue`, error));
+                    if (error) {
+                        debug('error', error);
+                        if (error) reject(new responseInstance(`Error: unknown issue`, error));
+                    }
                     if (result[0].length > 0) reject(new responseInstance(new status(6003, 'username is unavailable'), `the username ${body.username} is unavilable, try another`))
+                    resolve(body);
+                });
+            })
+        });
+    }
+
+    function phoneNumberValidation(body) {
+        const debug = require('debug')('signup:phoneNumberValidation');
+        return new Promise(async (resolve, reject) => {
+
+            db.getConnection((error, connection) => {
+                if (error) {
+                    reject(new responseInstance(new status(7001, 'unable to connect to database'), 'this is a backend issue'));
+                }
+
+                connection.query(`CALL GetUserByPhone(\'${body.phone}\')`, (error, result, fields) => {
+                    if (error) {
+                        debug('error', error);
+                        reject(new responseInstance(`Error: unknown issue`, error));
+                    }
+                    if (result[0].length > 0) reject(new responseInstance(new status(6004, 'phone number is registered'), `the phone number ${body.phone} is already registered, change phone number`))
                     resolve(body);
                 });
             })
@@ -85,7 +108,7 @@ router.post('/signup', (req, res) => {
                 \'${body.phone}\',
                 \'${body.email}\',
                 \'${body.password}\',
-                NULL,
+                ${body.educationalStatus || "NULL"},
                 NULL,
                 NULL,
                 NULL,
@@ -108,6 +131,7 @@ router.post('/signup', (req, res) => {
 
     p1
         .then((body) => usernameValidation(body))
+        .then((body) => phoneNumberValidation(body))
         .then((body) => passwordEncryption(body))
         .then((body) => insertData(body))
         .then((result) => sender(result))
