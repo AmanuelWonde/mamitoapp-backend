@@ -9,6 +9,11 @@ const mysql = require('mysql');
 const dbConfig = require('../Config/dbConfig');
 const db = mysql.createPool(dbConfig);
 
+db.getConnection(err => {
+    if (err) throw err;
+    else console.log('connected to mysql server')
+})
+
 // multer configurations imports
 const { upload } = require('../Config/multerConfig');
 
@@ -21,7 +26,7 @@ router.post('/signup', (req, res) => {
 
     let p1 = new Promise((resolve, reject) => {
         let { error } = userSchema.validate(req.body);
-        if (error) reject(new responseInstance(`Error: Invalid User Details`, error));
+        if (error) reject(new responseInstance(new status(6001, 'invalid json content'), 'ckeck the properties and the values of the object!'));
         else resolve(req.body);
     });
 
@@ -31,13 +36,13 @@ router.post('/signup', (req, res) => {
 
             db.getConnection((error, connection) => {
                 if (error) {
-                    reject(new responseInstance(`Error: unable to connect to database`, error));
+                    reject(new responseInstance(new status(7001, 'unable to connect to database'), 'this is a backend issue'));
                 }
 
                 connection.query(`CALL GetUserByUsername(\'${body.username}\')`, (error, result, fields) => {
                     debug('error', error); debug('results', result); debug('fields', fields);
                     if (error) reject(new responseInstance(`Error: unknown issue`, error));
-                    if (result[0].length > 0) reject(new responseInstance(`Error`, `${body.username} is unavilable`))
+                    if (result[0].length > 0) reject(new responseInstance(new status(6003, 'username is unavailable'), `the username ${body.username} is unavilable, try another`))
                     resolve(body);
                 });
             })
@@ -50,13 +55,14 @@ router.post('/signup', (req, res) => {
             bcrypt.genSalt(10, (err, salt) => {
                 if (err) {
                     debug(err);
-                    reject(new responseInstance(new status(3010, 'unable to generate salt'), 'this is a backend issue'));
+                    reject(new responseInstance(new status(6010, 'unable to generate salt'), 'this is a backend issue'));
                 };
                 bcrypt.hash(body.password, salt, (err, result) => {
                     if (err) {
                         debug(err);
-                        reject(new responseInstance(new status(3011, 'unable to hash password'), 'this is a backend issue'));
+                        reject(new responseInstance(new status(6011, 'unable to hash password'), 'this is a backend issue'));
                     }
+
                     body.password = result;
                     resolve(body);
                 })
@@ -70,12 +76,12 @@ router.post('/signup', (req, res) => {
             db.getConnection((error, connection) => {
                 if (error) {
                     debug(`Error: ${error}`);
-                    reject(new responseInstance(new status(3012, 'unable to get pool connection'), 'this is backend issue'));
+                    reject(new responseInstance(new status(6012, 'unable to get pool connection'), 'this is backend issue'));
                 }
 
                 connection.query(`CALL InsertUser(
                 \'${body.username}\',
-                \'${body.sex}\',
+                \'${body.gender}\',
                 \'${body.phone}\',
                 \'${body.email}\',
                 \'${body.password}\',
@@ -88,7 +94,7 @@ router.post('/signup', (req, res) => {
                 )`, (error, result, fields) => {
                     if (error) {
                         debug(`Error: ${error}`);
-                        reject(new responseInstance(new status(3012, 'unable to save user\'s data to the database'), 'this is backend issue'));
+                        reject(new responseInstance(new status(6013, 'unable to save user\'s data to the database'), 'this is backend issue'));
                     }
                     resolve(result);
                 })
