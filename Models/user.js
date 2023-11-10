@@ -4,7 +4,7 @@ const userSchema = Joi.object({
     username: Joi.string().min(6).alphanum().required(),
     gender: Joi.string().length(1).required(),
     phone: Joi.string().pattern(/^251[7,9]\d{8}$/),
-    age: Joi.number().integer().min(13).required(),
+    birthdate: Joi.string().length(10).pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
     email: Joi.string().email().required(),
     educationalStatus: Joi.string(),
     employmentStatus: Joi.string(),

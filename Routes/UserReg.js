@@ -22,11 +22,11 @@ const { userSchema } = require('../Models/user');
 const { status, responseInstance } = require('../Models/response');
 
 router.post('/signup', (req, res) => {
-    const debug = require('debug')('user:signup');
+    const debugg = require('debug')('signup:reject');
 
     let p1 = new Promise((resolve, reject) => {
         let { error } = userSchema.validate(req.body);
-        if (error) reject(new responseInstance(new status(6001, 'invalid json content'), 'ckeck the properties and the values of the object!'));
+        if (error) reject(new responseInstance(new status(6001, 'invalid json content'), error.details));
         else resolve(req.body);
     });
 
@@ -105,15 +105,16 @@ router.post('/signup', (req, res) => {
                 connection.query(`CALL InsertUser(
                 \'${body.username}\',
                 \'${body.gender}\',
+                \'${body.birthdate}\',
                 \'${body.phone}\',
                 \'${body.email}\',
                 \'${body.password}\',
-                ${body.educationalStatus || "NULL"},
-                NULL,
-                NULL,
-                NULL,
-                NULL,
-                NULL
+                \'${body.educationalStatus ? `${body.educationalStatus}` : "NULL"}\',
+                \'${body.employmentStatus ? `${body.employmentStatus}` : "NULL"}\',
+                \'${body.bio ? `${body.bio}` : "NULL"}\',
+                \'NULL\',
+                \'${body.religion ? `${body.religion}` : "NULL"}\',
+                \'${body.currentLocation ? `${body.currentLocation}` : "{}"}\'
                 )`, (error, result, fields) => {
                     if (error) {
                         debug(`Error: ${error}`);
@@ -135,7 +136,7 @@ router.post('/signup', (req, res) => {
         .then((body) => passwordEncryption(body))
         .then((body) => insertData(body))
         .then((result) => sender(result))
-        .catch((error) => { res.status(400).send(error); debug(error) });
+        .catch((error) => { res.status(400).send(error); debugg(error) });
 });
 
 module.exports = { router };
