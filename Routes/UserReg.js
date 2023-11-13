@@ -146,7 +146,8 @@ router.post('/signup', (req, res) => {
         .catch((error) => { res.status(400).send(error); debugg(error) });
 });
 
-router.post('/profileimageupload', auth, (req, res) => {
+router.post('/profileimageupload', require('../Middleware/auth'), (req, res) => {
+    console.log(req.body)
 
 })
 
@@ -228,38 +229,5 @@ router.get('/login', (req, res) => {
         .then((result) => sender(result))
         .catch((error) => { res.status(400).send(error); debugg(error) });
 });
-
-const auth = (req, res, next) => {
-    const debugg = require('debug')('auth');
-    let p1 = new Promise((resolve, reject) => {
-        const debug = require('debug')('auth:user');
-        const token = req.header('auth-token');
-        if (token) {
-            resolve(token);
-        } else {
-            debug('token is needed for authentication');
-            reject(new responseInstance(new status(5001, 'token is required'), 'use a token inorder to get services'))
-        }
-    });
-
-    const tokenAuthentication = (token) => {
-        try {
-            const verification = JWT.verify(token, process.env.jwtPrivateKey);
-            resolve(verification);
-        } catch (error) {
-            debug(error);
-            reject(new responseInstance(new status(5002, 'verification failed'), 'use a valid toke in order to get services'))
-        }
-    }
-
-    const verify = (verification) => {
-        next();
-    }
-
-    p1
-        .then((token) => tokenAuthentication(token))
-        .then((verification) => verify(verification))
-        .catch((error) => { debugg(error); res.send(error) });
-}
 
 module.exports = { router };
