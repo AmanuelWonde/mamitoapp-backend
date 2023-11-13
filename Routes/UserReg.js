@@ -34,7 +34,7 @@ router.post('/signup', (req, res) => {
     });
 
     function usernameValidation(body) {
-        const debug = require('debug')('signup:usernameValdiate');
+        const debug = require('debug')('signup:usernameValidate');
         return new Promise(async (resolve, reject) => {
 
             db.getConnection((error, connection) => {
@@ -145,6 +145,10 @@ router.post('/signup', (req, res) => {
         .then((result) => sender(result))
         .catch((error) => { res.status(400).send(error); debugg(error) });
 });
+
+router.post('/profileimageupload', auth, (req, res) => {
+
+})
 
 router.get('/login', (req, res) => {
     const debugg = require('debug')('login:');
