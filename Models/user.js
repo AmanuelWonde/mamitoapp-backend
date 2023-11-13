@@ -11,10 +11,15 @@ const userSchema = Joi.object({
     bio: Joi.string(),
     religion: Joi.string(),
     currentLocation: Joi.object({
-        latitude: Joi.number(),
-        longitude: Joi.number()
+        latitude: Joi.number().required(),
+        longitude: Joi.number().required()
     }),
     password: Joi.string().min(8).required(),
 });
 
-module.exports = { userSchema };
+const loggerSchema = Joi.object({
+    username_phone: Joi.alt(Joi.string().pattern(/^251[7,9]\d{8}$/), Joi.string().min(6).required()),
+    password: Joi.string().min(8).required(),
+});
+
+module.exports = { userSchema, loggerSchema };

@@ -21,7 +21,7 @@ db.getConnection(err => {
 const { upload } = require('../Config/multerConfig');
 
 // model imports
-const { userSchema } = require('../Models/user');
+const { userSchema, loggerSchema } = require('../Models/user');
 const { status, responseInstance } = require('../Models/response');
 
 router.post('/signup', (req, res) => {
@@ -34,7 +34,7 @@ router.post('/signup', (req, res) => {
     });
 
     function usernameValidation(body) {
-        const debug = require('debug')('signup:usernameValdiate');
+        const debug = require('debug')('signup:usernameValidate');
         return new Promise(async (resolve, reject) => {
 
             db.getConnection((error, connection) => {
@@ -145,5 +145,121 @@ router.post('/signup', (req, res) => {
         .then((result) => sender(result))
         .catch((error) => { res.status(400).send(error); debugg(error) });
 });
+
+router.post('/profileimageupload', auth, (req, res) => {
+
+})
+
+router.get('/login', (req, res) => {
+    const debugg = require('debug')('login:');
+    let p1 = new Promise((resolve, reject) => {
+        const debug = require('debug')('login:schema');
+        const { error } = loggerSchema.validate(req.body);
+        if (error) {
+            debug(error);
+            reject(new responseInstance(new status(6001, 'invalid json content'), error.details));
+        }
+        else {
+            resolve(req.body);
+        }
+    });
+
+    const userVerification = (body) => {
+        return new Promise((resolve, reject) => {
+            const debug = require('debug')('login:userVerification');
+            db.getConnection((error, connection) => {
+                if (error) {
+                    debug(error);
+                    reject(new responseInstance(new responseInstance(new status(7001, 'unable to connect to database'), 'this is a backend issue')));
+                } else {
+                    connection.query(`${body.username_phone.match(/^251[7,9]\d{8}$/) ? `CALL GetUserByPhone(\'${body.username_phone}\')` : `CALL GetUserByUsername(\'${body.username_phone}\')`}`, (error, result, field) => {
+                        if (error) {
+                            debug(error);
+                            reject(new status(6004, 'user name not found'), 'retry with other username or create a new account');
+                        } else {
+                            // debug(result[0])
+                            resolve({ result: result[0], body: body });
+                        }
+                    })
+                }
+            })
+        })
+    }
+
+    const userValidation = ({ result, body }) => {
+        const debug = require('debug')('login:userValidation');
+        return new Promise((resolve, reject) => {
+            debug(result.length)
+            if (result.length > 0) {
+                resolve({ result: result[0], body: body });
+            }
+            else {
+                reject(new responseInstance(new status(6005, 'invalid username'), 'try a valid username and password'))
+            }
+        })
+    }
+
+    const passworValidation = ({ result, body }) => {
+        const debug = require('debug')('login:passwordValidation')
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(body.password, result.password, (error, res) => {
+                if (error) {
+                    debug(error);
+                    reject(new responseInstance(new status(6006, 'invalid password'), 'try a valid password'))
+                } else {
+                    resolve(body)
+                }
+            })
+        })
+    }
+
+    const sender = (body) => {
+        const auth_token = JWT.sign({
+            username: body.username,
+            birthdate: body.birthdate,
+        }, process.env.jwtPrivateKey);
+        res.setHeader('auth-token', auth_token).send(new responseInstance(new status(1001, 'authentication successful'), 'successfully logged in'));
+    }
+
+    p1
+        .then((body) => userVerification(body))
+        .then((result) => userValidation(result))
+        .then((result) => passworValidation(result))
+        .then((result) => sender(result))
+        .catch((error) => { res.status(400).send(error); debugg(error) });
+});
+
+const auth = (req, res, next) => {
+    const debugg = require('debug')('auth');
+    let p1 = new Promise((resolve, reject) => {
+        const debug = require('debug')('auth:user');
+        const token = req.header('auth-token');
+        if (token) {
+            resolve(token);
+        } else {
+            debug('token is needed for authentication');
+            reject(new responseInstance(new status(5001, 'token is required'), 'use a token inorder to get services'))
+        }
+    });
+
+    const tokenAuthentication = (token) => {
+        try {
+            const verification = JWT.verify(token, process.env.jwtPrivateKey);
+            resolve(verification);
+        } catch (error) {
+            debug(error);
+            reject(new responseInstance(new status(5002, 'verification failed'), 'use a valid toke in order to get services'))
+        }
+    }
+
+    const verify = (verification) => {
+        next();
+    }
+
+    p1
+        .then((token) => tokenAuthentication(token))
+        .then((verification) => verify(verification))
+        .catch((error) => { debugg(error); res.send(error) });
+}
 
 module.exports = { router };
