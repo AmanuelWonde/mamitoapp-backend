@@ -1,10 +1,9 @@
 const JWT = require('jsonwebtoken');
-const { status, responseInstance } = require('../Models/response')
+const { status, responseInstance } = require('../../Models/response');
 
 module.exports = (req, res, next) => {
-    const debugg = require('debug')('auth');
-    let p1 = new Promise((resolve, reject) => {
-        const debug = require('debug')('auth:user');
+    const debugg = require('debug')('adminAuth');
+    const p1 = new Promise((resolve, reject) => {
         const token = req.header('auth-token');
         if (token) {
             resolve(token);
@@ -15,9 +14,10 @@ module.exports = (req, res, next) => {
     });
 
     const tokenAuthentication = (token) => {
+        const debug = require('debug')('auth:tokenAuthentication');
         return new Promise((resolve, reject) => {
             try {
-                const verification = JWT.verify(token, process.env.jwtPrivateKey);
+                const verification = JWT.decode(token, process.env.jwt);
                 resolve(verification);
             } catch (error) {
                 debug(error);

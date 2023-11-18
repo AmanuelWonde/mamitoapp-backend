@@ -8,14 +8,9 @@ const router = express.Router();
 
 
 // mysql configurations
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const dbConfig = require('../Config/dbConfig');
 const db = mysql.createPool(dbConfig);
-
-db.getConnection(err => {
-    if (err) throw err;
-    else console.log('connected to mysql server')
-})
 
 // multer configurations imports
 const { upload } = require('../Config/multerConfig');
@@ -133,7 +128,7 @@ router.post('/signup', (req, res) => {
         const auth_token = JWT.sign({
             username: body.username,
             birthdate: body.birthdate,
-        }, process.env.jwtPrivateKey);
+        }, process.env.jwt);
         res.setHeader('auth-token', auth_token).send(new responseInstance(new status(1000, 'user registed'), "user is created successfully"));
     }
 
@@ -146,7 +141,7 @@ router.post('/signup', (req, res) => {
         .catch((error) => { res.status(400).send(error); debugg(error) });
 });
 
-router.post('/profileimageupload', require('../Middleware/auth'), (req, res) => {
+router.post('/profileimageupload', require('../Middleware/auth/auth'), (req, res) => {
     console.log(req.body)
 
 })
@@ -208,7 +203,12 @@ router.get('/login', (req, res) => {
                     debug(error);
                     reject(new responseInstance(new status(6006, 'invalid password'), 'try a valid password'))
                 } else {
-                    resolve(body)
+                    debug('res: ', res)
+                    if (res) {
+                        resolve(body);
+                    } else {
+                        reject(new responseInstance(new status(6005, 'incorrect password'), 'try a valid password or username'))
+                    }
                 }
             })
         })
@@ -218,7 +218,7 @@ router.get('/login', (req, res) => {
         const auth_token = JWT.sign({
             username: body.username,
             birthdate: body.birthdate,
-        }, process.env.jwtPrivateKey);
+        }, process.env.jwt);
         res.setHeader('auth-token', auth_token).send(new responseInstance(new status(1001, 'authentication successful'), 'successfully logged in'));
     }
 
