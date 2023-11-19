@@ -1,7 +1,16 @@
-module.exports = {
-    host: 'localhost',
-    user: 'AbelMaireg',
-    password: '6006174009010',
-    database: 'mamito',
-    connectionLimit: 0,
-};
+const mysql = require("mysql2/promise");
+const pool = mysql.createPool({
+  host: "localhost",
+  user: "mamito",
+  password: ".Ze994*EnLlR9FDY",
+  database: "mamito",
+  waitForConnections: true,
+  connectionLimit: 10,
+  maxIdle: 10, // max idle connections, the default value is the same as `connectionLimit`
+  idleTimeout: 60000, // idle connections timeout, in milliseconds, the default value 60000
+  queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0,
+});
+
+module.exports = pool;
