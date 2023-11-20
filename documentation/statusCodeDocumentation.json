@@ -1,22 +1,19 @@
 {
+    
     "1000": "authentication successful",
-    "1001": "user registed successfully",
-    "1002": "conversation created successfully",
-    "1003": "conversation deleted successfully",
-    "1005": "message is saved successfully",
-    "1006": "message is edited successfully",
-    "1007": "message is deleted successfully",
+    "1010": "user registed successfully",
+    "1011": "username is taken",
+    "1012": "username not found",
 
     "6001": "invalid json content",
-    "6003": "unavailable username",
-    "6004": "username not found",
     "6005": "incorrect password",
+
     "6010": "unable to gererate salt",
     "6011": "unable to hash a password",
 
     "7001": "unable to create connection with the database server",
-    "7002": "unable to connect to database",
-    "7003": "conversation already exists",
+    "7002": "unable to connect to database for query",
+    "7003": "unable to perform query",
     "7004": "the user is not a participant of the conversation",
     "7005": "the user is not authorized to edit the message",
     "7006": "unable to delete message"
