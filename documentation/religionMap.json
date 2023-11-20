@@ -1,0 +1,9 @@
+{
+    "Orthodox": 1,
+    "Islam": 2,
+    "Catholic": 3,
+    "Protestant": 4,
+    "Other": 5,
+    "Atheist": 6,
+    "null": 99
+}
