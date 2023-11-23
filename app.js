@@ -1,16 +1,11 @@
 const express = require("express");
-const mysql = require("mysql");
-
 const app = express();
-app.use(express.json());
-
 const port = 4000;
-const UserRegRouter = require("./Routes/UserReg").router;
-const questions = require("./Routes/questionRoutes");
-const answers = require("./Routes/answerRoutes");
-app.use("/user", UserRegRouter);
-app.use("/questions", questions);
-app.use("/answers", answers);
+
+app.use(express.json());
+app.use("/questions", require("./Routes/questionRoutes"));
+app.use("/answers", require("./Routes/answerRoutes"));
+
 app.listen(port, () => {
   const debug = require("debug")("basic:server");
   debug(`listening on port ${port}`);
