@@ -12,11 +12,10 @@ app.use('/user', require('./Routes/user').router);
 app.use('/conversation', require('./Routes/conversation').router)
 
 app.use('/chats', require('./Routes/chat').router);
-const questions = require("./Routes/questionRoutes");
-const answers = require("./Routes/answerRoutes");
-app.use("/user", UserRegRouter);
-app.use("/questions", questions);
-app.use("/answers", answers);
+
+app.use("/questions", require("./Routes/questionRoutes"));
+
+app.use("/answers", require("./Routes/answerRoutes"));
 
 io.on("connection", (socket) => {
 

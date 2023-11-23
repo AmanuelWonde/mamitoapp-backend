@@ -1,13 +1,5 @@
-// module imports and configs
-const bcrypt = require('bcryptjs');
-const JWT = require('jsonwebtoken')
-
-
 // mysql configurations
-const mysql = require('mysql2');
-const dbConfig = require('../../Config/dbConfig');
-const db = mysql.createPool(dbConfig);
-
+const db = require('../../Config/dbConfig');
 
 // model imports
 const { status, responseInstance } = require('../../Models/response');

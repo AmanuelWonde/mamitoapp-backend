@@ -1,14 +1,12 @@
 // mysql configurations
-const mysql = require('mysql2');
-const dbConfig = require('../../Config/dbConfig');
-const db = mysql.createPool(dbConfig);
+const db = require('../../Config/dbConfig');
 
 // module imports
-const Joi = require('joi');
 
 // component imports
 const { status, responseInstance } = require('../../Models/response');
 const { newConversation } = require('../../Models/conversation/conversation');
+const documentation = require('../../documentation/statusCodeDocumentation.json');
 
 module.exports = (req, res) => {
     const debugg = require('debug')('startconversation');
@@ -29,7 +27,7 @@ module.exports = (req, res) => {
             db.getConnection((error, connection) => {
                 if (error) {
                     debug(`Error: ${error}`);
-                    reject(new responseInstance(new status(6012, 'unable to get pool connection'), 'this is a backend issue'));
+                    reject(new responseInstance(new status(7001, documentation[7001]), 'this is backend issue'));
                 }
 
                 const sql = 'CALL InsertConversation(?, ?)';
@@ -39,11 +37,11 @@ module.exports = (req, res) => {
                     connection.release();
                     if (error) {
                         debug(`Error: ${error}`);
-                        reject(new responseInstance(new status(6013, 'unable to save user\'s data to the database'), 'this is a backend issue'));
+                        reject(new responseInstance(new status(7002, documentation[7002]), 'this is a backend issue'));
                         return;
                     } else {
-                        if (result[0][0].status == 7002) {
-                            reject(new responseInstance(new status(7002, "conversation already exists"), "conversation already exists"))
+                        if (result[0][0].status == 1021) {
+                            reject(new responseInstance(new status(1021, documentation[1021]), "the coversation with the user is already existed"));
                         } else {
                             resolve(result[0][0]);
                         }
@@ -56,7 +54,7 @@ module.exports = (req, res) => {
     }
 
     const sender = (result) => {
-        res.send(new responseInstance(new status(1002, 'conversation created successfully'), result));
+        res.send(new responseInstance(new status(1020, documentation[1020]), result));
     }
 
     p1

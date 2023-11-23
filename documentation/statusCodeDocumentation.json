@@ -2,18 +2,26 @@
     
     "1000": "authentication successful",
     "1010": "user registed successfully",
-    "1011": "username is taken",
-    "1012": "username not found",
+    "1011": "username is unavailable",
+    "1012": "phone number is already registered",
+    "1013": "logged in",
+    "1014": "incorrect password",
+    "1015": "no user found",
+    "1020": "new conversation created successfully",
+    "1021": "conversation already existed",
+    "1023": "got conversations",
+    "1024": "unabel to delete conversation",
+    "1025": "conversation is deleted",
 
     "6001": "invalid json content",
-    "6005": "incorrect password",
-
+    
     "6010": "unable to gererate salt",
     "6011": "unable to hash a password",
+    "6012": "unable to compare password",
 
     "7001": "unable to create connection with the database server",
-    "7002": "unable to connect to database for query",
-    "7003": "unable to perform query",
+    "7002": "unable to connect to database",
+    "7003": "logical error at query runtime",
     "7004": "the user is not a participant of the conversation",
     "7005": "the user is not authorized to edit the message",
     "7006": "unable to delete message"

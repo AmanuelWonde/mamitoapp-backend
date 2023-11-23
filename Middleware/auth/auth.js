@@ -1,7 +1,5 @@
 // database comfigurations
-const mysql = require('mysql2');
-const dbConfig = require('../../Config/dbConfig');
-const db = mysql.createPool(dbConfig);
+const db = require('../../Config/dbConfig');
 
 // module and model imports
 const JWT = require('jsonwebtoken');
