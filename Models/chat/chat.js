@@ -19,4 +19,17 @@ const chatDeleteSchema = Joi.object({
     sender: Joi.string().min(6).required(),
 });
 
-module.exports = { chatSchema, chatEditSchema, chatDeleteSchema };
+const getChatSchema = Joi.object({
+    conversationId: Joi.number().integer().required(),
+    lastMessageid: Joi.number().integer().required(),
+});
+
+const getUpdatesSchema = {
+    username: Joi.string().min(6).required(),
+    list: Joi.array().items({
+        conversationId: Joi.number().integer().required(),
+        lastMessageId: Joi.number().integer().required()
+    })
+}
+
+module.exports = { chatSchema, chatEditSchema, chatDeleteSchema, getChatSchema, getUpdatesSchema };

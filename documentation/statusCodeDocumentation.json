@@ -12,6 +12,10 @@
     "1023": "got conversations",
     "1024": "unabel to delete conversation",
     "1025": "conversation is deleted",
+    "1101": "the user is not a participant of the conversation",
+    "1102": "the user is not authorized to edit the message",
+    "1103": "unable to delete message",
+    "1104": "chat not found",
 
     "6001": "invalid json content",
     
