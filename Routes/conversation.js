@@ -6,7 +6,11 @@ const router = express.Router();
 const auth = require('../Middleware/auth/auth')
 
 // api's
+
 router.post('/start', auth, require('../Middleware/conversation/startConversation'));
+
 router.delete('/delete', auth, require('../Middleware/conversation/deleteConversation'));
+
+router.get('/getall', auth, require('../Middleware/conversation/getConversations'));
 
 module.exports = { router };

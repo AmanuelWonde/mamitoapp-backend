@@ -4,9 +4,7 @@ const JWT = require('jsonwebtoken')
 
 
 // mysql configurations
-const mysql = require('mysql2');
-const dbConfig = require('../../Config/dbConfig');
-const db = mysql.createPool(dbConfig);
+const db = require('../../Config/dbConfig');
 
 
 // model imports
@@ -18,9 +16,8 @@ module.exports = (req, res) => {
     const debugg = require('debug')('signup:reject');
 
     let p1 = new Promise((resolve, reject) => {
-        const statusCode = 6001;
         let { error } = userSchema.validate(req.body);
-        if (error) reject(new responseInstance(new status(statusCode, documentation[statusCode]), error.details));
+        if (error) reject(new responseInstance(new status(6001, documentation[6001]), error.details));
         else resolve(req.body);
     });
 
@@ -51,7 +48,7 @@ module.exports = (req, res) => {
             db.getConnection((error, connection) => {
                 if (error) {
                     debug(`Error: ${error}`);
-                    reject(new responseInstance(new status(7002, documentation[7002]), 'this is backend issue'));
+                    reject(new responseInstance(new status(7001, documentation[7001]), 'this is backend issue'));
                 }
 
                 const sql = 'CALL InsertUser(?,?,?,?,?,?,?,?,?,?)';
@@ -62,12 +59,14 @@ module.exports = (req, res) => {
                 connection.query(sql, values, (error, result, fields) => {
                     if (error) {
                         debug(`Error: ${error}`);
-                        reject(new responseInstance(new status(7003, doucmentation[7003]), error));
+                        reject(new responseInstance(new status(7002, doucmentation[7002]), error));
                     } else {
                         if (result[0][0].status == 1011) {
-                            reject(new responseInstance(new status(1011, documentation[1011]), 'alter your inputs'));
+                            reject(new responseInstance(new status(1011, documentation[1011]), 'try another username'));
+                        } else if (result[0][0].status == 1012) {
+                            reject(new responseInstance(new status(1012, documentation[1012]), 'to create new account use another phone'));
                         } else {
-                            resolve(result[0][0].status);
+                            resolve(result[0][0]);
                         }
                     }
                 })
@@ -75,12 +74,12 @@ module.exports = (req, res) => {
         })
     }
 
-    function sender(statusCode) {
+    function sender(result) {
         const auth_token = JWT.sign({
             username: req.body.username,
             birthdate: req.body.birthdate,
         }, process.env.jwt);
-        res.setHeader('auth-token', auth_token).send(new responseInstance(new status(statusCode, documentation[status]), 'you have finished registration'));
+        res.setHeader('auth-token', auth_token).send(new responseInstance(new status(1010, documentation[1010]), result.username));
     }
 
     p1
