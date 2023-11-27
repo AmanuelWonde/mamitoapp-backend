@@ -6,6 +6,6 @@ const {
 const router = express.Router();
 
 router.post("/add", addQuestions);
-router.get("/view", viewQuestions);
+router.get("/:windowId", viewQuestions);
 
 module.exports = router;

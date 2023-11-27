@@ -1,29 +1,29 @@
 const pool = require("../Config/dbConfig");
 
 class Answers {
-  static async addAnswers(answers) {
+  static async addAnswers(windowId, userName, answers) {
     try {
-      const windowId = answers;
-      const userId = answers.userId;
-      const answers = answers.answers;
-      for (i = 0; i < answers.length; i++) {
-        let choiceId = answers[i].choiceId;
-        let questionId = answers[i].questionId;
-        pool.query(`CALL InsertAnswer(?, ?, ?)`, [
-          choiceId,
+      console.log(answers);
+      await pool.query("START TRANSACTION");
+
+      for (let i = 0; i < answers.length; i++) {
+        const questionId = answers[i].questionId;
+        const choiceId = answers[i].choiceId;
+
+        await pool.query(`CALL InsertUserAnswers(?, ?, ?, ?)`, [
+          windowId,
+          userName,
           questionId,
-          userId,
+          choiceId,
         ]);
       }
 
-      await pool.query(`CALL InsertIntoUserHasWindows(?, ?)`, [
-        windowId,
-        userId,
-      ]);
+      await pool.query("COMMIT");
 
       return { message: "Answers inserted successfully." };
     } catch (err) {
       console.log(err);
+      await pool.query("ROLLBACK");
       return { error: "something went wrong please try again" };
     }
   }
@@ -31,4 +31,4 @@ class Answers {
 
 module.exports = Answers;
 //answers data formate that comes from the frontend
-//{windowId: 5, userId: 3, answers: [{ questionId: 1, choiceId: 4}]}
+//{windowId: 5, userName: "amanw", answers: [{ questionId: 1, choiceId: 4}]}
