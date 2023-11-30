@@ -57,7 +57,6 @@ module.exports = (req, res) => {
 
     const sender = (result) => {
         res.send(new responseInstance(new status(1020, documentation[1020]), result));
-        console.log(result);
         /* socket.emit('new_conversation', 1, 'abelmaireg'); */
     }
 

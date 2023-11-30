@@ -66,5 +66,5 @@ module.exports = (req, res) => {
     p1
         .then((body) => deleteConversation(body))
         .then((code) => sender(code))
-        .catch(error => { console.log(error); res.send(error) });
+        .catch(error => { debugg(error); res.send(error) });
 }

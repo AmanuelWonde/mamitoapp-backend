@@ -126,7 +126,7 @@ const dbOperation = (body, operationType) => {
                         debug(`Error: ${error}`);
                         reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
                     } else {
-                        console.log(result);
+                        debug(result);
                         if (0) {
                             reject(new responseInstance(new status(1104), documentation[1104]), 'there is no chat with the given details');
                         } else {
@@ -146,7 +146,7 @@ const dbOperation = (body, operationType) => {
                         debug(`Error: ${error}`);
                         reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
                     } else {
-                        console.log(result);
+                        debug(result);
                         if (0) {
                             reject(new responseInstance(new status(1105), documentation[1105]), 'there is no chat with the given details');
                         } else {
@@ -166,7 +166,7 @@ const dbOperation = (body, operationType) => {
                         debug(`Error: ${error}`);
                         reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
                     } else {
-                        console.log(result);
+                        debug(result);
                         if (0) {
                             reject(new responseInstance(new status(1104), documentation[1104]), 'there is no chat with the given details');
                         } else {
