@@ -51,15 +51,15 @@ module.exports = (req, res) => {
                     reject(new responseInstance(new status(7001, documentation[7001]), 'this is backend issue'));
                 }
 
-                const sql = 'CALL InsertUser(?,?,?,?,?,?,?,?,?,?)';
-                const values = [body.username, body.gender, body.birthdate,
+                const sql = 'CALL InsertUser(?,?,?,?,?,?,?,?,?,?,?)';
+                const values = [body.username, body.name, body.gender, body.birthdate,
                 body.phone, body.password, body.bio || null,
                 body.religion || null, body.changeOneSelf || null, body.latitude || null, body.longitude || null]
 
                 connection.query(sql, values, (error, result, fields) => {
                     if (error) {
                         debug(`Error: ${error}`);
-                        reject(new responseInstance(new status(7002, doucmentation[7002]), error));
+                        reject(new responseInstance(new status(7002, documentation[7002]), error));
                     } else {
                         if (result[0][0].status == 1011) {
                             reject(new responseInstance(new status(1011, documentation[1011]), 'try another username'));

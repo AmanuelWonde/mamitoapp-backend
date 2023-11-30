@@ -5,23 +5,20 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mamito
+-- Schema mamitogw_mamito
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mamito` ;
+DROP SCHEMA IF EXISTS `mamitogw_mamito` ;
 
 -- -----------------------------------------------------
--- Schema mamito
+-- Schema mamitogw_mamito
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mamito` DEFAULT CHARACTER SET utf8mb3 ;
--- -----------------------------------------------------
--- Schema new_schema1
--- -----------------------------------------------------
-USE `mamito` ;
+CREATE SCHEMA IF NOT EXISTS `mamitogw_mamito` DEFAULT CHARACTER SET utf8mb3 ;
+USE `mamitogw_mamito` ;
 
 -- -----------------------------------------------------
--- Table `mamito`.`admin`
+-- Table `mamitogw_mamito`.`admin`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mamito`.`admin` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`admin` (
   `id-admin` INT NOT NULL AUTO_INCREMENT,
   `creataed-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -31,9 +28,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`window`
+-- Table `mamitogw_mamito`.`window`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mamito`.`window` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`window` (
   `id-Window` INT NOT NULL AUTO_INCREMENT,
   `views` INT NOT NULL DEFAULT '0',
   `post-date` DATETIME NULL DEFAULT NULL,
@@ -45,9 +42,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`question`
+-- Table `mamitogw_mamito`.`question`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mamito`.`question` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`question` (
   `id-Question` INT NOT NULL AUTO_INCREMENT,
   `Window-id` INT NOT NULL,
   `question-text` VARCHAR(200) NOT NULL,
@@ -59,15 +56,15 @@ CREATE TABLE IF NOT EXISTS `mamito`.`question` (
   INDEX `fk_Question_Window1_idx` (`Window-id` ASC) INVISIBLE,
   CONSTRAINT `fk_Question_Window1`
     FOREIGN KEY (`Window-id`)
-    REFERENCES `mamito`.`window` (`id-Window`))
+    REFERENCES `mamitogw_mamito`.`window` (`id-Window`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`choice`
+-- Table `mamitogw_mamito`.`choice`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mamito`.`choice` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`choice` (
   `id-Choice` INT NOT NULL AUTO_INCREMENT,
   `Question-id` INT NOT NULL,
   `Window-id` INT NOT NULL,
@@ -78,15 +75,15 @@ CREATE TABLE IF NOT EXISTS `mamito`.`choice` (
   INDEX `fk_Choices-for-Questions_Question1_idx` (`Question-id` ASC, `Window-id` ASC) INVISIBLE,
   CONSTRAINT `fk_Choice_Question1`
     FOREIGN KEY (`Question-id` , `Window-id`)
-    REFERENCES `mamito`.`question` (`id-Question` , `Window-id`))
+    REFERENCES `mamitogw_mamito`.`question` (`id-Question` , `Window-id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`user`
+-- Table `mamitogw_mamito`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mamito`.`user` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`user` (
   `username` VARCHAR(45) NOT NULL,
   `gender` ENUM('M', 'F') NOT NULL,
   `birthdate` DATETIME NOT NULL,
@@ -110,9 +107,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`answered-questoins`
+-- Table `mamitogw_mamito`.`answered-questoins`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mamito`.`answered-questoins` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`answered-questoins` (
   `user-id` VARCHAR(45) NOT NULL,
   `Choice-id` INT NOT NULL,
   `Question-id` INT NOT NULL,
@@ -124,10 +121,10 @@ CREATE TABLE IF NOT EXISTS `mamito`.`answered-questoins` (
   INDEX `fk_answered-questoins_user1_idx` (`user-id` ASC) VISIBLE,
   CONSTRAINT `fk_Answered-Questoins_Choice1`
     FOREIGN KEY (`Choice-id` , `Question-id` , `Window-id`)
-    REFERENCES `mamito`.`choice` (`id-Choice` , `Question-id` , `Window-id`),
+    REFERENCES `mamitogw_mamito`.`choice` (`id-Choice` , `Question-id` , `Window-id`),
   CONSTRAINT `fk_answered-questoins_user1`
     FOREIGN KEY (`user-id`)
-    REFERENCES `mamito`.`user` (`username`)
+    REFERENCES `mamitogw_mamito`.`user` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -135,30 +132,35 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`conversation`
+-- Table `mamitogw_mamito`.`conversation`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mamito`.`conversation` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`conversation` (
   `user-1` VARCHAR(45) NOT NULL,
   `user-2` VARCHAR(45) NOT NULL,
   `conversation-id` INT NOT NULL AUTO_INCREMENT,
   `created-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`conversation-id`),
-  UNIQUE INDEX `index2` (`user-1` ASC, `user-2` ASC) VISIBLE,
-  UNIQUE INDEX `index3` (`user-2` ASC, `user-1` ASC) VISIBLE,
+  INDEX `index-user-1-2` (`user-1` ASC, `user-2` ASC) VISIBLE,
+  INDEX `index-user-2-1` (`user-2` ASC, `user-1` ASC) VISIBLE,
   CONSTRAINT `fk_conversation_user1`
-    FOREIGN KEY (`user-1` , `user-2`)
-    REFERENCES `mamito`.`user` (`username` , `username`)
+    FOREIGN KEY (`user-1`)
+    REFERENCES `mamitogw_mamito`.`user` (`username`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_conversation_user2`
+    FOREIGN KEY (`user-2`)
+    REFERENCES `mamitogw_mamito`.`user` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`custom-questions`
+-- Table `mamitogw_mamito`.`custom-questions`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mamito`.`custom-questions` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`custom-questions` (
   `id-custom-questions` INT NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(45) NOT NULL,
   `question-text` VARCHAR(200) NOT NULL,
@@ -170,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `mamito`.`custom-questions` (
   INDEX `fk_custom-questions_user1_idx` (`user` ASC) VISIBLE,
   CONSTRAINT `fk_custom-questions_user1`
     FOREIGN KEY (`user`)
-    REFERENCES `mamito`.`user` (`username`)
+    REFERENCES `mamitogw_mamito`.`user` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -178,27 +180,27 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`message`
+-- Table `mamitogw_mamito`.`message`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mamito`.`message` (
-  `id-messages` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`message` (
   `conversation-id` INT NOT NULL,
+  `id-messages` INT NOT NULL,
   `sender` VARCHAR(45) NOT NULL,
   `message` VARCHAR(999) NOT NULL,
+  `message-received` TINYINT NOT NULL DEFAULT 0,
   `marked-as-read` TINYINT NOT NULL DEFAULT 0,
   `created-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`conversation-id`, `id-messages`),
-  INDEX `index_latest` (`conversation-id` DESC, `created-at` DESC) VISIBLE,
   INDEX `fk_message_user1_idx` (`sender` ASC) VISIBLE,
   CONSTRAINT `fk_Message_Conversatoin_conversaton-id`
     FOREIGN KEY (`conversation-id`)
-    REFERENCES `mamito`.`conversation` (`conversation-id`)
+    REFERENCES `mamitogw_mamito`.`conversation` (`conversation-id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_message_user1`
     FOREIGN KEY (`sender`)
-    REFERENCES `mamito`.`user` (`username`)
+    REFERENCES `mamitogw_mamito`.`user` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -207,9 +209,9 @@ ROW_FORMAT = COMPACT;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`user-devices`
+-- Table `mamitogw_mamito`.`user-devices`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mamito`.`user-devices` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`user-devices` (
   `id-device` INT NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(45) NOT NULL,
   `mac-address` VARCHAR(15) NOT NULL,
@@ -221,38 +223,20 @@ CREATE TABLE IF NOT EXISTS `mamito`.`user-devices` (
   INDEX `fk_user-devices_user1_idx` (`user` ASC) VISIBLE,
   CONSTRAINT `fk_user-devices_user1`
     FOREIGN KEY (`user`)
-    REFERENCES `mamito`.`user` (`username`)
+    REFERENCES `mamitogw_mamito`.`user` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
-
--- -----------------------------------------------------
--- Table `mamito`.`updates`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mamito`.`updates` (
-  `messages-id` INT NOT NULL,
-  `conversation-id` INT NOT NULL,
-  `sender` VARCHAR(45) NOT NULL,
-  `typeOfUpdate` ENUM("new", "edit", "delete") NOT NULL,
-  INDEX `fk_updates_message1_idx` (`messages-id` ASC, `conversation-id` ASC, `sender` ASC) VISIBLE,
-  PRIMARY KEY (`messages-id`, `conversation-id`),
-  CONSTRAINT `fk_updates_message1`
-    FOREIGN KEY (`messages-id` , `conversation-id` , `sender`)
-    REFERENCES `mamito`.`message` (`id-messages` , `conversation-id` , `sender`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-USE `mamito` ;
+USE `mamitogw_mamito` ;
 
 -- -----------------------------------------------------
 -- procedure GetConversations
 -- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
+USE `mamitogw_mamito`$$
 CREATE PROCEDURE `GetConversations`(IN username VARCHAR(45))
 BEGIN
     SELECT *
@@ -268,7 +252,7 @@ DELIMITER ;
 -- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
+USE `mamitogw_mamito`$$
 CREATE PROCEDURE `GetUserByPhone`(IN phoneNumber DECIMAL(12,0))
 BEGIN
 	SELECT *
@@ -283,7 +267,7 @@ DELIMITER ;
 -- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
+USE `mamitogw_mamito`$$
 CREATE PROCEDURE `GetUserByUsername`(
 	IN p_user VARCHAR(45)
 )
@@ -310,7 +294,7 @@ DELIMITER ;
 -- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
+USE `mamitogw_mamito`$$
 CREATE PROCEDURE InsertUser(
     IN p_username VARCHAR(45), IN p_gender ENUM('M', 'F'), IN p_birthdate DATETIME, IN p_phone BIGINT,
     IN p_password VARCHAR(60), IN p_bio VARCHAR(200), IN p_religion INT, IN p_changeOneSelf INT,
@@ -321,17 +305,17 @@ BEGIN
     DECLARE phone_count INT;
 
     SELECT COUNT(*) INTO user_count 
-    FROM `mamito`.`user` 
+    FROM `mamitogw_mamito`.`user` 
     WHERE `username` = p_username;
 
     IF user_count = 0 THEN
 		    
 		SELECT COUNT(*) INTO phone_count
-		FROM `mamito`.`user`
+		FROM `mamitogw_mamito`.`user`
 		WHERE `phone` = p_phone;
         
         IF phone_count = 0 THEN
-			INSERT INTO `mamito`.`user` (
+			INSERT INTO `mamitogw_mamito`.`user` (
 				`username`,	`gender`, `birthdate`, `phone`,
 				`password`,	`bio`, `religion`,	`changeOneSelf`,
 				`latitude`,	`longitude`
@@ -356,7 +340,7 @@ DELIMITER ;
 -- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
+USE `mamitogw_mamito`$$
 CREATE PROCEDURE InsertConversation(
     IN p_user1 VARCHAR(45),
     IN p_user2 VARCHAR(45)
@@ -388,7 +372,7 @@ DELIMITER ;
 -- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
+USE `mamitogw_mamito`$$
 CREATE PROCEDURE `DeleteConversation`(
     IN user1 VARCHAR(45),
     IN user2 VARCHAR(45)
@@ -397,11 +381,11 @@ BEGIN
 	DECLARE v_conversationId INT;
     
     SELECT `conversation-id` INTO v_conversationId
-	FROM `mamito`.`conversation`
+	FROM `mamitogw_mamito`.`conversation`
 	WHERE (`User-1` = user1 AND `User-2` = user2) OR (`User-1` = user2 AND `User-2` = user1);
 
 	IF v_conversationId IS NOT NULL THEN
-		DELETE FROM `mamito`.`conversation`
+		DELETE FROM `mamitogw_mamito`.`conversation`
 		WHERE (`User-1` = user1 AND `User-2` = user2) OR (`User-1` = user2 AND `User-2` = user1);
 		SELECT 1025 AS status;
 	ELSE 
@@ -412,32 +396,44 @@ END$$
 DELIMITER ;
 
 -- -----------------------------------------------------
--- procedure InsertMessage
+-- procedure InsertNewMessage
 -- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
-CREATE PROCEDURE InsertMessage(
+USE `mamitogw_mamito`$$
+CREATE PROCEDURE `InsertNewMessage`(
     IN p_conversation_id INT,
     IN p_sender VARCHAR(45),
     IN p_message VARCHAR(999)
 )
 BEGIN
-    DECLARE participant_count INT;
+    DECLARE last_message_id INT;
 
-    SELECT COUNT(*)
-    INTO participant_count
-    FROM `conversation`
-    WHERE `conversation-id` = p_conversation_id
-      AND (`user-1` = p_sender OR `user-2` = p_sender);
+    -- Get the last message ID for the given conversation
+    SELECT MAX(`id-messages`) INTO last_message_id
+    FROM `message`
+    WHERE `conversation-id` = p_conversation_id;
 
-    IF participant_count > 0 THEN
-        INSERT INTO `message` (`conversation-id`, `sender`, `message`)
-        VALUES (p_conversation_id, p_sender, p_message);
+    -- Increment the last message ID
+    IF last_message_id IS NULL THEN
+		SET last_message_id = 1;
+	ELSE 
+		SET last_message_id = last_message_id + 1;
+	END IF;
 
-        SELECT LAST_INSERT_ID() AS messageId;
+    -- Insert the new message
+    INSERT INTO `message` (`conversation-id`, `id-messages`, `sender`, `message`)
+    VALUES (p_conversation_id, last_message_id, p_sender, p_message);
+
+    -- Check if the insertion was successful
+    IF ROW_COUNT() > 0 THEN
+        -- Return the inserted row
+        SELECT *
+        FROM `message`
+        WHERE `conversation-id` = p_conversation_id AND `id-messages` = last_message_id;
     ELSE
-		SELECT 7004 AS status;
+        -- Return an empty result set to indicate failure
+        SELECT NULL AS 'Empty result set. Insertion failed.';
     END IF;
 END$$
 
@@ -448,7 +444,7 @@ DELIMITER ;
 -- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
+USE `mamitogw_mamito`$$
 CREATE PROCEDURE EditMessageText(
     IN p_conversation_id INT,
     IN p_message_id INT,
@@ -459,11 +455,11 @@ BEGIN
     DECLARE v_sender VARCHAR(45);
 
     SELECT `sender` INTO v_sender
-    FROM `mamito`.`message`
+    FROM `mamitogw_mamito`.`message`
     WHERE `id-Messages` = p_message_id AND `conversation-id` = p_conversation_id;
 
     IF v_sender = p_sender THEN
-        UPDATE `mamito`.`message`
+        UPDATE `mamitogw_mamito`.`message`
         SET `message` = p_new_text, `updated-at` = CURRENT_TIMESTAMP
         WHERE `id-Messages` = p_message_id AND `conversation-id` = p_conversation_id;
 
@@ -481,11 +477,11 @@ DELIMITER ;
 -- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
+USE `mamitogw_mamito`$$
 CREATE PROCEDURE `GetConversationId` (IN user1 VARCHAR(45), IN user2 VARCHAR(45))
 BEGIN
     SELECT `conversation-id`
-	FROM `mamito`.`Conversation`
+	FROM `mamitogw_mamito`.`Conversation`
     WHERE `user-1` = user1 && `user-2` = user2;
 END$$
 
@@ -496,7 +492,7 @@ DELIMITER ;
 -- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
+USE `mamitogw_mamito`$$
 CREATE PROCEDURE DeleteMessage(
     IN p_conversation_id INT,
     IN p_message_id INT,
@@ -506,14 +502,14 @@ BEGIN
     DECLARE v_sender VARCHAR(45);
 
     SELECT `sender` INTO v_sender
-    FROM `mamito`.`message`
+    FROM `mamitogw_mamito`.`message`
     WHERE `conversation-id` = p_conversation_id AND `id-Messages` = p_message_id;
 
     IF v_sender IS NOT NULL AND v_sender = p_sender THEN
-        DELETE FROM `mamito`.`message`
+        DELETE FROM `mamitogw_mamito`.`message`
         WHERE `conversation-id` = p_conversation_id AND `id-Messages` = p_message_id;
 
-        SELECT 1007 AS status;
+        SELECT 1203 AS status;
     ELSE
         SELECT 7003 AS status;
     END IF;
@@ -526,14 +522,14 @@ DELIMITER ;
 -- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
+USE `mamitogw_mamito`$$
 CREATE PROCEDURE GetLast20Messages(
     IN p_conversation_id INT,
     IN p_last_message_id INT
 )
 BEGIN
     SELECT *
-    FROM mamito.message
+    FROM `mamitogw_mamito`.`message`
     WHERE `conversation-id` = p_conversation_id
         AND `id-messages` < p_last_message_id
     ORDER BY `created-at` DESC
@@ -541,18 +537,73 @@ BEGIN
 END$$
 
 DELIMITER ;
-USE `mamito`;
+
+-- -----------------------------------------------------
+-- procedure GetNewMessages
+-- -----------------------------------------------------
 
 DELIMITER $$
-USE `mamito`$$
-CREATE TRIGGER after_message_insert
-AFTER INSERT ON `mamito`.`message`
-FOR EACH ROW
+USE `mamitogw_mamito`$$
+CREATE DEFINER=`AbelMaireg`@`localhost` PROCEDURE `GetNewMessages`(
+    IN p_username VARCHAR(45)
+)
 BEGIN
-    INSERT INTO `mamito`.`updates` (`messages-id`, `conversation-id`, `sender`, `typeOfUpdate`)
-    VALUES (NEW.`id-messages`, NEW.`conversation-id`, NEW.`sender`, 'new');
+	DROP TABLE IF EXISTS `mamitogw_mamito`.`temp-message`;
+	CREATE TABLE `mamitogw_mamito`.`temp-message` (
+	  `conversation-id` INT,
+	  `id-messages` INT,
+	  `sender` VARCHAR(45),
+	  `message` VARCHAR(999),
+	  `message-received` TINYINT,
+	  `marked-as-read` TINYINT,
+	  `created-at` TIMESTAMP,
+	  `updated-at` TIMESTAMP,
+	  PRIMARY KEY (`conversation-id`, `id-messages`)
+	)
+	ENGINE = InnoDB;
+    
+	INSERT INTO `temp-message` (
+		`conversation-id`,
+		`id-messages`,
+		`sender`,
+		`message`,
+        `message-received`,
+		`marked-as-read`,
+		`created-at`,
+		`updated-at`
+	)
+	SELECT
+		`message`.`conversation-id`,
+		`message`.`id-messages`,
+		`message`.`sender`,
+		`message`.`message`,
+        `message`.`message-received`,
+		`message`.`marked-as-read`,
+		`message`.`created-at`,
+		`message`.`updated-at`
+	FROM
+		`mamitogw_mamito`.`message`
+	JOIN
+		`conversation` ON `message`.`conversation-id` = `conversation`.`conversation-id`
+	WHERE
+		`message`.`sender` != p_username AND `message`.`message-received` = 0 AND (`conversation`.`user-1` = p_username OR `conversation`.`user-2` = p_username);
+        
+	UPDATE `mamitogw_mamito`.`message`
+	SET `message-received` = 1
+	WHERE
+	  `message-received` = 0
+	  AND `sender` != p_username
+	  AND EXISTS (
+		SELECT 1
+		FROM `temp-message`
+		WHERE
+		  `temp-message`.`conversation-id` = `message`.`conversation-id` AND `temp-message`.`id-messages` = `message`.`id-messages`
+	  );
+      
+	SELECT * FROM mamitogw_mamito.`temp-message`;
+    
+    DROP TABLE IF EXISTS `mamitogw_mamito`.`temp-message`;
 END$$
-
 
 DELIMITER ;
 

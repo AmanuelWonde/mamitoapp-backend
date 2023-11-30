@@ -1,5 +1,4 @@
 {
-    
     "1000": "authentication successful",
     "1010": "user registed successfully",
     "1011": "username is unavailable",
@@ -16,13 +15,16 @@
     "1102": "the user is not authorized to edit the message",
     "1103": "unable to delete message",
     "1104": "chat not found",
-
+    "1105": "no edits",
+    "1201": "message saved",
+    "1202": "message edited",
+    "1203": "message deleted",
+    "1204": "message retrived",
+    "1205": "found edits",
     "6001": "invalid json content",
-    
     "6010": "unable to gererate salt",
     "6011": "unable to hash a password",
     "6012": "unable to compare password",
-
     "7001": "unable to create connection with the database server",
     "7002": "unable to connect to database",
     "7003": "logical error at query runtime",

@@ -1,5 +1,5 @@
 module.exports = (req, res) => {
-    const debugg = require('debug')('sendchat:');
+    const debugg = require('debug')('chat:send');
 
     const { schemaValidate, dbOperation, sender } = require('../../Controllers/chat/chat');
 
