@@ -3,14 +3,13 @@ const Answers = require("../Models/Answers"); // Import your Answers model
 
 const addAnswer = async (req, res) => {
   try {
-    const answers = req.body;
+    const { windowId, userName, answers } = req.body;
+    const addAnswers = await Answers.addAnswers(windowId, userName, answers);
 
-    const addedAnswer = await Answers.addAnswer(answers);
+    if (addAnswers.error)
+      return res.status(500).json({ error: "Failed to add answers" });
 
-    if (addedAnswer.error)
-      return res.status(500).json({ message: "Failed to add answer" });
-
-    return res.status(201).json({ message: addAnswer.message });
+    return res.status(201).json({ message: addAnswers.message });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ err: "Internal server error" });
