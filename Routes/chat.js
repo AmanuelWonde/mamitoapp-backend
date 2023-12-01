@@ -21,4 +21,6 @@ router.get('/getedits', auth, require('../Middleware/chat/getedits'));
 
 router.get('/getchat', auth, require('../Middleware/chat/getchat'));
 
+router.get('/mar', auth, require('../Middleware/chat/mar'));
+
 module.exports = { router };

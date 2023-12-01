@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
+app.use(express.static('./public'));
 app.use("/user", require("./Routes/user").router);
 app.use("/conversation", require("./Routes/conversation").router);
 app.use("/chats", require("./Routes/chat").router);

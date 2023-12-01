@@ -7,7 +7,7 @@ const socket = io('http://localhost:3001');
 
 // model imports
 const { status, responseInstance } = require('../../Models/response');
-const { chatSchema, chatEditSchema, chatDeleteSchema, chatGetSchema, chatGetEdits, chatGet20Schema } = require('../../Models/chat/chat');
+const { chatSchema, chatEditSchema, chatDeleteSchema, chatGetSchema, chatGetEdits, chatGet20Schema, chatMar } = require('../../Models/chat/chat');
 const documentation = require('../../documentation/statusCodeDocumentation.json');
 const schemaValidate = (req, schema) => {
 
@@ -32,6 +32,8 @@ const schemaValidate = (req, schema) => {
         } else if (schema == 'getchat') {                       // 6
             error = chatGet20Schema.validate(req.body).error;
 
+        } else if (schema == 'mar') {
+            error = chatMar.validate(req.body).error; // 7
         }
 
         if (error) {
@@ -130,7 +132,7 @@ const dbOperation = (body, operationType) => {
                         if (0) {
                             reject(new responseInstance(new status(1104), documentation[1104]), 'there is no chat with the given details');
                         } else {
-                            resolve(result);
+                            resolve(result[0]);
                         }
                     }
                 })
@@ -150,7 +152,7 @@ const dbOperation = (body, operationType) => {
                         if (0) {
                             reject(new responseInstance(new status(1105), documentation[1105]), 'there is no chat with the given details');
                         } else {
-                            resolve(result);
+                            resolve(result[0]);
                         }
                     }
                 })
@@ -168,9 +170,29 @@ const dbOperation = (body, operationType) => {
                     } else {
                         debug(result);
                         if (0) {
-                            reject(new responseInstance(new status(1104), documentation[1104]), 'there is no chat with the given details');
+                            reject(new responseInstance(new status(1104, documentation[1104]), 'there is no chat with the given details'));
                         } else {
-                            resolve(result);
+                            resolve(result)[0];
+                        }
+                    }
+                })
+            } else if (operationType == 'mar') {
+
+                sql = 'CALL ReadMarker(?, ?)';
+                values = [body.conversationId, body.username];
+
+                connection.query(sql, values, (error, result, fields) => {
+                    connection.release();
+
+                    if (error) {
+                        debug(`Error: ${error}`);
+                        reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
+                    } else {
+                        debug(result);
+                        if (0) {
+                            reject(new responseInstance(new status(1104, documentation[1104]), 'there is no chat with the given details'));
+                        } else {
+                            resolve(result[0][0]);
                         }
                     }
                 })
@@ -189,7 +211,8 @@ const sender = (result, operationType, res) => {
                     operationType == 'get' ? 1204 :
                         operationType == 'getedits' ? 1205 :
                             operationType == 'getchat' ? 1206 :
-                                1207;
+                                operationType == 'mar' ? 1207 :
+                                    1208;
 
     if (operationType == 'insert') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
@@ -206,6 +229,9 @@ const sender = (result, operationType, res) => {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
     } else if (operationType == 'getchat') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
+    } else if (operationType == 'mar') {
+        res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
+        socket.emit('chat', statusCode, result.receiver, result);
     }
 }
 

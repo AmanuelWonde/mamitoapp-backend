@@ -32,4 +32,9 @@ const chatGet20Schema = Joi.object({
     earliestMessage: Joi.number().required()
 });
 
-module.exports = { chatSchema, chatEditSchema, chatDeleteSchema, chatGetSchema, chatGetEdits, chatGet20Schema };
+const chatMar = Joi.object({
+    conversationId: Joi.number().required(),
+    username: Joi.string().required()
+})
+
+module.exports = { chatSchema, chatEditSchema, chatDeleteSchema, chatGetSchema, chatGetEdits, chatGet20Schema, chatMar };
