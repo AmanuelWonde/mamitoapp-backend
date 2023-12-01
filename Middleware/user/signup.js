@@ -78,7 +78,7 @@ module.exports = (req, res) => {
         const auth_token = JWT.sign({
             username: req.body.username,
             birthdate: req.body.birthdate,
-        }, process.env.jwt);
+        }, 'hiruy');
         res.setHeader('auth-token', auth_token).send(new responseInstance(new status(1010, documentation[1010]), result.username));
     }
 
