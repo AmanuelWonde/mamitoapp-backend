@@ -1,5 +1,5 @@
 // mysql configurations
-const db = require('../../Config/dbConfig');
+const db = require('../../Config/config');
 
 // model imports
 const { status, responseInstance } = require('../../Models/response');

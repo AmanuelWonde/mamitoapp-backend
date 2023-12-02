@@ -1,5 +1,5 @@
 // mysql configurations
-const db = require('../../Config/dbConfig');
+const db = require('../../Config/config');
 
 // socket.io configurations
 const { io } = require('socket.io-client');

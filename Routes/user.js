@@ -9,14 +9,6 @@ router.get('/login', require('../Middleware/user/login'));
 
 router.post('/profileimageupload', (req, res) => {
 
-    upload(req, res, (err) => {
-        if (err) {
-
-            console.log(req);
-            res.send(err);
-
-        }
-    })
 });
 
 module.exports = { router };
