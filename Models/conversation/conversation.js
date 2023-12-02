@@ -7,6 +7,10 @@ const newConversation = Joi.object({
 
 const getConversation = Joi.object({
     username: Joi.string().min(6).required(),
-})
+});
 
-module.exports = { newConversation, getConversation };
+const deleteConversation = Joi.object({
+    conversationId: Joi.number().integer().positive().required
+});
+
+module.exports = { newConversation, getConversation, deleteConversation };

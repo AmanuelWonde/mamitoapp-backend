@@ -2,6 +2,8 @@
 const db = require('../../Config/dbConfig');
 
 // module imports
+/* const { io } = require('socket.io-client');
+const socket = io('http://localhost:3001'); */
 
 // component imports
 const { status, responseInstance } = require('../../Models/response');
@@ -55,6 +57,7 @@ module.exports = (req, res) => {
 
     const sender = (result) => {
         res.send(new responseInstance(new status(1020, documentation[1020]), result));
+        /* socket.emit('new_conversation', 1, 'abelmaireg'); */
     }
 
     p1

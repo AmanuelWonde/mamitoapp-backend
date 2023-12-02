@@ -15,9 +15,9 @@ const mysql = require("mysql2/promise");
 
 //server db configeration
 const pool = mysql.createPool({
-  host: "localhost",
-  user: "mamitogw_amanuelwonde",
-  password: "X_Z)qu6;o$w6",
+  host: '139.177.180.48',
+  user: 'mamitogw_abelmaireg',
+  password: 'ge!=)K[MpzuO',
   database: "mamitogw_mamito",
   waitForConnections: true,
   connectionLimit: 0,

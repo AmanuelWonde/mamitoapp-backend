@@ -1,30 +1,39 @@
 // mysql configurations
 const db = require('../../Config/dbConfig');
 
+// socket.io configurations
+const { io } = require('socket.io-client');
+const socket = io('http://localhost:3001');
+
 // model imports
 const { status, responseInstance } = require('../../Models/response');
-const { chatSchema, chatEditSchema, chatDeleteSchema, getChatSchema, getUpdatesSchema } = require('../../Models/chat/chat');
+const { chatSchema, chatEditSchema, chatDeleteSchema, chatGetSchema, chatGetEdits, chatGet20Schema, chatMar } = require('../../Models/chat/chat');
 const documentation = require('../../documentation/statusCodeDocumentation.json');
 const schemaValidate = (req, schema) => {
 
     return new Promise((resolve, reject) => {
         const debug = require('debug')(`chat:schemaValidate}`);
         let error;
-        if (schema == 'add') {
+        if (schema == 'add') {                                  // 1
             error = chatSchema.validate(req.body).error;
 
-        } else if (schema == 'edit') {
+        } else if (schema == 'edit') {                          // 2
             error = chatEditSchema.validate(req.body).error;
 
-        } else if (schema == 'delete') {
+        } else if (schema == 'delete') {                        // 3
             error = chatDeleteSchema.validate(req.body).error;
 
-        } else if (schema == 'getChat') {
-            error = getChatSchema.validate(req.body).error;
+        } else if (schema == 'get') {                           // 4
+            error = chatGetSchema.validate(req.body).error;
 
-        } else if (schema == 'getUpdates') {
-            error = getUpdatesSchema.validate(req.body).error;
+        } else if (schema == 'getedits') {                      // 5
+            error = chatGetEdits.validate(req.body).error;
 
+        } else if (schema == 'getchat') {                       // 6
+            error = chatGet20Schema.validate(req.body).error;
+
+        } else if (schema == 'mar') {
+            error = chatMar.validate(req.body).error; // 7
         }
 
         if (error) {
@@ -51,7 +60,7 @@ const dbOperation = (body, operationType) => {
 
             if (operationType == 'insert') {
 
-                sql = 'CALL InsertMessage(?, ?, ?)';
+                sql = 'CALL InsertNewMessage(?, ?, ?)';
                 values = [body.conversationId, body.sender, body.message];
 
                 connection.query(sql, values, (error, result, fields) => {
@@ -62,7 +71,7 @@ const dbOperation = (body, operationType) => {
                         reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
                     } else {
                         if (result[0][0].status == 1101) {
-                            reject(new responseInstance(new status(1101, documentation[1101]), 'user a valid conversation id'));
+                            reject(new responseInstance(new status(1101, documentation[1101]), 'dont have access to send message to this conversation'));
                         } else {
                             resolve(result[0][0]);
                         }
@@ -107,10 +116,10 @@ const dbOperation = (body, operationType) => {
                     }
                 });
 
-            } else if (operationType == 'getChat') {
+            } else if (operationType == 'get') {
 
-                sql = 'CALL GetChat(?, ?)';
-                values = [body.conversationId, body.lastMessageId];
+                sql = 'CALL GetNewMessages(?)';
+                values = [body.username];
 
                 connection.query(sql, values, (error, result, fields) => {
                     connection.release();
@@ -119,10 +128,71 @@ const dbOperation = (body, operationType) => {
                         debug(`Error: ${error}`);
                         reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
                     } else {
-                        if (result[0][0].status == 1104) {
+                        debug(result);
+                        if (0) {
                             reject(new responseInstance(new status(1104), documentation[1104]), 'there is no chat with the given details');
                         } else {
                             resolve(result[0]);
+                        }
+                    }
+                })
+            } else if (operationType == 'getedits') {
+
+                sql = 'CALL GetEditedAndDeletedMessages(?)';
+                values = [body.username];
+
+                connection.query(sql, values, (error, result, fields) => {
+                    connection.release();
+
+                    if (error) {
+                        debug(`Error: ${error}`);
+                        reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
+                    } else {
+                        debug(result);
+                        if (0) {
+                            reject(new responseInstance(new status(1105), documentation[1105]), 'there is no chat with the given details');
+                        } else {
+                            resolve(result[0]);
+                        }
+                    }
+                })
+            } else if (operationType == 'getchat') {
+
+                sql = 'CALL GetLast20Messages(?, ?)';
+                values = [body.conversationId, body.earliestMessage];
+
+                connection.query(sql, values, (error, result, fields) => {
+                    connection.release();
+
+                    if (error) {
+                        debug(`Error: ${error}`);
+                        reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
+                    } else {
+                        debug(result);
+                        if (0) {
+                            reject(new responseInstance(new status(1104, documentation[1104]), 'there is no chat with the given details'));
+                        } else {
+                            resolve(result)[0];
+                        }
+                    }
+                })
+            } else if (operationType == 'mar') {
+
+                sql = 'CALL ReadMarker(?, ?)';
+                values = [body.conversationId, body.username];
+
+                connection.query(sql, values, (error, result, fields) => {
+                    connection.release();
+
+                    if (error) {
+                        debug(`Error: ${error}`);
+                        reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
+                    } else {
+                        debug(result);
+                        if (0) {
+                            reject(new responseInstance(new status(1104, documentation[1104]), 'there is no chat with the given details'));
+                        } else {
+                            resolve(result[0][0]);
                         }
                     }
                 })
@@ -134,14 +204,34 @@ const dbOperation = (body, operationType) => {
 
 
 const sender = (result, operationType, res) => {
+    const statusCode =
+        operationType == 'insert' ? 1201 :
+            operationType == 'edit' ? 1202 :
+                operationType == 'delete' ? 1203 :
+                    operationType == 'get' ? 1204 :
+                        operationType == 'getedits' ? 1205 :
+                            operationType == 'getchat' ? 1206 :
+                                operationType == 'mar' ? 1207 :
+                                    1208;
+
     if (operationType == 'insert') {
-        res.send(new responseInstance(new status(1201, documentation[1201]), result));
+        res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
+        socket.emit('chat', statusCode, result.receiver, result);
     } else if (operationType == 'edit') {
-        res.send(new responseInstance(new status(1202, documentation[1202]), result));
+        res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
+        socket.emit('chat', statusCode, result.receiver, result);
     } else if (operationType == 'delete') {
-        res.send(new responseInstance(new status(1203, documentation[1203]), result));
-    } else if (operationType == 'getChat') {
-        res.send(new responseInstance(new status(1204, documentation[1204]), result));
+        res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
+        socket.emit('chat', statusCode, result.receiver, result);
+    } else if (operationType == 'get') {
+        res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
+    } else if (operationType == 'getedits') {
+        res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
+    } else if (operationType == 'getchat') {
+        res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
+    } else if (operationType == 'mar') {
+        res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
+        socket.emit('chat', statusCode, result.receiver, result);
     }
 }
 

@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
         const debug = require('debug')('auth:auth')
         return new Promise((resolve, reject) => {
             try {
-                const verification = JWT.verify(token, process.env.jwt);
+                const verification = JWT.verify(token, 'hiruy');
                 resolve(verification);
             } catch (error) {
                 debug(error);

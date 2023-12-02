@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // module imports
-const auth = require('../Middleware/auth/auth')
+const auth = require('../Middleware/auth/auth');
 
 // api's
 
