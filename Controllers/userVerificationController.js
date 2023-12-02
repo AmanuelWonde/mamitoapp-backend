@@ -48,8 +48,43 @@ const addUserVerificationImage = async (req, res) => {
   }
 };
 
+const viewUserVerificationImages = async (req, res) => {
+  try {
+    const result = await UserVerification.viewUserVerificationImages();
+    if (result.message)
+      return res
+        .status(200)
+        .json({ message: "verification images", data: result.data });
+    return res.status(501).send(result.errror);
+  } catch (err) {
+    console.log(err);
+    return res.status(501).send("Faild to retrieve user verification images!");
+  }
+};
+const validateUser = async (req, res) => {
+  try {
+    const { status, sampleImageId, username } = req.body;
+    const result = await UserVerification.validateUser(
+      status,
+      username,
+      sampleImageId
+    );
+    if (result.message)
+      return res.status(200).json({ message: result.message });
+    return res
+      .status(501)
+      .json({ error: "faild to valideate user please try again!" });
+  } catch (err) {
+    console.log(err);
+    return res
+      .status(501)
+      .json({ error: "faild to valideate user please try again!" });
+  }
+};
 module.exports = {
   addSampleVerifyImage,
   viewSampleVerifyImages,
   addUserVerificationImage,
+  viewUserVerificationImages,
+  validateUser,
 };
