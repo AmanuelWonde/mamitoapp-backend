@@ -3,12 +3,15 @@ const {
   addSampleVerifyImage,
   viewSampleVerifyImages,
   addUserVerificationImage,
+  viewUserVerificationImages,
+  validateUser,
 } = require("../Controllers/userVerificationController");
 const { upload } = require("../Config/multerConfig");
+const { route } = require("./questionRoutes");
 const router = express.Router();
 
 router.post(
-  "/add-verification-sample-image",
+  "/add-sample-verification-image",
   upload.single("image"),
   addSampleVerifyImage
 );
@@ -20,4 +23,7 @@ router.post(
   upload.single("image"),
   addUserVerificationImage
 );
+
+router.get("/view-verification-images", viewUserVerificationImages);
+router.post("/validate-user", validateUser);
 module.exports = router;
