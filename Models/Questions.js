@@ -50,7 +50,7 @@ class Questions {
   }
 }
 module.exports = Questions;
-//To add questions: [{question: car or dog, choices: [cat, dog]}]
+//To add questions: [{question: car or dog,value:9, choices: [cat, dog]}]
 
 //Sample to send questions: {message: "all questions", questions: [{question: "dog or cat", id: 2, choices: [{id: 1, choice: dog}]}]}
 // select all from the questions table where win_id = 1 left join choices on  questionId = quesId and windwId

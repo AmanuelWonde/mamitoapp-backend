@@ -1,55 +1,29 @@
-const findUserMatches = require("../services/matching/getMatches");
-const userAnswer = {
-  windowId: 5,
-  userId: 3,
-  answers: [
-    {
-      questionId: 1,
-      choice_id: 4,
-    },
-    {
-      questionId: 2,
-      choice_id: 2,
-    },
-    {
-      questionId: 3,
-      choice_id: 1,
-    },
-    {
-      questionId: 4,
-      choice_id: 6,
-    },
-    {
-      questionId: 5,
-      choice_id: 9,
-    },
-  ],
-};
+const findUserMatches = require("../services/matching/findUserMatches");
 
-const userAnswers = [
+const myAnswers = [
   {
     questionId: 1,
-    choice_id: 1,
+    choiceId: 1,
   },
   {
     questionId: 2,
-    choice_id: 2,
+    choiceId: 2,
   },
   {
     questionId: 3,
-    choice_id: 3,
+    choiceId: 3,
   },
   {
     questionId: 4,
-    choice_id: 4,
+    choiceId: 4,
   },
   {
     questionId: 5,
-    choice_id: 5,
+    choiceId: 5,
   },
 ];
 
-const usersAnswer = [
+const otherAnswer = [
   {
     user_id: 1,
     question_id: 1,
@@ -226,5 +200,6 @@ const usersAnswer = [
     value: 9,
   },
 ];
-const yourMatches = findUserMatches(userAnswers, usersAnswer);
+
+const yourMatches = findUserMatches(myAnswers, otherAnswer);
 console.log(yourMatches);

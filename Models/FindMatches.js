@@ -1,6 +1,6 @@
 const pool = require("../Config/dbConfig");
 
-class GetMatches {
+class FindMatches {
   static async allUserAnswers(windowId) {
     try {
       const result = await pool.query(`CALL AllUserAnswers (?)`, [windowId]);
@@ -12,4 +12,4 @@ class GetMatches {
   }
 }
 
-module.exports = GetMatches;
+module.exports = FindMatches;

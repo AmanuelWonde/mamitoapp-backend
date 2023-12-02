@@ -1,28 +1,24 @@
 -- MySQL Workbench Forward Engineering
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema mamito
+-- Schema mamitogw_mamito
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mamito
+-- Schema mamitogw_mamito
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mamito` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `mamito` ;
+CREATE SCHEMA IF NOT EXISTS `mamitogw_mamito` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `mamitogw_mamito` ;
 
 -- -----------------------------------------------------
--- Table `mamito`.`admin`
+-- Table `mamitogw_mamito`.`admin`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mamito`.`admin` ;
+DROP TABLE IF EXISTS `mamitogw_mamito`.`admin` ;
 
-CREATE TABLE IF NOT EXISTS `mamito`.`admin` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`admin` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `creataed-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -32,11 +28,11 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`windows`
+-- Table `mamitogw_mamito`.`windows`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mamito`.`windows` ;
+DROP TABLE IF EXISTS `mamitogw_mamito`.`windows` ;
 
-CREATE TABLE IF NOT EXISTS `mamito`.`windows` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`windows` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL DEFAULT '0',
   `created-at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -48,11 +44,11 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`questions`
+-- Table `mamitogw_mamito`.`questions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mamito`.`questions` ;
+DROP TABLE IF EXISTS `mamitogw_mamito`.`questions` ;
 
-CREATE TABLE IF NOT EXISTS `mamito`.`questions` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`questions` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `question` VARCHAR(200) NOT NULL,
   `question_value` DECIMAL(2) NOT NULL DEFAULT '0.00',
@@ -63,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `mamito`.`questions` (
   INDEX `fk_questions_windows1_idx` (`windows_id` ASC) VISIBLE,
   CONSTRAINT `fk_questions_windows1`
     FOREIGN KEY (`windows_id`)
-    REFERENCES `mamito`.`windows` (`id`)
+    REFERENCES `mamitogw_mamito`.`windows` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -72,11 +68,11 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`users`
+-- Table `mamitogw_mamito`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mamito`.`users` ;
+DROP TABLE IF EXISTS `mamitogw_mamito`.`users` ;
 
-CREATE TABLE IF NOT EXISTS `mamito`.`users` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`users` (
   `username` VARCHAR(45) NOT NULL,
   `sex` ENUM('M', 'F') NOT NULL,
   `birthdate` DATETIME NOT NULL,
@@ -96,16 +92,16 @@ CREATE TABLE IF NOT EXISTS `mamito`.`users` (
   INDEX `index_sex` (`sex` ASC) VISIBLE,
   INDEX `index_created-at` (`created-at` DESC, `updated-at` DESC) INVISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 0
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`answers`
+-- Table `mamitogw_mamito`.`answers`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mamito`.`answers` ;
+DROP TABLE IF EXISTS `mamitogw_mamito`.`answers` ;
 
-CREATE TABLE IF NOT EXISTS `mamito`.`answers` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`answers` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `window_id` INT NOT NULL,
   `choice_id` INT NOT NULL,
@@ -122,11 +118,11 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`choices`
+-- Table `mamitogw_mamito`.`choices`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mamito`.`choices` ;
+DROP TABLE IF EXISTS `mamitogw_mamito`.`choices` ;
 
-CREATE TABLE IF NOT EXISTS `mamito`.`choices` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`choices` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `choice` VARCHAR(45) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -136,37 +132,18 @@ CREATE TABLE IF NOT EXISTS `mamito`.`choices` (
   INDEX `fk_choices_questions1_idx` (`questions_id` ASC) VISIBLE,
   CONSTRAINT `fk_choices_questions1`
     FOREIGN KEY (`questions_id`)
-    REFERENCES `mamito`.`questions` (`id`))
+    REFERENCES `mamitogw_mamito`.`questions` (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 43
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`conversation`
+-- Table `mamitogw_mamito`.`custom-questions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mamito`.`conversation` ;
+DROP TABLE IF EXISTS `mamitogw_mamito`.`custom_questions` ;
 
-CREATE TABLE IF NOT EXISTS `mamito`.`conversation` (
-  `created-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `users_id` INT NOT NULL,
-  `users_username` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`users_id`, `users_username`),
-  INDEX `fk_conversation_users1_idx` (`users_id` ASC, `users_username` ASC) VISIBLE,
-  CONSTRAINT `fk_conversation_users1`
-    FOREIGN KEY (`users_username`)
-    REFERENCES `mamito`.`users` (`username`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `mamito`.`custom-questions`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mamito`.`custom-questions` ;
-
-CREATE TABLE IF NOT EXISTS `mamito`.`custom-questions` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`custom-questions` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `question-text` VARCHAR(200) NOT NULL,
   `checked` TINYINT NOT NULL DEFAULT '0',
@@ -179,64 +156,54 @@ CREATE TABLE IF NOT EXISTS `mamito`.`custom-questions` (
   INDEX `fk_custom-questions_users1_idx` (`users_id` ASC, `users_username` ASC) VISIBLE,
   CONSTRAINT `fk_custom-questions_users1`
     FOREIGN KEY (`users_username`)
-    REFERENCES `mamito`.`users` (`username`))
+    REFERENCES `mamitogw_mamito`.`users` (`username`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `mamito`.`message`
+-- Table `mamitogw_mamito`.`sample-verification-images`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mamito`.`message` ;
+DROP TABLE IF EXISTS `mamitogw_mamito`.`sample_verification_images` ;
 
-CREATE TABLE IF NOT EXISTS `mamito`.`message` (
-  `conversation-id` INT NOT NULL AUTO_INCREMENT,
-  `id-Messages` INT NOT NULL,
-  `id-User-sender` INT NOT NULL,
-  `message` VARCHAR(999) NOT NULL,
-  `marked-as-read` TINYINT NOT NULL,
-  `created-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`conversation-id`, `id-Messages`, `id-User-sender`),
-  INDEX `index_latest` (`conversation-id` ASC, `created-at` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `mamito`.`user-devices`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mamito`.`user-devices` ;
-
-CREATE TABLE IF NOT EXISTS `mamito`.`user-devices` (
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`sample-verification-images` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `mac-address` VARCHAR(15) NOT NULL,
-  `location` POINT NULL DEFAULT NULL,
-  `active` TINYINT NOT NULL,
-  `created-at` TIMESTAMP NOT NULL,
-  `updated-at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `users_id` INT NOT NULL,
-  `users_username` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`, `users_id`, `users_username`),
-  INDEX `fk_user-devices_users1_idx` (`users_id` ASC, `users_username` ASC) VISIBLE,
-  CONSTRAINT `fk_user-devices_users1`
-    FOREIGN KEY (`users_username`)
-    REFERENCES `mamito`.`users` (`username`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+  `image` VARCHAR(200) NOT NULL,
+  `sample_for` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
-USE `mamito` ;
+
+-- -----------------------------------------------------
+-- Table `mamitogw_mamito`.`user-verification-images`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mamitogw_mamito`.`user_verification_images` ;
+
+CREATE TABLE IF NOT EXISTS `mamitogw_mamito`.`user-verification-images` (
+  `image` VARCHAR(200) NOT NULL,
+  `sample-verification-images_id` INT NOT NULL,
+  `users_username` VARCHAR(45) NOT NULL,
+  INDEX `fk_user-verification-images_sample-verification-images1_idx` (`sample-verification-images_id` ASC) VISIBLE,
+  PRIMARY KEY (`sample-verification-images_id`, `users_username`),
+  CONSTRAINT `fk_user-verification-images_sample-verification-images1`
+    FOREIGN KEY (`sample_verification_images_id`)
+    REFERENCES `mamitogw_mamito`.`sample_verification_images` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+USE `mamitogw_mamito` ;
 
 -- -----------------------------------------------------
 -- procedure CurrentWindowQuestions
 -- -----------------------------------------------------
 
-USE `mamito`;
-DROP procedure IF EXISTS `mamito`.`CurrentWindowQuestions`;
+USE `mamitogw_mamito`;
+DROP procedure IF EXISTS `mamitogw_mamito`.`CurrentWindowQuestions`;
 
 DELIMITER $$
-USE `mamito`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CurrentWindowQuestions`(IN `window_id` INT)
+USE `mamitogw_mamito`$$
+CREATE PROCEDURE `CurrentWindowQuestions`(IN `window_id` INT)
 BEGIN
     SELECT q.question AS question, q.id AS id,
         JSON_ARRAYAGG(JSON_OBJECT('id', c.id, 'choice', c.choice)) AS choices
@@ -252,12 +219,12 @@ DELIMITER ;
 -- procedure InsertChoice
 -- -----------------------------------------------------
 
-USE `mamito`;
-DROP procedure IF EXISTS `mamito`.`InsertChoice`;
+USE `mamitogw_mamito`;
+DROP procedure IF EXISTS `mamitogw_mamito`.`InsertChoice`;
 
 DELIMITER $$
-USE `mamito`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertChoice`(IN `questionId` INT, IN `choiceValue` VARCHAR(100))
+USE `mamitogw_mamito`$$
+CREATE PROCEDURE `InsertChoice`(IN `questionId` INT, IN `choiceValue` VARCHAR(100))
     DETERMINISTIC
 BEGIN
     INSERT INTO choices (questions_id, choice)
@@ -270,12 +237,12 @@ DELIMITER ;
 -- procedure InsertQuestion
 -- -----------------------------------------------------
 
-USE `mamito`;
-DROP procedure IF EXISTS `mamito`.`InsertQuestion`;
+USE `mamitogw_mamito`;
+DROP procedure IF EXISTS `mamitogw_mamito`.`InsertQuestion`;
 
 DELIMITER $$
-USE `mamito`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertQuestion`(IN `question` VARCHAR(100), IN `windowId` INT, IN `value` DECIMAL, OUT `insertedId` INT)
+USE `mamitogw_mamito`$$
+CREATE PROCEDURE `InsertQuestion`(IN `question` VARCHAR(100), IN `windowId` INT, IN `value` DECIMAL, OUT `insertedId` INT)
 BEGIN
     INSERT INTO questions (question, `value`, window_id)
     VALUES (question, `value`, windowId);
@@ -288,12 +255,12 @@ DELIMITER ;
 -- procedure InsertUserAnswers
 -- -----------------------------------------------------
 
-USE `mamito`;
-DROP procedure IF EXISTS `mamito`.`InsertUserAnswers`;
+USE `mamitogw_mamito`;
+DROP procedure IF EXISTS `mamitogw_mamito`.`InsertUserAnswers`;
 
 DELIMITER $$
-USE `mamito`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertUserAnswers`(IN `windowId` INT, IN `userName` VARCHAR(255), IN `questionId` INT, IN `choiceId` INT)
+USE `mamitogw_mamito`$$
+CREATE PROCEDURE `InsertUserAnswers`(IN `windowId` INT, IN `userName` VARCHAR(255), IN `questionId` INT, IN `choiceId` INT)
 BEGIN
     INSERT INTO answers (window_id, users_username, question_id, choice_id)
     VALUES (windowId, userName, questionId, choiceId);
@@ -305,18 +272,20 @@ DELIMITER ;
 -- procedure InsertWindow
 -- -----------------------------------------------------
 
-USE `mamito`;
-DROP procedure IF EXISTS `mamito`.`InsertWindow`;
+USE `mamitogw_mamito`;
+DROP procedure IF EXISTS `mamitogw_mamito`.`InsertWindow`;
 
 DELIMITER $$
-USE `mamito`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertWindow`(IN `name` VARCHAR(50))
+USE `mamitogw_mamito`$$
+CREATE PROCEDURE `InsertWindow`(IN `name` VARCHAR(50))
 BEGIN
     INSERT INTO windows (name)
     VALUES (name);
 END$$
 
 DELIMITER ;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

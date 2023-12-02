@@ -2,9 +2,8 @@ const Questions = require("../Models/Questions");
 
 const addQuestions = async (req, res) => {
   try {
-    const questions = req.body.questions;
+    const questions = req.body;
     const addQuestions = await Questions.addQuestions(questions);
-
     if (addQuestions.err)
       return res.status(500).json({ error: addQuestions.err });
 
@@ -12,7 +11,7 @@ const addQuestions = async (req, res) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ err: "Internal server eror please try again!" });
+      .json({ err: "Internal server eror please try again!", error });
   }
 };
 

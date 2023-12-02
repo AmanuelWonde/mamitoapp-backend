@@ -1,6 +1,6 @@
 const express = require("express");
-const { getMatches } = require("../Controllers/getMatchesController");
+const { findMatches } = require("../Controllers/findMatchesController");
 const router = express.Router();
 
-router.post("/my-matches", getMatches);
+router.post("/my-matches", findMatches);
 module.exports = router;
