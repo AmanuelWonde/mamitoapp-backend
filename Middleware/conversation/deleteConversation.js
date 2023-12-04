@@ -49,7 +49,6 @@ module.exports = (req, res) => {
                         if (result[0][0].status == 1024) {
                             reject(new responseInstance(new status(1024, documentation[1024]), "the coversation with the user does not exit"));
                         } else {
-                            console.log(result)
                             resolve(result[0][0].username);
                         }
                     }

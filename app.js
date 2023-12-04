@@ -18,6 +18,11 @@ app.use("/match", require("./Routes/matchRoutes"));
 app.use("/verify-user", require("./Routes/userVerificationRoutes"));
 app.use("/admin", require("./Routes/adminRoutes"));
 
+const { io } = require('socket.io-client');
+const socket = io('http://127.0.0.1:3001');
+
 app.listen(port, () => {
   console.log("listening on port 3000");
 });
+
+module.exports = { socket };
