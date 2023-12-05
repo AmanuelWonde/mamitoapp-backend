@@ -5,7 +5,7 @@ const { upload } = require('../Config/multerConfig');
 
 router.post('/signup', require('../Middleware/user/signup'));
 
-router.get('/login', require('../Middleware/user/login'));
+router.post('/login', require('../Middleware/user/login'));
 
 router.post('/profileimageupload', (req, res) => {
 
