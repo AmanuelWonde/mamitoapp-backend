@@ -1,14 +1,45 @@
 const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
 const app = express();
-const port = process.env.PORT || 3000;
 
+const http = require('http');
+const server = http.createServer(app);
+
+const bodyParser = require("body-parser");
+const cors = require("cors");
+
+// express configurations
 app.use(cors());
-app.use("/public", express.static("public"));
-
 app.use(bodyParser.json());
+app.use("/public", express.static("public"));
 app.use(express.static("./public"));
+
+// WebSocket Configurations
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "*"
+  }
+});
+
+io.on('connection', (socket) => {
+  console.log(socket.id);
+
+  socket.on('deleted_conversation', (username, id) => {
+    console.log(username, id);
+    io.emit(username, {
+      conversationId: id,
+      status: 1025
+    });
+  });
+
+  socket.on('chat', (status, receiver, result) => {
+    console.log(status, result.receiver);
+    io.emit(receiver, {
+      status: status,
+      data: result
+    });
+  });
+});
+
 app.use("/user", require("./Routes/user").router);
 app.use("/conversation", require("./Routes/conversation").router);
 app.use("/chats", require("./Routes/chat").router);
@@ -18,11 +49,8 @@ app.use("/match", require("./Routes/matchRoutes"));
 app.use("/verify-user", require("./Routes/userVerificationRoutes"));
 app.use("/admin", require("./Routes/adminRoutes"));
 
-const { io } = require('socket.io-client');
-const socket = io('http://127.0.0.1:3001');
-
-app.listen(port, () => {
-  console.log("listening on port 3000");
+server.listen(3000, "0.0.0.0", () => {
+  console.log("server started");
 });
 
-module.exports = { socket };
+module.exports = { io };

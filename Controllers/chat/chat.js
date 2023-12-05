@@ -2,9 +2,7 @@
 const db = require('../../Config/config');
 
 // socket.io configurations
-// const { io } = require('socket.io-client');
-// const socket = io('http://localhost:3001');
-const { socket } = require('../../app');
+const { io } = require('../../app');
 
 // model imports
 const { status, responseInstance } = require('../../Models/response');
@@ -217,13 +215,13 @@ const sender = (result, operationType, res) => {
 
     if (operationType == 'insert') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
-        socket.emit('chat', statusCode, result.receiver, result);
+        io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
     } else if (operationType == 'edit') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
-        socket.emit('chat', statusCode, result.receiver, result);
+        io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
     } else if (operationType == 'delete') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
-        socket.emit('chat', statusCode, result.receiver, result);
+        io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
     } else if (operationType == 'get') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
     } else if (operationType == 'getedits') {
@@ -232,7 +230,7 @@ const sender = (result, operationType, res) => {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
     } else if (operationType == 'mar') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
-        socket.emit('chat', statusCode, result.receiver, result);
+        io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
     }
 }
 
