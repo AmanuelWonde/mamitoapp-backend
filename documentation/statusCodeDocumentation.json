@@ -21,6 +21,7 @@
     "1203": "message deleted",
     "1204": "message retrived",
     "1205": "found edits",
+    "1301": "typing...",
     "6001": "invalid json content",
     "6010": "unable to gererate salt",
     "6011": "unable to hash a password",
