@@ -1,9 +1,21 @@
 const pool = require("../Config/dbConfig");
 class Questions {
-  static async addQuestions(questions) {
+  static async addQuestions(questions, images, windowName, startDate, endDate) {
     try {
       await pool.query("START TRANSACTION");
-      const windowId = 2;
+
+      await pool.query(`CALL InsertWindow (?, ?, ?, @insertedId)`, [
+        windowName,
+        startDate,
+        endDate,
+      ]);
+
+      const [windowIdResult] = await pool.query(
+        "SELECT @insertedId AS inserted_id"
+      );
+
+      const windowId = windowIdResult[0].inserted_id;
+
       for (let i = 0; i < questions.length; i++) {
         const question = questions[i].question;
         const value = questions[i].value;
@@ -22,8 +34,25 @@ class Questions {
         const choices = questions[i].choices;
 
         for (let j = 0; j < choices.length; j++) {
-          const choice = choices[j]; // Access each choice from the array
-          await pool.query(`CALL InsertChoice (?, ?)`, [questionId, choice]);
+          const choice = choices[j].name;
+          let image;
+
+          const findImage = images.find(
+            (element) =>
+              element.fieldname === `questions[${i}][choices][${j}][image]`
+          );
+
+          if (findImage) {
+            image = findImage.filename;
+          } else {
+            image = null;
+          }
+
+          await pool.query(`CALL InsertChoice (?, ?, ?)`, [
+            questionId,
+            choice,
+            image,
+          ]);
         }
       }
 
@@ -41,7 +70,6 @@ class Questions {
       const [result] = await pool.query(`CALL CurrentWindowQuestions(?)`, [
         windowId,
       ]);
-      console.log(result);
       return { message: "Questions retrieved successfully", result: result[0] };
     } catch (error) {
       console.log(error);

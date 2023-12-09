@@ -17,6 +17,7 @@ app.use("/answers", require("./Routes/answerRoutes"));
 app.use("/match", require("./Routes/matchRoutes"));
 app.use("/verify-user", require("./Routes/userVerificationRoutes"));
 app.use("/admin", require("./Routes/adminRoutes"));
+app.use("/windows", require("./Routes/windowRoutes"));
 
 app.listen(port, () => {
   console.log("listening on port 3000");

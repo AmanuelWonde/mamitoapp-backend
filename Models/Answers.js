@@ -3,7 +3,6 @@ const pool = require("../Config/dbConfig");
 class Answers {
   static async addAnswers(windowId, userName, answers) {
     try {
-      console.log(answers);
       await pool.query("START TRANSACTION");
 
       for (let i = 0; i < answers.length; i++) {
