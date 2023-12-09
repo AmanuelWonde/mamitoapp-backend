@@ -4,7 +4,7 @@ const JWT = require('jsonwebtoken')
 
 
 // mysql configurations
-const db = require('../../Config/dbConfig');
+const db = require('../../Config/config');
 
 
 // model imports

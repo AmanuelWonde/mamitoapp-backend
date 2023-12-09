@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const JWT = require('jsonwebtoken');
 
 // mysql configurations
-const db = require('../../Config/dbConfig');
+const db = require('../../Config/config');
 
 // model imports
 const { loggerSchema } = require('../../Models/user');
@@ -48,16 +48,17 @@ module.exports = (req, res) => {
         })
     }
 
-    const passworValidation = ({ password }) => {
-        const debug = require('debug')('login:passwordValidation')
+    const passworValidation = (body) => {
+        const debug = require('debug')('login:passwordValidation');
         return new Promise((resolve, reject) => {
-            bcrypt.compare(req.body.password, password, (error, res) => {
+            bcrypt.compare(req.body.password, body.password, (error, res) => {
                 if (error) {
                     debug(error);
                     reject(new responseInstance(new status(6012, documentation[6012]), error));
                 } else {
                     if (res) {
-                        resolve(req.body);
+                        delete body.password;
+                        resolve(body);
                     } else {
                         reject(new responseInstance(new status(1014, documentation[1014]), 'use a valid password'));
                     }
@@ -70,8 +71,8 @@ module.exports = (req, res) => {
         const auth_token = JWT.sign({
             username: body.username,
             birthdate: body.birthdate,
-        }, process.env.jwt);
-        res.setHeader('auth-token', auth_token).send(new responseInstance(new status(1013, documentation[1013]), 'successfully logged in'));
+        }, 'hiruy');
+        res.setHeader('auth-token', auth_token).send(new responseInstance(new status(1013, documentation[1013]), body));
     }
 
     p1

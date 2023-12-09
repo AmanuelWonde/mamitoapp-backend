@@ -5,15 +5,8 @@ const { upload } = require("../Config/multerConfig");
 
 router.post("/signup", require("../Middleware/user/signup"));
 
-router.get("/login", require("../Middleware/user/login"));
+router.post("/login", require("../Middleware/user/login"));
 
-router.post("/profileimageupload", (req, res) => {
-  upload(req, res, (err) => {
-    if (err) {
-      console.log(req);
-      res.send(err);
-    }
-  });
-});
+router.post("/profileimageupload", (req, res) => {});
 
 module.exports = { router };

@@ -1,5 +1,5 @@
 // database comfigurations
-const db = require('../../Config/dbConfig');
+const db = require('../../Config/config');
 
 // module and model imports
 const JWT = require('jsonwebtoken');

@@ -1,9 +1,8 @@
 // mysql configurations
-const db = require('../../Config/dbConfig');
+const db = require('../../Config/config');
 
 // socket.io configurations
-const { io } = require('socket.io-client');
-const socket = io('http://localhost:3001');
+const { io } = require('../../app');
 
 // model imports
 const { status, responseInstance } = require('../../Models/response');
@@ -143,7 +142,7 @@ const dbOperation = (body, operationType) => {
 
                 connection.query(sql, values, (error, result, fields) => {
                     connection.release();
-
+                    console.log(result);
                     if (error) {
                         debug(`Error: ${error}`);
                         reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
@@ -172,7 +171,7 @@ const dbOperation = (body, operationType) => {
                         if (0) {
                             reject(new responseInstance(new status(1104, documentation[1104]), 'there is no chat with the given details'));
                         } else {
-                            resolve(result)[0];
+                            resolve(result[0]);
                         }
                     }
                 })
@@ -216,13 +215,13 @@ const sender = (result, operationType, res) => {
 
     if (operationType == 'insert') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
-        socket.emit('chat', statusCode, result.receiver, result);
+        io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
     } else if (operationType == 'edit') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
-        socket.emit('chat', statusCode, result.receiver, result);
+        io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
     } else if (operationType == 'delete') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
-        socket.emit('chat', statusCode, result.receiver, result);
+        io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
     } else if (operationType == 'get') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
     } else if (operationType == 'getedits') {
@@ -231,7 +230,7 @@ const sender = (result, operationType, res) => {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
     } else if (operationType == 'mar') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
-        socket.emit('chat', statusCode, result.receiver, result);
+        io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
     }
 }
 
