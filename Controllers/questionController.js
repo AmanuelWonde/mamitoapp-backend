@@ -2,11 +2,27 @@ const Questions = require("../Models/Questions");
 
 const addQuestions = async (req, res) => {
   try {
-    const questions = req.body;
-    const addQuestions = await Questions.addQuestions(questions);
-    if (addQuestions.err)
-      return res.status(500).json({ error: addQuestions.err });
+    const questions = req.body.questions;
+    const windowName = req.body.windowName;
+    const startAt = req.body.startAt;
+    const endAt = req.body.endAt;
+    const images = req.files;
 
+    // console.log(questions);
+
+    const addQuestions = await Questions.addQuestions(
+      questions,
+      images,
+      windowName,
+      startAt,
+      endAt
+    );
+
+    if (addQuestions.err) {
+      // console.log(addQuestions.err);
+      return res.status(500).json({ error: addQuestions.err });
+    }
+    // console.log(addQuestions.message);
     return res.status(201).json({ message: addQuestions.message });
   } catch (error) {
     return res
@@ -18,7 +34,7 @@ const addQuestions = async (req, res) => {
 const viewQuestions = async (req, res) => {
   try {
     const windowId = req.params.windowId;
-    console.log(windowId);
+    // console.log(windowId);
     const getQuestions = await Questions.viewQuestions(windowId);
     if (getQuestions.err)
       return res.status(500).json({ error: getQuestions.err });
