@@ -8,6 +8,6 @@ const {
 const router = express.Router();
 
 router.post("/add", upload.any(), addQuestions);
-router.get("/:windowId", viewQuestions);
+router.get("/:username", viewQuestions);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const http = require('http');
+const http = require("http");
 const server = http.createServer(app);
 
 const bodyParser = require("body-parser");
@@ -14,28 +14,28 @@ app.use("/public", express.static("public"));
 app.use(express.static("./public"));
 
 // WebSocket Configurations
-const io = require('socket.io')(server, {
+const io = require("socket.io")(server, {
   cors: {
-    origin: "*"
-  }
+    origin: "*",
+  },
 });
 
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
   console.log(socket.id);
 
-  socket.on('deleted_conversation', (username, id) => {
+  socket.on("deleted_conversation", (username, id) => {
     console.log(username, id);
     io.emit(username, {
       conversationId: id,
-      status: 1025
+      status: 1025,
     });
   });
 
-  socket.on('chat', (status, receiver, result) => {
+  socket.on("chat", (status, receiver, result) => {
     console.log(status, result.receiver);
     io.emit(receiver, {
       status: status,
-      data: result
+      data: result,
     });
   });
 });
