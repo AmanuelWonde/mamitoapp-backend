@@ -8,8 +8,6 @@ const addQuestions = async (req, res) => {
     const endAt = req.body.endAt;
     const images = req.files;
 
-    // console.log(questions);
-
     const addQuestions = await Questions.addQuestions(
       questions,
       images,
@@ -25,6 +23,7 @@ const addQuestions = async (req, res) => {
     // console.log(addQuestions.message);
     return res.status(201).json({ message: addQuestions.message });
   } catch (error) {
+    console.log(error);
     return res
       .status(500)
       .json({ err: "Internal server eror please try again!", error });
@@ -33,14 +32,13 @@ const addQuestions = async (req, res) => {
 
 const viewQuestions = async (req, res) => {
   try {
-    const windowId = req.params.windowId;
-    // console.log(windowId);
-    const getQuestions = await Questions.viewQuestions(windowId);
+    const username = req.params.username;
+    const getQuestions = await Questions.viewQuestions(username);
+
     if (getQuestions.err)
       return res.status(500).json({ error: getQuestions.err });
-    return res
-      .status(200)
-      .json({ message: getQuestions.message, questions: getQuestions.result });
+
+    return res.status(200).json(getQuestions);
   } catch (err) {
     return res
       .status(500)

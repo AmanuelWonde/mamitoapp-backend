@@ -1,36 +1,39 @@
 const findUserMatches = (userAnswers, allUserAnswers) => {
-  const yourMatches = [];
-  const lengthOfUsers = allUserAnswers.length;
-  let userAnswersIndex = 0;
+  const yourMatches = {};
 
-  for (let i = 0; i < lengthOfUsers; i++) {
-    const currentMatchingId = allUserAnswers[i].user_username;
-    const isMatchedIndex = yourMatches.findIndex(
-      (user) => user.user_username === currentMatchingId
-    );
-
-    if (isMatchedIndex !== -1) {
-      if (
-        allUserAnswers[i].choice_id == userAnswers[userAnswersIndex].choice_id
-      ) {
-        yourMatches[isMatchedIndex].matchPercentage += allUserAnswers[i].value;
-        userAnswersIndex++;
-      } else {
-        userAnswersIndex++;
-      }
-    } else {
-      userAnswersIndex = 0;
-      yourMatches.push({
+  for (const userData of allUserAnswers) {
+    const currentMatchingId = userData.user_username;
+    if (!yourMatches[currentMatchingId]) {
+      yourMatches[currentMatchingId] = {
         user_username: currentMatchingId,
-        matchPercentage:
-          allUserAnswers[i].choice_id == userAnswers[userAnswersIndex].choice_id
-            ? allUserAnswers[i].value
-            : 0,
-      });
+        matchPercentage: 0,
+        profileImage: userData.profile_image,
+      };
     }
+
+    let matchPercentage = 0;
+
+    for (let i = 0; i < userAnswers.length; i++) {
+      const foundAnswer = allUserAnswers.find(
+        (answer) =>
+          answer.user_username === currentMatchingId &&
+          answer.questions_id === userAnswers[i].questionId &&
+          answer.choice_id === userAnswers[i].choiceId
+      );
+
+      if (foundAnswer) {
+        matchPercentage += foundAnswer.question_value;
+      }
+    }
+
+    yourMatches[currentMatchingId].matchPercentage = matchPercentage;
   }
 
-  return yourMatches;
+  const sortedMatches = Object.values(yourMatches).sort(
+    (a, b) => b.matchPercentage - a.matchPercentage
+  );
+
+  return sortedMatches;
 };
 
 module.exports = findUserMatches;

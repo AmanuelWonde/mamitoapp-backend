@@ -65,12 +65,44 @@ class Questions {
     }
   }
 
-  static async viewQuestions(windowId) {
+  static async viewQuestions(username) {
     try {
-      const [result] = await pool.query(`CALL CurrentWindowQuestions(?)`, [
-        windowId,
-      ]);
-      return { message: "Questions retrieved successfully", result: result[0] };
+      const [getCurrentWindow] = await pool.query(
+        `CALL GetCurrentOrNextWindow()`
+      );
+
+      const [currentWindow] = [getCurrentWindow[0]];
+      const windowId = currentWindow[0].CurrentWindowID;
+
+      if (windowId) {
+        const [isUserAnswerdWindow] = await pool.query(
+          ` CALL CheckIfUserAnswersWindow(?, ?)`,
+          [username, windowId]
+        );
+        const [isAnswerd] = isUserAnswerdWindow[0];
+
+        if (!isAnswerd.UserAnsweredWindow) {
+          return {
+            window: false,
+            nextWindowStartTime: currentWindow[0].NextWindowStartTime,
+          };
+        }
+
+        const [result] = await pool.query(`CALL CurrentWindowQuestions(?)`, [
+          windowId,
+        ]);
+
+        return {
+          window: true,
+          nextWindowStartTime: currentWindow[0].NextWindowStartTime,
+          questions: result[0],
+        };
+      } else {
+        return {
+          window: false,
+          nextWindowStartTime: currentWindow[0].NextWindowStartTime,
+        };
+      }
     } catch (error) {
       console.log(error);
       return { err: "Can't retriev questions please try again!" };
