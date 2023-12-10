@@ -38,7 +38,7 @@ module.exports = (req, res) => {
                         debug(`Error: ${error}`);
                         reject(new responseInstance(new status(7003, documentation[7003]), error));
                     } else {
-                        resolve(result[0]);
+                        resolve(result[0][0]);
                     }
 
                 });
@@ -47,6 +47,7 @@ module.exports = (req, res) => {
     }
 
     const sender = (result) => {
+        delete result.password;
         res.send(new responseInstance(new status(1023, documentation[1023]), result));
     }
 
