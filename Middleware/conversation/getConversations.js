@@ -12,8 +12,8 @@ module.exports = (req, res) => {
         const debug = require('debug')('getconv:p1');
         const { error } = getConversation.validate(req.body);
         if (error) {
-            debug(error.details);
-            reject(new responseInstance(new status(6001, documentation[6001]), error.details));
+            debug(error.details[0].message);
+            reject(new responseInstance(new status(6001, documentation[6001]), error.details[0].message));
         } else {
             resolve(req.body);
         }
@@ -38,7 +38,7 @@ module.exports = (req, res) => {
                         debug(`Error: ${error}`);
                         reject(new responseInstance(new status(7003, documentation[7003]), error));
                     } else {
-                        resolve(result[0][0]);
+                        resolve(result[0]);
                     }
 
                 });
@@ -51,8 +51,11 @@ module.exports = (req, res) => {
         res.send(new responseInstance(new status(1023, documentation[1023]), result));
     }
 
-    p1
-        .then((body) => getConv(body))
-        .then((result) => sender(result))
-        .catch(error => { debugg(error); res.send(error) });
+    module.exports = (req, res) => {
+        const debug = require('debug')('getconv:');
+        p1
+            .then((body) => getConv(body))
+            .then((result) => sender(result))
+            .catch(error => { debug(error); res.send(error) });
+    }
 }
