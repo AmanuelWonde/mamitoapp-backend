@@ -13,8 +13,11 @@ const findMatches = async (req, res) => {
     return res
       .status(200)
       .json({ message: "your matches", matches: yourMatches });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
+    return res.status.json({
+      error: "error while matching user please try again",
+    });
   }
 };
 module.exports = { findMatches };

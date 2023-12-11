@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const http = require('http');
+const http = require("http");
 const server = http.createServer(app);
 
 const bodyParser = require("body-parser");
@@ -16,13 +16,13 @@ app.use("/public", express.static("public"));
 app.use(express.static("./public"));
 
 // WebSocket Configurations
-const io = require('socket.io')(server, {
+const io = require("socket.io")(server, {
   cors: {
-    origin: "*"
-  }
+    origin: "*",
+  },
 });
 
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
   console.log(socket.id);
   socket.on('typing', (data) => {
     console.log(data);
