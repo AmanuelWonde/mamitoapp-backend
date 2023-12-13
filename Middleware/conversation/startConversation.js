@@ -16,8 +16,8 @@ module.exports = (req, res) => {
         const debug = require('debug')('startconversation:p1');
         const { error } = newConversation.validate(req.body);
         if (error) {
-            debug(error.details);
-            reject(new responseInstance(new status(6001, 'invalid json content'), error.details));
+            debug(error.details[0].message);
+            reject(new responseInstance(new status(6001, 'invalid json content'), error.details[0].message));
         } else {
             resolve(req.body);
         }

@@ -7,6 +7,8 @@ const server = http.createServer(app);
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+const { status, responseInstance } = require('./Models/response');
+
 // express configurations
 app.use(cors());
 app.use(bodyParser.json());
@@ -22,21 +24,11 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
   console.log(socket.id);
-
-  socket.on("deleted_conversation", (username, id) => {
-    console.log(username, id);
-    io.emit(username, {
-      conversationId: id,
-      status: 1025,
-    });
-  });
-
-  socket.on("chat", (status, receiver, result) => {
-    console.log(status, result.receiver);
-    io.emit(receiver, {
-      status: status,
-      data: result,
-    });
+  socket.on('typing', (data) => {
+    console.log(data);
+    io.emit(data.receiver,
+      new responseInstance(new status(1301), data)
+    )
   });
 });
 

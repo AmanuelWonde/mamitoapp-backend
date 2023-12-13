@@ -36,7 +36,7 @@ const schemaValidate = (req, schema) => {
         }
 
         if (error) {
-            debug(error.details);
+            debug(error.details[0].message);
             reject(new responseInstance(new status(6001, documentation[6001]), 'use a vadid data format'))
         } else {
             resolve(req.body);

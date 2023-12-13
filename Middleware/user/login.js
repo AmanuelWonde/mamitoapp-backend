@@ -14,7 +14,7 @@ module.exports = (req, res) => {
     const debugg = require('debug')('login:');
     let p1 = new Promise((resolve, reject) => {
         let { error } = loggerSchema.validate(req.body);
-        if (error) reject(new responseInstance(new status(6001, documentation[6001]), error.details));
+        if (error) reject(new responseInstance(new status(6001, documentation[6001]), error.details[0].message));
         else resolve(req.body);
     });
 
