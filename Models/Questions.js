@@ -81,7 +81,7 @@ class Questions {
         );
         const [isAnswerd] = isUserAnswerdWindow[0];
 
-        if (!isAnswerd.UserAnsweredWindow) {
+        if (isAnswerd.UserAnsweredWindow) {
           return {
             window: false,
             nextWindowStartTime: currentWindow[0].NextWindowStartTime,
@@ -93,16 +93,34 @@ class Questions {
         ]);
 
         return {
-          window: true,
-          nextWindowStartTime: currentWindow[0].NextWindowStartTime,
-          questions: result[0],
+          message: "success",
+          data: {
+            window: true,
+            nextWindowStartTime: currentWindow[0].NextWindowStartTime,
+            questions: result[0],
+          },
         };
       } else {
         return {
-          window: false,
-          nextWindowStartTime: currentWindow[0].NextWindowStartTime,
+          message: "success",
+          data: {
+            window: false,
+            nextWindowStartTime: currentWindow[0].NextWindowStartTime,
+          },
         };
       }
+    } catch (error) {
+      console.log(error);
+      return { err: "Can't retriev questions please try again!" };
+    }
+  }
+
+  static async adminViewQuestions(windowId) {
+    try {
+      const [result] = await pool.query(`CALL CurrentWindowQuestions(?)`, [
+        windowId,
+      ]);
+      return { questions: result[0] };
     } catch (error) {
       console.log(error);
       return { err: "Can't retriev questions please try again!" };
