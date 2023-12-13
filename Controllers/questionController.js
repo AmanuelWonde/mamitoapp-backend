@@ -45,5 +45,20 @@ const viewQuestions = async (req, res) => {
       .json({ error: "Internal server error please try again!" });
   }
 };
+const adminViewQuestions = async (req, res) => {
+  try {
+    const windowId = req.params.windowId;
+    const getQuestions = await Questions.adminViewQuestions(windowId);
 
-module.exports = { addQuestions, viewQuestions };
+    if (getQuestions.err)
+      return res.status(500).json({ error: getQuestions.err });
+
+    return res.status(200).json(getQuestions);
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ error: "Internal server error please try again!" });
+  }
+};
+
+module.exports = { addQuestions, viewQuestions, adminViewQuestions };

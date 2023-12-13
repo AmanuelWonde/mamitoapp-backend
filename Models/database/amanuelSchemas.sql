@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 09, 2023 at 07:38 AM
+-- Generation Time: Dec 10, 2023 at 09:05 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -31,6 +31,21 @@ INSERT INTO `user-verification-images`(image, `sample-verification-images_id`, u
 VALUES(image, sampleImageId, username);
 END$$
 
+DROP PROCEDURE IF EXISTS `CheckIfUserAnswersWindow`$$
+CREATE PROCEDURE `CheckIfUserAnswersWindow` (IN `username` VARCHAR(200), IN `windowId` INT)   BEGIN
+    DECLARE user_answer_count INT;
+
+    SELECT COUNT(*) INTO user_answer_count
+    FROM answers
+    WHERE user_username = username AND window_id = windowId;
+
+    IF user_answer_count > 0 THEN
+        SELECT 1 AS UserAnsweredWindow;
+    ELSE
+        SELECT 0 AS UserAnsweredWindow;
+    END IF;
+END$$
+
 DROP PROCEDURE IF EXISTS `CurrentWindowQuestions`$$
 CREATE PROCEDURE `CurrentWindowQuestions` (IN `windowId` INT)   BEGIN
     SELECT q.question AS question, q.id AS id, q.question_value AS `value`,
@@ -43,31 +58,43 @@ END$$
 
 DROP PROCEDURE IF EXISTS `FindMatches`$$
 CREATE PROCEDURE `FindMatches` (IN `windowId` INT)   BEGIN
-SELECT answers.*, `user`.profile_image, questions.value
+SELECT answers.*, `user`.`url-profile-image`, questions.question_value
 FROM answers
 JOIN `user` ON `user`.username = answers.user_username
-JOIN questions ON questions.id = answers.question_id
+JOIN questions ON questions.id = answers.questions_id
 WHERE answers.window_id = windowId;
 END$$
 
 DROP PROCEDURE IF EXISTS `GetCurrentOrNextWindow`$$
 CREATE PROCEDURE `GetCurrentOrNextWindow` ()   BEGIN
-    DECLARE p_current_window_amount INT;
+    DECLARE p_current_window_id INT;
+    DECLARE p_next_window_start_at DATETIME;
 
-    SELECT COUNT(*) INTO p_current_window_amount
+    SELECT id INTO p_current_window_id
     FROM `windows`
-    WHERE CURRENT_TIMESTAMP BETWEEN `start_at` AND `end_at`;
+    WHERE CURRENT_TIMESTAMP BETWEEN `start_at` AND `end_at`
+    ORDER BY `start_at`
+    LIMIT 1;
 
-    IF p_current_window_amount != 0 THEN
-        SELECT *
+    IF p_current_window_id IS NULL THEN
+        SELECT `start_at` INTO p_next_window_start_at
         FROM `windows`
-        WHERE CURRENT_TIMESTAMP BETWEEN `start_at` AND `end_at`;
-    ELSE
-        SELECT *
-        FROM `windows`
-        WHERE CURRENT_TIMESTAMP <= `start_at`
+        WHERE `start_at` > CURRENT_TIMESTAMP
         ORDER BY `start_at`
         LIMIT 1;
+
+        SELECT DATE_FORMAT(p_next_window_start_at,
+        '%Y-%m-%d %H:%i:%s')  AS NextWindowStartTime;
+
+    ELSE
+        SELECT `start_at` INTO p_next_window_start_at
+        FROM `windows`
+        WHERE `start_at` > (SELECT `end_at` FROM `windows`           WHERE id = p_current_window_id)
+        ORDER BY `start_at`
+        LIMIT 1;
+
+       SELECT p_current_window_id AS CurrentWindowID,              DATE_FORMAT(p_next_window_start_at, 
+      '%Y-%m-%d %H:%i:%s') AS NextWindowStartTime;
     END IF;
 END$$
 
@@ -117,7 +144,7 @@ END$$
 
 DROP PROCEDURE IF EXISTS `InsertUserAnswers`$$
 CREATE PROCEDURE `InsertUserAnswers` (IN `windowId` INT, IN `userName` VARCHAR(255), IN `questionId` INT, IN `choiceId` INT)   BEGIN
-    INSERT INTO answers (window_id, users_username, question_id, choice_id)
+    INSERT INTO answers (window_id, user_username, questions_id, choice_id)
     VALUES (windowId, userName, questionId, choiceId);
 END$$
 
@@ -191,7 +218,8 @@ CREATE TABLE IF NOT EXISTS `answers` (
   PRIMARY KEY (`id`),
   KEY `fk_answers_questions1_idx` (`questions_id`),
   KEY `fk_answers_user1_idx` (`user_username`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb3;
+
 
 -- --------------------------------------------------------
 
@@ -209,9 +237,13 @@ CREATE TABLE IF NOT EXISTS `choices` (
   `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_choices_questions1_idx` (`questions_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8mb3;
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `questions`
+--
 
 DROP TABLE IF EXISTS `questions`;
 CREATE TABLE IF NOT EXISTS `questions` (
@@ -223,8 +255,11 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `windows_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_questions_windows1_idx` (`windows_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb3;
 
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sample-verification-images`
 --
 
@@ -234,10 +269,8 @@ CREATE TABLE IF NOT EXISTS `sample-verification-images` (
   `image` varchar(200) NOT NULL,
   `gender` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-
---
 -- Table structure for table `user-verification-images`
 --
 
@@ -251,13 +284,6 @@ CREATE TABLE IF NOT EXISTS `user-verification-images` (
   KEY `fk_user-verification-images_sample-verification-images1_idx` (`sample-verification-images_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
--- --------------------------------------------------------
-
---
 -- Table structure for table `windows`
 --
 
@@ -271,19 +297,17 @@ CREATE TABLE IF NOT EXISTS `windows` (
   `start_at` datetime NOT NULL,
   `end_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb3;
 
 -- Constraints for table `choices`
 --
 ALTER TABLE `choices`
   ADD CONSTRAINT `fk_choices_questions1` FOREIGN KEY (`questions_id`) REFERENCES `questions` (`id`);
-
 --
 -- Constraints for table `questions`
 --
 ALTER TABLE `questions`
   ADD CONSTRAINT `fk_questions_windows1` FOREIGN KEY (`windows_id`) REFERENCES `windows` (`id`);
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
