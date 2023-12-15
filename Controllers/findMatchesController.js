@@ -15,8 +15,8 @@ const findMatches = async (req, res) => {
       .json({ message: "your matches", matches: yourMatches });
   } catch (err) {
     console.log(err);
-    return res.status.json({
-      error: "error while matching user please try again",
+    return res.status(501).json({
+      error: "Error while matching user please try again",
     });
   }
 };
