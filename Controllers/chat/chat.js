@@ -151,6 +151,7 @@ const dbOperation = (body, operationType) => {
                         if (0) {
                             reject(new responseInstance(new status(1105), documentation[1105]), 'there is no chat with the given details');
                         } else {
+                            console.log(result)
                             resolve(result[0]);
                         }
                     }

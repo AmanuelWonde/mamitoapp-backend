@@ -35,10 +35,10 @@ module.exports = (req, res) => {
 
                     if (error) {
                         debug(error);
-                        reject(new status(7003, documentation[7003]), 'this is a backend issue');
+                        reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
                     } else {
                         if (result[0][0].status == 1015) {
-                            reject(new status(1015, documentation[1015]), 'user not registered');
+                            reject(new responseInstance(new status(1015, documentation[1015]), 'user not registered'));
                         } else {
                             resolve(result[0][0])
                         }
@@ -79,5 +79,5 @@ module.exports = (req, res) => {
         .then((body) => userVerification(body))
         .then((result) => passworValidation(result))
         .then((result) => sender(result))
-        .catch((error) => { res.send(error); debugg(error) });
+        .catch((error) => { res.send(error) });
 }
