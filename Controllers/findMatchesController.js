@@ -22,3 +22,15 @@ const findMatches = async (req, res) => {
 };
 module.exports = { findMatches };
 // if a user fails to get a matche in a window why do we save his answers
+// {"windowId": 5, "userName":amanuel, "myAnswers":  {
+//     questionId: 1,
+//     choiceId: 1,
+//   },
+//   {
+//     questionId: 2,
+//     choiceId: 2,
+//   },
+//   {
+//     questionId: 3,
+//     choiceId: 3,
+//   },}

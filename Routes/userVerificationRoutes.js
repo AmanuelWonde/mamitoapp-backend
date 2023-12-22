@@ -7,12 +7,11 @@ const {
   validateUser,
 } = require("../Controllers/userVerificationController");
 const { upload } = require("../Config/multerConfig");
-const { route } = require("./questionRoutes");
 const router = express.Router();
 
 router.post(
   "/add-sample-verification-image",
-  upload.single("image"),
+  upload("sampleVerificationImages").single("image"),
   addSampleVerifyImage
 );
 
@@ -20,7 +19,7 @@ router.get("/view-sample-images", viewSampleVerifyImages);
 
 router.post(
   "/verify-my-account",
-  upload.single("image"),
+  upload("verificationImages").single("image"),
   addUserVerificationImage
 );
 

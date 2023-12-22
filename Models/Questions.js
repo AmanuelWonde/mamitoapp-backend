@@ -96,6 +96,7 @@ class Questions {
           message: "success",
           data: {
             window: true,
+            windowId: windowId,
             nextWindowStartTime: currentWindow[0].NextWindowStartTime,
             questions: result[0],
           },
