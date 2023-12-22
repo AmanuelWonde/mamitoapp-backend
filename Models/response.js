@@ -1,7 +1,7 @@
 const documentation = require('../documentation/statusCodeDocumentation.json');
 
 class status {
-    constructor(code, discription) {
+    constructor(code) {
         this.code = code;
         this.discription = documentation[code];
     }
