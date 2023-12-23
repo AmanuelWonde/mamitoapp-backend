@@ -13,7 +13,7 @@ const mysql = require("mysql2/promise");
 //   keepAliveInitialDelay: 0,
 // });
 
-//server db configeration
+// server db configeration
 const pool = mysql.createPool({
   host: "localhost",
   user: "mamitogw_amanuelwonde",

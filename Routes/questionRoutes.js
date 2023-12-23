@@ -7,7 +7,7 @@ const {
 } = require("../Controllers/questionController");
 const router = express.Router();
 
-router.post("/add", upload.any(), addQuestions);
+router.post("/add", upload("choiceImages").any(), addQuestions);
 router.get("/:username", viewQuestions);
 
 module.exports = router;

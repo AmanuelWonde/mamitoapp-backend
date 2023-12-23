@@ -8,6 +8,7 @@ const findUserMatches = (userAnswers, allUserAnswers) => {
         user_username: currentMatchingId,
         matchPercentage: 0,
         profileImage: userData.profile_image,
+        name: userData.name,
       };
     }
 

@@ -10,7 +10,6 @@ const getWindows = async (req, res) => {
 };
 
 const updateWindow = async (req, res) => {
-  console.log("called");
   try {
     const result = await Window.updateWindow(req.body);
     if (result.message)

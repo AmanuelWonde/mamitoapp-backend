@@ -2,6 +2,11 @@
 const express = require("express");
 const router = express.Router();
 const { upload } = require("../Config/multerConfig");
+const {
+  addProfileImage,
+  deleteProfileImage,
+  viewProfileImage,
+} = require("../Controllers/profileImageController");
 
 router.post("/signup", require("../Middleware/user/signup"));
 

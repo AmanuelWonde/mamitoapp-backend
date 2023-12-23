@@ -101,3 +101,4 @@ const otherAnswers = [
 
 const yourMatches = findUserMatches(myAnswers, otherAnswers);
 console.log(yourMatches);
+
