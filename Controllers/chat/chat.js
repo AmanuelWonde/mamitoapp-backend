@@ -235,4 +235,4 @@ const sender = (result, operationType, res) => {
     }
 }
 
-module.exports = { schemaValidate, dbOperation, sender };
+module.exports = { schemaValidate, dbOperation, sender, };

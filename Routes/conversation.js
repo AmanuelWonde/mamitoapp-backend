@@ -13,4 +13,6 @@ router.delete('/delete', auth, require('../Middleware/conversation/deleteConvers
 
 router.get('/getall', auth, require('../Middleware/conversation/getConversations'));
 
+router.put('/updatestatus', auth, require('../Middleware/conversation/updateStatus'));
+
 module.exports = { router };

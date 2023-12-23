@@ -27,7 +27,6 @@ module.exports = (req, res) => {
 
                 connection.query(sql, values, (error, result) => {
                     if (error) {
-                        console.log(error);
                         reject(new responseInstance(new status(7002), 'this is a backend issue'));
                     } else {
                         if (result[0][0].status == 1051) {

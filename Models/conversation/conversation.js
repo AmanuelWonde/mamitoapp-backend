@@ -13,4 +13,9 @@ const deleteConversation = Joi.object({
     conversationId: Joi.number().integer().positive().required
 });
 
-module.exports = { newConversation, getConversation, deleteConversation };
+const updateConversation = Joi.object({
+    id: Joi.number().required(),
+    op: Joi.string().required()
+})
+
+module.exports = { newConversation, getConversation, deleteConversation, updateConversation };
