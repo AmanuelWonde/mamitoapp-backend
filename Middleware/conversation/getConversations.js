@@ -32,7 +32,6 @@ module.exports = (req, res) => {
 
                 connection.query(sql, values, (error, result, fields) => {
                     connection.release();
-
                     if (error) {
                         debug(`Error: ${error}`);
                         reject(new responseInstance(new status(7003, documentation[7003]), error));

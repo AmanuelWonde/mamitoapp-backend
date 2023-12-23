@@ -55,7 +55,7 @@ const op1 = (body) => {
 }
 
 const sender = (result, res) => {
-    if (result.status == 1040 || result.status == 1041) {
+    if (result.status.code == 1040 || result.status.code == 1041) {
         res.send(result);
         io.emit(result.content.receiver, result);
     } else {
