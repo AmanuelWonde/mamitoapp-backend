@@ -6,8 +6,7 @@ const addProfileImage = async (req, res) => {
     const imagePath = req.file.filename;
 
     const addImage = await ProfileImages.add(imagePath, userName);
-    if (addImage.message)
-      return res.status(201).json({ message: addImage.message });
+    if (addImage.message) return res.status(201).json(addImage);
     return res
       .status(501)
       .json({ error: "Faild to add profile image  please try again!" });

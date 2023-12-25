@@ -2,13 +2,19 @@ const pool = require("../Config/dbConfig");
 class ProfileImages {
   static async add(image, username) {
     try {
-      const [addProfile] = await pool.query(`CALL AddProfileImage(?, ?)`, [
-        image,
-        username,
-      ]);
-      console.log(addProfile.affectedRows);
+      const [addProfile] = await pool.query(
+        `CALL AddProfileImage(?, ?, @image_id)`,
+        [image, username]
+      );
+      const [getImageId] = await pool.query("SELECT @image_id AS imageId");
+      const imageId = getImageId[0].imageId;
+
       if (addProfile.affectedRows)
-        return { message: "profile image added successfully." };
+        return {
+          message: "profile image added successfully.",
+          id: imageId,
+          image: image,
+        };
       return { error: "Faild to add profile image!" };
     } catch (err) {
       console.log(err);
