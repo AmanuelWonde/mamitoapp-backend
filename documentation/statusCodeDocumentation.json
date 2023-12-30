@@ -35,6 +35,8 @@
     "1204": "message retrived",
     "1205": "found edits",
     "1301": "typing...",
+    "5001": "not token are provided",
+    "5002": "the provided token is not valid",
     "6001": "invalid json content",
     "6010": "unable to gererate salt",
     "6011": "unable to hash a password",

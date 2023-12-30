@@ -68,9 +68,20 @@ module.exports = (req, res) => {
     }
 
     const sender = (body) => {
+        console.log(body);
         const auth_token = JWT.sign({
             username: body.username,
+            name: body.name,
+            gender: body.gender,
             birthdate: body.birthdate,
+            phone: body.phone,
+            bio: body.bio,
+            religion: body.religion,
+            changeOneSelf: body.changeOneSelf,
+            longitude: body.longitude,
+            latitude: body.latitude,
+            "created-at": body["created-at"],
+            "updated-at": body["updated-at"]
         }, 'hiruy');
         res.setHeader('auth-token', auth_token).send(new responseInstance(new status(1013, documentation[1013]), body));
     }

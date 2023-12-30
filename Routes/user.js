@@ -1,6 +1,8 @@
 // express router declaretion
 const express = require("express");
 const router = express.Router();
+const auth = require('../Middleware/auth/auth');
+
 const { upload } = require("../Config/multerConfig");
 const {
   addProfileImage,
@@ -12,26 +14,23 @@ router.post("/signup", require("../Middleware/user/signup"));
 
 router.post("/login", require("../Middleware/user/login"));
 
-router.put("/update", require("../Middleware/user/update"));
+router.put("/update", auth, require("../Middleware/user/update"));
 
-router.post(
-  "/rcvfill",
-  require("../Middleware/user/passwordRecoveryQuestionsFill")
-);
+router.post("/rcvfill", auth, require("../Middleware/user/passwordRecoveryQuestionsFill"));
 
-router.put("/changepassword", require("../Middleware/user/changepassword"));
+router.put("/changepassword", auth, require("../Middleware/user/changepassword"));
 
-router.get("/getrcvqst", require("../Middleware/user/getRcvQst"));
+router.get("/getrcvqst", auth, require("../Middleware/user/getRcvQst"));
 
 router.put("/forgotpassword", require("../Middleware/user/forgotpassword"));
 
 router.post(
-  "/profileimageupload",
+  "/profileimageupload", auth,
   upload("profileImages").single("profileImage"),
   addProfileImage
 );
 
-router.post("/deleteprofileimage", deleteProfileImage);
-router.get("/viewprofileimages/:userName", viewProfileImage);
+router.post("/deleteprofileimage", auth, deleteProfileImage);
+router.get("/viewprofileimages/:userName", auth, viewProfileImage);
 
 module.exports = { router };

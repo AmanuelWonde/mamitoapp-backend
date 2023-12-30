@@ -23,10 +23,16 @@ module.exports = (req, res, next) => {
         return new Promise((resolve, reject) => {
             try {
                 const verification = JWT.verify(token, 'hiruy');
-                resolve(verification);
+
+                confirmation = true ? req.header('auth-username') == verification.username : false;
+                if (confirmation) {
+                    resolve(confirmation);
+                } else {
+                    reject(new rosponseInstance(new status(5002), 'use a valid token in order to get services'))
+                }
             } catch (error) {
                 debug(error);
-                reject(new responseInstance(new status(5002, 'verification failed'), 'use a valid token in order to get services'));
+                reject(new responseInstance(new status(5002), 'use a valid token in order to get services'));
             }
         })
     }
