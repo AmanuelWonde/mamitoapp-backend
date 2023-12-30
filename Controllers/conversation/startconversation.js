@@ -58,7 +58,8 @@ const insertConversation = (body) => {
 
 const sender = (result, res) => {
     res.send(new responseInstance(new status(1020, documentation[1020]), result));
-    io.emit('new_conversation', 1, 'abelmaireg');
+    console.log(result);
+    io.emit(result["user-2"], result);
 }
 
 module.exports = { sender, insertConversation, p1 }
