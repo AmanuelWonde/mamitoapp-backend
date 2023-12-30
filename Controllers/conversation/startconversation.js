@@ -58,7 +58,6 @@ const insertConversation = (body) => {
 
 const sender = (result, res) => {
     res.send(new responseInstance(new status(1020, documentation[1020]), result));
-    console.log(result);
     io.emit(result["user-2"], result);
 }
 

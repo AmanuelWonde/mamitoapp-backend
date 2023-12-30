@@ -5,5 +5,5 @@ module.exports = (req, res) => {
     p1(req)
         .then((body) => insertConversation(body))
         .then((result) => sender(result, res))
-        .catch((error) => { console.log(error); res.send(error) });
+        .catch((error) => { res.send(error) });
 }
