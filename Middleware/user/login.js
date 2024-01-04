@@ -68,7 +68,6 @@ module.exports = (req, res) => {
     }
 
     const sender = (body) => {
-        console.log(body);
         const auth_token = JWT.sign({
             username: body.username,
             name: body.name,
