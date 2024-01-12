@@ -18,9 +18,9 @@ router.put("/update", auth, require("../Middleware/user/update"));
 
 router.post("/rcvfill", auth, require("../Middleware/user/passwordRecoveryQuestionsFill"));
 
-router.put("/changepassword", auth, require("../Middleware/user/changepassword"));
+router.put("/changepassword", require("../Middleware/user/changepassword"));
 
-router.get("/getrcvqst", auth, require("../Middleware/user/getRcvQst"));
+router.post("/getrcvqst", require("../Middleware/user/getRcvQst"));
 
 router.put("/forgotpassword", require("../Middleware/user/forgotpassword"));
 
