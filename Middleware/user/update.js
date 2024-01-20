@@ -1,5 +1,5 @@
 // module imports and configs
-
+const JWT = require('jsonwebtoken');
 
 // mysql configurations
 const db = require('../../Config/config');
@@ -47,7 +47,7 @@ module.exports = (req, res) => {
     }
 
     let sender = (result) => {
-        res.send(new responseInstance(new status(1030), result));
+        res.setHeader('auth-token', JWT.sign(result, "hiruy")).send(new responseInstance(new status(1030), result));
     }
 
     p1
