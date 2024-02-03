@@ -64,4 +64,9 @@ const getRcvQst = Joi.object({
   username: Joi.string().required()
 })
 
-module.exports = { userSchema, loggerSchema, userUpdateSchema, questionFillSchema, changePassword, forgotPassword, getRcvQst };
+const updateVerification = Joi.object({
+  username: Joi.string().required(),
+  verfication: Joi.boolean().required(),
+})
+
+module.exports = { userSchema, loggerSchema, userUpdateSchema, questionFillSchema, changePassword, forgotPassword, getRcvQst, updateVerification };
