@@ -16,6 +16,8 @@ router.post("/login", require("../Middleware/user/login"));
 
 router.put("/update", auth, require("../Middleware/user/update"));
 
+// router.put("/updateverified", require("../Middleware/user/updateVerfied"));
+
 router.post("/rcvfill", auth, require("../Middleware/user/passwordRecoveryQuestionsFill"));
 
 router.put("/changepassword", require("../Middleware/user/changepassword"));
