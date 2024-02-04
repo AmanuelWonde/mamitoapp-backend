@@ -68,6 +68,7 @@ module.exports = (req, res) => {
     }
 
     const sender = (body) => {
+        console.log(body);
         const auth_token = JWT.sign({
             username: body.username,
             name: body.name,
@@ -79,6 +80,7 @@ module.exports = (req, res) => {
             changeOneSelf: body.changeOneSelf,
             longitude: body.longitude,
             latitude: body.latitude,
+            verfied: body.verified,
             "created-at": body["created-at"],
             "updated-at": body["updated-at"]
         }, 'hiruy');

@@ -4,6 +4,6 @@ module.exports = (req, res) => {
 
     validateSchema(req)
         .then((body) => update(body))
-        .then(() => sender(req, res))
+        .then((result) => sender(req, res, result))
         .catch((error) => res.send(error));
 }

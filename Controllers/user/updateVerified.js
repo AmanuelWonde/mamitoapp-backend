@@ -47,21 +47,17 @@ const update = (body) => {
                     reject(new responseInstance(new status(7002, documentation[7002]), 'this is a backend issue'));
                     return;
                 } else {
-                    if (result[0][0].status == 1032) {
-                        resolve(result[0][0]);
-                    } else {
-                        reject(new responseInstance(new status(result[0][0].status), "verification removed"));
-                    }
+                    resolve(result[0][0]);
                 }
             });
         })
     })
 }
 
-const sender = (req, res) => {
-    res.status(200).send(new responseInstance(new status(1032), "verification updated"));
+const sender = (req, res, result) => {
+    res.status(200).send(new responseInstance(new status(result.status), "verification updated"));
     console.log(req.body.username);
-    io.emit(req.body.username, new responseInstance(new status(1032), "verification updated"));
+    io.emit(req.body.username, new responseInstance(new status(result.status), "verification updated"));
 }
 
 module.exports = { validateSchema, update, sender };
