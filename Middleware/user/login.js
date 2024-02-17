@@ -67,8 +67,31 @@ module.exports = (req, res) => {
         })
     }
 
+    const deviceId = (body) => {
+        return new Promise((resolve, reject) => {
+            db.getConnection((error, connection) => {
+                if (error) {
+                    debug(`Error: ${error}`);
+                    reject(new responseInstance(new status(7001, documentation[7001]), 'this is backend issue'));
+                }
+
+                const sql = 'CALL InsertDeviceId(?, ?)';
+                const values = [body.username, req.header("deviceId")];
+
+                connection.query(sql, values, (error, result) => {
+                    connection.release();
+
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        resolve(body);
+                    }
+                })
+            })
+        })
+    }
+
     const sender = (body) => {
-        console.log(body);
         const auth_token = JWT.sign({
             username: body.username,
             name: body.name,
@@ -84,12 +107,13 @@ module.exports = (req, res) => {
             "created-at": body["created-at"],
             "updated-at": body["updated-at"]
         }, 'hiruy');
-        res.setHeader('auth-token', auth_token).send(new responseInstance(new status(1013, documentation[1013]), body));
+        res.setHeader('auth-token', auth_token).send(new responseInstance(new status(1013), body));
     }
 
     p1
         .then((body) => userVerification(body))
         .then((result) => passworValidation(result))
+        .then((result) => deviceId(result))
         .then((result) => sender(result))
         .catch((error) => { res.send(error) });
 }

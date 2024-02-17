@@ -38,6 +38,7 @@ const insertConversation = (body) => {
 
             connection.query(sql, values, (error, result, fields) => {
                 connection.release();
+                
                 if (error) {
                     debug(`Error: ${error}`);
                     reject(new responseInstance(new status(7002, documentation[7002]), 'this is a backend issue'));

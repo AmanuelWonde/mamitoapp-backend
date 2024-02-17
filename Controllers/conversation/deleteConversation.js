@@ -49,7 +49,7 @@ const deleteConversation = (body) => {
                     if (result[0][0].status == 1024) {
                         reject(new responseInstance(new status(1024, documentation[1024]), "the coversation with the user does not exit"));
                     } else {
-                        resolve(result[0][0].username);
+                        resolve({ username: result[0][0].username, body: body });
                     }
                 }
             });
@@ -57,9 +57,9 @@ const deleteConversation = (body) => {
     })
 }
 
-const sender = (res, username) => {
-    res.status(200).send(new responseInstance(new status(1025), "everything which is subordinate to the conversation is permanently deleted."));
-    io.emit(username, new responseInstance(new status(1025), "everything which is subordinate to the conversation is permanently deleted."));
+const sender = (res, result) => {
+    res.status(200).send(new responseInstance(new status(1025), result.body));
+    io.emit(result.username, new responseInstance(new status(1025), result.body));
 }
 
 module.exports = { p1, deleteConversation, sender }; 

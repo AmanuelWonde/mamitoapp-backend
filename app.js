@@ -32,6 +32,15 @@ io.on("connection", (socket) => {
   });
 });
 
+let { initializeApp, applicationDefault } = require('firebase-admin/app');
+let { getMessaging } = require('firebase-admin/messaging');
+let serviceAccount = require('./Config/mamito-c049d-firebase-adminsdk-t69eo-78f810f08c.json')
+
+initializeApp({
+    credential: applicationDefault(),
+    projectId: 'mamito-c049d'
+})
+
 app.use("/user", require("./Routes/user").router);
 app.use("/conversation", require("./Routes/conversation").router);
 app.use("/chats", require("./Routes/chat").router);
@@ -46,4 +55,4 @@ server.listen(3000, "0.0.0.0", () => {
   console.log("server started");
 });
 
-module.exports = { io };
+module.exports = { io, getMessaging };
