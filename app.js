@@ -32,14 +32,17 @@ io.on("connection", (socket) => {
   });
 });
 
-let { initializeApp, applicationDefault } = require('firebase-admin/app');
-let { getMessaging } = require('firebase-admin/messaging');
-let serviceAccount = require('./Config/mamito-c049d-firebase-adminsdk-t69eo-78f810f08c.json')
+// let { initializeApp, applicationDefault } = require('firebase-admin/app');
+// let { getMessaging } = require('firebase-admin/messaging');
 
-initializeApp({
-    credential: applicationDefault(),
-    projectId: 'mamito-c049d'
-})
+// initializeApp({
+//     credential: applicationDefault(),
+//     projectId: 'mamito-c049d'
+// })
+
+const FCM = require('fcm-node');
+const serverKey = 'AAAAToRy9cA:APA91bEC4cBdt5QkicMBLfakStE4p7fSg1moUMBoEkGP5GmHxHEe8fPl3aQShFkx30h6_gYXeZhaoPCJSVRhgbNHdc_MTiTb1Yhbh3piwHyMgOc4azrOe_CxxY3hsDGj-bYBADBiBrsx';
+const fcm = new FCM(serverKey);
 
 app.use("/user", require("./Routes/user").router);
 app.use("/conversation", require("./Routes/conversation").router);
@@ -55,4 +58,4 @@ server.listen(3000, "0.0.0.0", () => {
   console.log("server started");
 });
 
-module.exports = { io, getMessaging };
+module.exports = { io, fcm};

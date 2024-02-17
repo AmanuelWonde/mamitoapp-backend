@@ -2,12 +2,13 @@
 const db = require('../../Config/config');
 
 // socket configurations
-const { io } = require('../../app');
+const { io, fcm } = require('../../app');
 
 // component imports
 const { status, responseInstance } = require('../../Models/response');
 const { updateConversation } = require('../../Models/conversation/conversation');
 const documentation = require('../../documentation/statusCodeDocumentation.json');
+const getFCMtoken = require('../../Controllers/getFCMtoken');
 
 const p1 = (req) => {
     return new Promise((resolve, reject) => {
@@ -23,7 +24,6 @@ const p1 = (req) => {
 }
 
 const op1 = (body) => {
-    const debug = require('debug')('upcon:op1');
     return new Promise((resolve, reject) => {
         db.getConnection((error, connection) => {
             if (error) {
@@ -37,7 +37,6 @@ const op1 = (body) => {
             connection.query(sql, values, (error, result) => {
                 connection.release();
                 if (error) {
-                    debug(`Error: ${error}`);
                     reject(new responseInstance(new status(7002, documentation[7002]), 'this is a backend issue'));
                 } else {
                     if (result[0][0].status == 1040) {
@@ -55,7 +54,20 @@ const op1 = (body) => {
 }
 
 const sender = (result, res) => {
-    if (result.status.code == 1040 || result.status.code == 1041) {
+    console.log(result)
+    
+    if (result.status.code == 1040) {
+        fcm.send({
+            notification: {
+                title: "request accepted",
+                body: result.content.sender
+            },
+            to: getFCMtoken(result.content.receiver)
+        }, (err, response) => {
+                res.send(result);
+                io.emit(result.content.receiver, result);
+        })
+    } else if (result.status.code == 1041) {
         res.send(result);
         io.emit(result.content.receiver, result);
     } else {

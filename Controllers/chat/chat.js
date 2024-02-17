@@ -2,12 +2,13 @@
 const db = require('../../Config/config');
 
 // socket.io configurations
-const { io, getMessaging } = require('../../app');
+const { io, fcm } = require('../../app');
 
 // model imports
 const { status, responseInstance } = require('../../Models/response');
 const { chatSchema, chatEditSchema, chatDeleteSchema, chatGetSchema, chatGetEdits, chatGet20Schema, chatMar } = require('../../Models/chat/chat');
 const documentation = require('../../documentation/statusCodeDocumentation.json');
+const getFCMtoken = require('../../Controllers/getFCMtoken');
 
 const schemaValidate = (req, schema) => {
 
@@ -203,32 +204,6 @@ const dbOperation = (body, operationType) => {
     })
 };
 
-function getToken(username) {
-    return new Promise((resolve, reject) => {
-        db.getConnection((error, connection) => {
-            if (error) {
-                debug(`Error: ${error}`);
-                reject(new responseInstance(new status(7001, documentation[7001]), 'this is backend issue'));
-                return; // Ensure to return here to avoid executing further code
-            }
-
-            const sql = 'CALL GetDeviceId(?)';
-            const values = [username];
-
-            connection.query(sql, values, (error, result) => {
-                connection.release(); // Release the connection after querying
-                if (error) {
-                    reject(error); // Reject with the database error
-                    return;
-                }
-                // Resolve with the deviceId if available
-                resolve(result[0][0].deviceId);
-            });
-        });
-    });
-}
-
-
 const sender = (result, operationType, res) => {
     const statusCode =
         operationType == 'insert' ? 1201 :
@@ -241,18 +216,19 @@ const sender = (result, operationType, res) => {
                                     1208;
 
     if (operationType == 'insert') {
-        io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
-        
-        getMessaging().send({
-            notification: result,
-            token: getToken(result.receiver)
+        fcm.send({
+            notification: {
+                title: "new message",
+                body: result.sender
+            },
+            data: {
+                message: result.message
+            },
+            to: getFCMtoken(result.receiver)
+        }, (err, response) => {
+            res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));        
+            io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
         })
-            .then((response) => {
-                res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));        
-                console.log('successful', response);
-            }).catch((error) => {
-                console.log(error);
-            })
     } else if (operationType == 'edit') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
         io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
