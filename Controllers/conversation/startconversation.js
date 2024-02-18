@@ -60,14 +60,13 @@ const sender = (result, res) => {
     res.send(new responseInstance(new status(1020), result));
     io.emit(result["user-2"], new responseInstance(new status(1020), result));
     
-    getFCMtoken(result['user-2']).then(id => {
-        console.log(id);
+    getFCMtoken(result['user-2']).then(fcmToken => {
         fcm.send({
             notification: {
                 title: "new request",
                 body: result["user-1"]
             },
-            to: id
+            to: fcmToken
         }, (err, response) => {
                 if (err) console.log(err)
                 else console.log(response)

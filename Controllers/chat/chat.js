@@ -218,6 +218,7 @@ const sender = (result, operationType, res) => {
     if (operationType == 'insert') {
         io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
+        
         getFCMtoken(result.receiver).then(fcmToken => {
             fcm.send({
                 notification: {
@@ -225,6 +226,7 @@ const sender = (result, operationType, res) => {
                     body: result.sender
                 },
                 data: {
+                    sender: result.sender,
                     message: result.message
                 },
                 to: fcmToken
