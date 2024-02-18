@@ -71,7 +71,7 @@ const sender = (result, res) => {
         res.send(result);
         io.emit(result.content.receiver, result);
     } else {
-        res.send(result);
+        res.send(result); 
     }
 }
 
