@@ -8,7 +8,7 @@ const { io, fcm } = require('../../app');
 const { status, responseInstance } = require('../../Models/response');
 const { updateConversation } = require('../../Models/conversation/conversation');
 const documentation = require('../../documentation/statusCodeDocumentation.json');
-const getFCMtoken = require('../../Controllers/getFCMtoken');
+const { getFCMtoken } = require('../getFCMtoken');
 
 const p1 = (req) => {
     return new Promise((resolve, reject) => {
@@ -54,24 +54,28 @@ const op1 = (body) => {
 }
 
 const sender = (result, res) => {
-    console.log(result)
     
     if (result.status.code == 1040) {
-        fcm.send({
-            notification: {
-                title: "request accepted",
-                body: result.content.sender
-            },
-            to: getFCMtoken(result.content.receiver)
-        }, (err, response) => {
-                res.send(result);
-                io.emit(result.content.receiver, result);
+        res.send(result);
+        io.emit(result.content.receiver, result);
+
+        getFCMtoken(result.content.receiver).then(fcmToken => {
+            fcm.send({
+                notification: {
+                    title: "request accepted",
+                    body: result.content.sender
+                },
+                to: fcmToken
+            }, (err, response) => {
+                if (err) console.log(err)
+                else console.log(response)
+            })
         })
     } else if (result.status.code == 1041) {
         res.send(result);
         io.emit(result.content.receiver, result);
     } else {
-        res.send(result); 
+        res.send(result);
     }
 }
 

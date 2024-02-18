@@ -8,7 +8,7 @@ const { io, fcm } = require('../../app');
 const { status, responseInstance } = require('../../Models/response');
 const { chatSchema, chatEditSchema, chatDeleteSchema, chatGetSchema, chatGetEdits, chatGet20Schema, chatMar } = require('../../Models/chat/chat');
 const documentation = require('../../documentation/statusCodeDocumentation.json');
-const getFCMtoken = require('../../Controllers/getFCMtoken');
+const { getFCMtoken } = require('../../Controllers/getFCMtoken');
 
 const schemaValidate = (req, schema) => {
 
@@ -216,19 +216,23 @@ const sender = (result, operationType, res) => {
                                     1208;
 
     if (operationType == 'insert') {
-        fcm.send({
-            notification: {
-                title: "new message",
-                body: result.sender
-            },
-            data: {
-                message: result.message
-            },
-            to: getFCMtoken(result.receiver)
-        }, (err, response) => {
-            res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));        
-            io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
-        })
+        io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
+        res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
+        getFCMtoken(result.receiver).then(fcmToken => {
+            fcm.send({
+                notification: {
+                    title: "new message",
+                    body: result.sender
+                },
+                data: {
+                    message: result.message
+                },
+                to: fcmToken
+            }, (err, response) => {
+                if (err) console.log(err)
+                else console.log(response)
+            })
+        })    
     } else if (operationType == 'edit') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
         io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));

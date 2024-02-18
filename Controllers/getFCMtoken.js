@@ -1,11 +1,9 @@
-function getToken(username) {
+// mysql configurations
+const db = require('../Config/config');
+
+function getFCMtoken(username) {
     return new Promise((resolve, reject) => {
         db.getConnection((error, connection) => {
-            if (error) {
-                debug(`Error: ${error}`);
-                reject(new responseInstance(new status(7001, documentation[7001]), 'this is backend issue'));
-                return;
-            }
 
             const sql = 'CALL GetDeviceId(?)';
             const values = [username];
@@ -14,10 +12,11 @@ function getToken(username) {
                 connection.release();
                 if (error) {
                     reject(error);
-                    return;
                 }
                 resolve(result[0][0].deviceId);
             });
         });
     });
 }
+
+module.exports = { getFCMtoken }

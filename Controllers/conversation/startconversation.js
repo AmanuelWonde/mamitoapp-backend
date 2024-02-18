@@ -8,10 +8,8 @@ const { io, fcm} = require('../../app');
 const { status, responseInstance } = require('../../Models/response');
 const { newConversation } = require('../../Models/conversation/conversation');
 const documentation = require('../../documentation/statusCodeDocumentation.json');
-const getFCMtoken = require('../../Controllers/getFCMtoken');
+const { getFCMtoken } = require('../getFCMtoken');
 
-
-const debugg = require('debug')('startconversation');
 const p1 = (req) => {
     return new Promise((resolve, reject) => {
         const debug = require('debug')('startconversation:p1');
@@ -59,16 +57,23 @@ const insertConversation = (body) => {
 }
 
 const sender = (result, res) => {
-    fcm.send({
-        notification: {
-            title: "new request",
-            body: result["user-1"]
-        },
-        to: getFCMtoken(result["user-2"])
-    }, (err, response) => {
-            res.send(new responseInstance(new status(1020), result));
-            io.emit(result["user-2"], new responseInstance(new status(1020), result));
-    })
+    res.send(new responseInstance(new status(1020), result));
+    io.emit(result["user-2"], new responseInstance(new status(1020), result));
+    
+    getFCMtoken(result['user-2']).then(id => {
+        console.log(id);
+        fcm.send({
+            notification: {
+                title: "new request",
+                body: result["user-1"]
+            },
+            to: id
+        }, (err, response) => {
+                if (err) console.log(err)
+                else console.log(response)
+        })
+    });
+
 }
 
 module.exports = { sender, insertConversation, p1 }
