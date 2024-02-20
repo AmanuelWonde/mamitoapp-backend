@@ -229,6 +229,9 @@ const sender = (result, operationType, res) => {
                     sender: result.sender,
                     message: result.message
                 },
+                android: {
+                    priority: 'high',
+                },
                 to: fcmToken
             }, (err, response) => {
                 if (err) console.log(err)

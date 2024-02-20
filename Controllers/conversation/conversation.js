@@ -65,6 +65,9 @@ const sender = (result, res) => {
                     title: "request accepted",
                     body: result.content.sender
                 },
+                android: {
+                    priority: 'high',
+                },
                 to: fcmToken
             }, (err, response) => {
                 if (err) console.log(err)
