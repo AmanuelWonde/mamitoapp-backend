@@ -24,6 +24,10 @@ router.put("/changepassword", require("../Middleware/user/changepassword"));
 
 router.post("/getrcvqst", require("../Middleware/user/getRcvQst"));
 
+router.post("/profiledatapush", auth, require('../Middleware/user/profileDataPush'));
+
+router.get("/getprofiledata", auth, require('../Middleware/user/getProfileData'));
+
 router.put("/forgotpassword", require("../Middleware/user/forgotpassword"));
 
 router.post(
