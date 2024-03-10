@@ -16,10 +16,6 @@ module.exports = (req, res) => {
                     reject(new responseInstance(new status(7001), 'this is backend issue'));
                 }
 
-                // const sql = 'CALL insertProfileData(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-                // const values = [body.username, body.employmentStatus, body.rangeOfSearch, body.rightPath, body.careFree, body.innocent, body.lowKey, body.organized, body.onGoing, body.tense];
-
-                
                 let sql = 'CALL getProfileData(?)';
                 let values = [body.username];
 
