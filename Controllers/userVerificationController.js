@@ -28,6 +28,23 @@ const viewSampleVerifyImages = async (req, res) => {
   } catch (error) {}
 };
 
+const deleteSampleImage = async (req, res) => {
+  try {
+    const deleteImage = await UserVerification.deleteSampleImage(req.body.id);
+    if (deleteImage)
+      return res
+        .status(200)
+        .json({ message: "deleted successfully", deleted: true });
+    else
+      return res
+        .status(500)
+        .json({ message: "faild to delete image", deleted: true });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "faild to delete image", deleted: true });
+  }
+};
 const addUserVerificationImage = async (req, res) => {
   try {
     const { sampleImageId, username } = req.body;
@@ -81,9 +98,11 @@ const validateUser = async (req, res) => {
       .json({ error: "faild to valideate user please try again!" });
   }
 };
+
 module.exports = {
   addSampleVerifyImage,
   viewSampleVerifyImages,
+  deleteSampleImage,
   addUserVerificationImage,
   viewUserVerificationImages,
   validateUser,

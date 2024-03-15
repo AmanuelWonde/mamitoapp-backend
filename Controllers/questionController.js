@@ -45,6 +45,7 @@ const viewQuestions = async (req, res) => {
       .json({ error: "Internal server error please try again!" });
   }
 };
+
 const adminViewQuestions = async (req, res) => {
   try {
     const windowId = req.params.windowId;
@@ -61,4 +62,33 @@ const adminViewQuestions = async (req, res) => {
   }
 };
 
-module.exports = { addQuestions, viewQuestions, adminViewQuestions };
+const updateQuestions = async (req, res) => {
+  try {
+    const updateQuestions = await Questions.updateQuestions(
+      req.body.questions,
+      req.files.images
+    );
+    if (updateQuestions.updated)
+      return res
+        .status(200)
+        .json({ message: "updated successfully.", updated: true });
+    else {
+      return res.status(501).json({
+        message: "can't update questions please try again!",
+        updated: false,
+      });
+    }
+  } catch (error) {
+    return res.status(501).json({
+      message: "can't update questions please try again!",
+      updated: false,
+    });
+  }
+};
+
+module.exports = {
+  addQuestions,
+  viewQuestions,
+  adminViewQuestions,
+  updateQuestions,
+};

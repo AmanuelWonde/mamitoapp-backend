@@ -20,7 +20,14 @@ class UserVerification {
       return { err: "Can't retriev sample images please try again." };
     }
   }
-
+  static async deleteSampleImage(id) {
+    try {
+      await pool.query(`CALL DeleteSampleImage(?)`, [id]);
+      return { deleted: true };
+    } catch (error) {
+      return { deleted: false };
+    }
+  }
   static async addUserVerificationImage(image, sampleImageId, username) {
     try {
       await pool.query(`CALL AddVerificationImage(?, ?, ?)`, [
