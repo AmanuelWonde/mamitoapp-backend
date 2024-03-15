@@ -1,9 +1,10 @@
 const pool = require("../Config/dbConfig");
+const deleteImage = require("../utils/deleteImage");
+
 class Questions {
   static async addQuestions(questions, images, windowName, startDate, endDate) {
     try {
       await pool.query("START TRANSACTION");
-
       await pool.query(`CALL InsertWindow (?, ?, ?, @insertedId)`, [
         windowName,
         startDate,
@@ -13,7 +14,6 @@ class Questions {
       const [windowIdResult] = await pool.query(
         "SELECT @insertedId AS inserted_id"
       );
-
       const windowId = windowIdResult[0].inserted_id;
 
       for (let i = 0; i < questions.length; i++) {
@@ -34,14 +34,12 @@ class Questions {
         const choices = questions[i].choices;
 
         for (let j = 0; j < choices.length; j++) {
-          const choice = choices[j].name;
+          const choice = choices[j].choice;
           let image;
-
           const findImage = images.find(
             (element) =>
               element.fieldname === `questions[${i}][choices][${j}][image]`
           );
-
           if (findImage) {
             image = findImage.filename;
           } else {
@@ -127,9 +125,55 @@ class Questions {
       return { err: "Can't retriev questions please try again!" };
     }
   }
-}
-module.exports = Questions;
-//To add questions: [{question: car or dog,value:9, choices: [cat, dog]}]
 
-//Sample to send questions: {message: "all questions", questions: [{question: "dog or cat", id: 2, choices: [{id: 1, choice: dog}]}]}
-// select all from the questions table where win_id = 1 left join choices on  questionId = quesId and windwId
+  static async updateQuestions(questions, images) {
+    try {
+      await pool.query("START TRANSACTION");
+      for (let i = 0; i < questions.length; i++) {
+        await pool.query(`CALL UpdateQuestion(?, ?, ?)`, [
+          questions[i].id,
+          questions[i].question,
+          questions[i].value,
+        ]);
+
+        //update choice
+        let choices = questions[i].choices;
+        for (let j = 0; j < choices.length; j++) {
+          const choice = choices[j].choice;
+          const id = choices[j].id;
+          let image;
+          let findImage = false;
+
+          if (images) {
+            findImage = images.find(
+              (element) =>
+                element.fieldname === `questions[${i}][choices][${j}][image]`
+            );
+          }
+          if (findImage) {
+            image = findImage.filename;
+            let deleteImage = deleteImage(
+              `questions[${i}][choices][${j}][image]`
+            );
+            if (!deleteImage.deleted && !deleteImage.imageExist) {
+              await pool.query("ROLLBACK");
+              return deleteImage.message;
+            }
+          } else {
+            image = choices[j].image;
+          }
+
+          await pool.query(`CALL UpdateChoice (?, ?, ?)`, [id, choice, image]);
+        }
+      }
+      await pool.query("COMMIT");
+      return { updated: true };
+    } catch (error) {
+      console.log(error);
+      await pool.query("ROLLBACK");
+      return { err: "Error while updating a question!", updated: false };
+    }
+  }
+}
+
+module.exports = Questions;
