@@ -127,6 +127,7 @@ class Questions {
   }
 
   static async updateQuestions(questions, images) {
+    console.log(images);
     try {
       await pool.query("START TRANSACTION");
       for (let i = 0; i < questions.length; i++) {
@@ -141,26 +142,14 @@ class Questions {
         for (let j = 0; j < choices.length; j++) {
           const choice = choices[j].choice;
           const id = choices[j].id;
-          let image;
-          let findImage = false;
+          let image = choices[j].image;
 
-          if (images) {
-            findImage = images.find(
-              (element) =>
-                element.fieldname === `questions[${i}][choices][${j}][image]`
-            );
-          }
+          const findImage = images.find(
+            (element) =>
+              element.fieldname === `questions[${i}][choices][${j}][image]`
+          );
           if (findImage) {
             image = findImage.filename;
-            let deleteImage = deleteImage(
-              `questions[${i}][choices][${j}][image]`
-            );
-            if (!deleteImage.deleted && !deleteImage.imageExist) {
-              await pool.query("ROLLBACK");
-              return deleteImage.message;
-            }
-          } else {
-            image = choices[j].image;
           }
 
           await pool.query(`CALL UpdateChoice (?, ?, ?)`, [id, choice, image]);

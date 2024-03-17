@@ -66,7 +66,7 @@ const updateQuestions = async (req, res) => {
   try {
     const updateQuestions = await Questions.updateQuestions(
       req.body.questions,
-      req.files.images
+      req.files
     );
     if (updateQuestions.updated)
       return res
