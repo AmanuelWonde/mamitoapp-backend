@@ -29,6 +29,22 @@ class Window {
       return { error: "Faild to update Window please try again" };
     }
   }
+
+  static async deleteWindow(windowId) {
+    try {
+      const [result] = await pool.query(`CALL DeleteWindow(?)`, [windowId]);
+      if (result.affectedRows > 0) {
+        console.log(result);
+        return { message: "Window deleted successfully." };
+      } else {
+        console.log(result);
+        return { error: "Failed to delete Window, please try again" };
+      }
+    } catch (err) {
+      console.log(err);
+      return { error: "Failed to delete Window, please try again" };
+    }
+  }
 }
 
 module.exports = Window;

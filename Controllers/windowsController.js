@@ -18,8 +18,22 @@ const updateWindow = async (req, res) => {
     return res.status(501).json({ error: result.error });
   } catch (error) {
     console.log(error);
-    return res.status(501).json({ error: "Faild to update window!" });
+    return res.status(501).json({ error: "Failed to update window!" });
   }
 };
 
-module.exports = { getWindows, updateWindow };
+const deleteWindow = async (req, res) => {
+  try {
+    const result = await Window.deleteWindow(req.body.id);
+    if (result.message)
+      return res.status(200).json({ message: result.message });
+
+    console.log(result);
+    return res.status(501).json({ error: "Failed to delete window! "});
+  } catch (error) {
+    console.log(error);
+    return res.status(501).json({ error: "Failed to delete2 window! "});
+  }
+}
+
+module.exports = { getWindows, updateWindow, deleteWindow };
