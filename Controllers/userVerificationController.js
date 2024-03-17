@@ -20,12 +20,11 @@ const addSampleVerifyImage = async (req, res) => {
 const viewSampleVerifyImages = async (req, res) => {
   const gender = req.query.gender;
   try {
-    console.log("end point called!");
-    console.log(gender);
     const result = await UserVerification.viewSampleVerifyImages(gender);
-    console.log(result);
     return res.status(200).json(result);
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({ message: "Error while trying to retrieve images!" });
+  }
 };
 
 const deleteSampleImage = async (req, res) => {

@@ -28,12 +28,11 @@ const deleteWindow = async (req, res) => {
     if (result.message)
       return res.status(200).json({ message: result.message });
 
-    console.log(result);
-    return res.status(501).json({ error: "Failed to delete window! "});
+    return res.status(501).json({ error: "Failed to delete window! " });
   } catch (error) {
     console.log(error);
-    return res.status(501).json({ error: "Failed to delete2 window! "});
+    return res.status(501).json({ error: "Failed to delete window! " });
   }
-}
+};
 
 module.exports = { getWindows, updateWindow, deleteWindow };
