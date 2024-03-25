@@ -58,9 +58,10 @@ module.exports = (req, res) => {
 
                 connection.query(sql, values, (error, result, fields) => {
                     if (error) {
-                        debug(`Error: ${error}`);
+                        // console.log(error);
                         reject(new responseInstance(new status(7002, documentation[7002]), error));
                     } else {
+                        // console.log(result);
                         if (result[0][0].status == 1011) {
                             reject(new responseInstance(new status(1011, documentation[1011]), 'try another username'));
                         } else if (result[0][0].status == 1012) {

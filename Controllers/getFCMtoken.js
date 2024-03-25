@@ -13,6 +13,7 @@ function getFCMtoken(username) {
                 if (error) {
                     reject(error);
                 }
+                // console.log(result);
                 resolve(result[0][0].deviceId);
             });
         });

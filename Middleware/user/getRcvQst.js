@@ -34,9 +34,10 @@ module.exports = (req, res) => {
                     connection.release();
 
                     if (error) {
-                        debug(`Error: ${error}`);
+                        // console.log(result)
                         reject(new responseInstance(new status(7003, documentation[7003]), error));
                     } else {
+                        console.log(result);
                         if (result[0][0].status == 1081) {
                             reject(new responseInstance(new status(1081), 'no password recovery questions are answered'));
                         }

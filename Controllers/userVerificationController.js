@@ -37,11 +37,11 @@ const deleteSampleImage = async (req, res) => {
     else
       return res
         .status(500)
-        .json({ message: "faild to delete image", deleted: true });
+        .json({ message: "failed to delete image", deleted: true });
   } catch (error) {
     return res
       .status(500)
-      .json({ message: "faild to delete image", deleted: true });
+      .json({ message: "failed to delete image", deleted: true });
   }
 };
 const addUserVerificationImage = async (req, res) => {
