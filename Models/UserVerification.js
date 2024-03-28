@@ -14,12 +14,14 @@ class UserVerification {
   static async viewSampleVerifyImages(gender) {
     try {
       const [result] = await pool.query(`CALL GetSampleImages(?)`, [gender]);
+      console.log(result);
       return result[0];
     } catch (error) {
       console.log(error);
       return { err: "Can't retriev sample images please try again." };
     }
   }
+
   static async deleteSampleImage(id) {
     try {
       await pool.query(`CALL DeleteSampleImage(?)`, [id]);
@@ -46,11 +48,8 @@ class UserVerification {
       const [result] = await pool.query(`CALL ViewUserVerificationImages()`);
       if (result[0])
         return { message: "User verificationo images", data: result[0] };
-
-      console.log(result[0]);
       return { errror: "Faild to load verification images!" };
     } catch (err) {
-      console.log(err);
       return { errror: "Faild to load verification images!" };
     }
   }
