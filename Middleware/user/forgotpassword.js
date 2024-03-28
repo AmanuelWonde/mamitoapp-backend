@@ -35,6 +35,7 @@ module.exports = (req, res) => {
                     if (error) {
                         debug(error);
                     } else {
+                        // console.log(result)
                         if (result[0][0].status == 1071) {
                             reject(new responseInstance(new status(1071), 'give the correct answer to the questions'));
                         } else if (result[0][0].status == 1070) {

@@ -22,13 +22,14 @@ module.exports = (req, res) => {
         return new Promise((resolve, reject) => {
             db.getConnection((error, connection) => {
                 if (error) {
-                    debug(`Error: ${error}`);
+                    console.log(error);
                     reject(new responseInstance(new status(7001, documentation[7001]), 'this is backend issue'));
                 }
                 const sql = 'CALL UpdateUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
                 const values = [body.username, body.name, body.gender, body.birthdate, body.phone, body.bio, body.religion, body.changeOneSelf, body.latitude, body.longitude];
 
                 connection.query(sql, values, (error, result, fields) => {
+                    console.log(result);
                     if (error) {
                         debug(error);
                         reject(new responseInstance(new status(7002), "this is a backend issue"));
@@ -36,6 +37,7 @@ module.exports = (req, res) => {
                         if (result[0][0].status == 1031) {
                             reject(new responseInstance(new status(1031), "update failed!"));
                         } else {
+                            delete result[0][0].status;
                             resolve(result[0][0]);
                         }
                     }

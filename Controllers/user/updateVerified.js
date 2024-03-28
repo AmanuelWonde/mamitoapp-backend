@@ -49,7 +49,7 @@ const update = (body) => {
                     reject(new responseInstance(new status(7002, documentation[7002]), 'this is a backend issue'));
                     return;
                 } else {
-                    console.log(result)
+                    // console.log(result)
                     resolve(result[0][0]);
                 }
             });
@@ -58,23 +58,29 @@ const update = (body) => {
 }
 
 const sender = (req, res, result) => {
-        // res.send(new responseInstance(new status(result.status), "verification updated"));
-        // io.emit(req.body.username, new responseInstance(new status(result.status), "verification updated"));
-        getFCMtoken(result.content.receiver).then(fcmToken => {
+        io.emit(req.body.username, new responseInstance(new status(result.status), "verification updated"));
+        res.send(new responseInstance(new status(result.status), "verification updated"));
+
+        getFCMtoken(req.body.username).then(fcmToken => {
+            // console.log(fcmToken)
             fcm.send({
                 notification: {
-                    title: "verification status",
-                    body: req.body.username
+                    title: "new message",
+                    body: result.sender
                 },
-                // data: {
-                //     status: 
-                // },
+                data: {
+                    sender: result.sender,
+                    message: result.message
+                },
+                android: {
+                    priority: 'high',
+                },
                 to: fcmToken
             }, (err, response) => {
                 if (err) console.log(err)
-                else console.log(response)
+                // else console.log(response)
             })
-        })
+        });
 }
 
 module.exports = { validateSchema, update, sender };

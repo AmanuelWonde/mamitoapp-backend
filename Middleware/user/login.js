@@ -37,7 +37,7 @@ module.exports = (req, res) => {
                         debug(error);
                         reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
                     } else {
-                        if (result[0][0].status == 1015) {
+                        if (result[0][0].status != 1013) {
                             reject(new responseInstance(new status(1015, documentation[1015]), 'user not registered'));
                         } else {
                             resolve(result[0][0])
@@ -58,6 +58,7 @@ module.exports = (req, res) => {
                 } else {
                     if (res) {
                         delete body.password;
+                        delete body.status
                         resolve(body);
                     } else {
                         reject(new responseInstance(new status(1014, documentation[1014]), 'use a valid password'));

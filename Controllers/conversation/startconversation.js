@@ -39,7 +39,7 @@ const insertConversation = (body) => {
                 connection.release();
                 
                 if (error) {
-                    debug(`Error: ${error}`);
+                    console.log(error)
                     reject(new responseInstance(new status(7002, documentation[7002]), 'this is a backend issue'));
                     return;
                 } else {

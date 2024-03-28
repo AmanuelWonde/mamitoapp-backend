@@ -46,10 +46,11 @@ const deleteConversation = (body) => {
                     reject(new responseInstance(new status(7002, documentation[7002]), 'this is a backend issue'));
                     return;
                 } else {
+                    console.log(result);
                     if (result[0][0].status == 1024) {
                         reject(new responseInstance(new status(1024, documentation[1024]), "the coversation with the user does not exit"));
                     } else {
-                        resolve({ username: result[0][0].username, body: body });
+                        resolve({ username: result[0][0].username, body: result[0][0] });
                     }
                 }
             });
