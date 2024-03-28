@@ -54,7 +54,7 @@ app.use("/admin", require("./Routes/adminRoutes"));
 app.use("/windows", require("./Routes/windowRoutes"));
 
 server.listen(4000, "0.0.0.0", () => {
-  console.log("server started");
+  console.log("server started", 4000);
 });
 
 module.exports = { io, fcm };
