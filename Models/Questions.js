@@ -1,5 +1,4 @@
 const pool = require("../Config/dbConfig");
-const deleteImage = require("../utils/deleteImage");
 
 class Questions {
   static async addQuestions(questions, images, windowName, startDate, endDate) {
