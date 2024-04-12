@@ -25,6 +25,7 @@ module.exports = (req, res) => {
                 const values = [body.username, body.id1, body.id2, body.id3, body.ans1, body.ans2, body.ans3];
 
                 connection.query(sql, values, (error, result) => {
+                    
                     if (error) {
                         console.log(error);
                         reject(new responseInstance(new status(7002), 'this is a backend issue'));

@@ -1,32 +1,39 @@
+name: 🚀 Deploy backend to cPanel
 on:
   push:
     branches:
       - main
-
-name: 🚀 Deploy backend on push
-
 jobs:
-  backend-deploy:
+  FTP-Deploy-Action:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
 
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v3
-
-      - name: Use Node.js 14.x
-        uses: actions/setup-node@v2
         with:
-          node-version: "14.x"
+          fetch-depth: 2
 
-      - name: 🔨 Install dependencies
-        run: npm install
-
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
         with:
-          server: ${{ secrets.GIT_CPANEL_NODE_SERVER }}
-          username: ${{ secrets.GIT_CPANEL_NODE_USER }}
-          password: ${{ secrets.GIT_CPANEL_NODE_PWD }}
-          protocol: ${{ secrets.GIT_CPANEL_NODE_PROTOCOL }}
-          local-dir: ./
+          node-version: '18.x'
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v3
+        id: cache-node-modules
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: 🔨 Install Dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: |
+          npm install
+          git reset --hard
+      - name: 📂 Sync folders and files to the server
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}

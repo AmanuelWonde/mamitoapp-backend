@@ -1,5 +1,3 @@
-// module imports and configs
-const JWT = require('jsonwebtoken');
 
 // mysql configurations
 const db = require('../../Config/config');
@@ -23,34 +21,21 @@ module.exports = (req, res) => {
                     if (err)
                         console.log(err);
                     else
-                        console.log(result);
+                        console.log();
                 });
                 
-                sql = 'CALL inserKindOfPerson(?, ?, ?)';
+                sql = 'CALL insertKindOfPerson(?, ?, ?)';
                 for (let key in body.kindOfPerson) {
                     values = [body.username, key, body.kindOfPerson[key]];
                     connection.query(sql, values, (err, result) => {
                         if (err)
                             console.log(err);
                         else
-                            console.log(result);
+                            console.log();
                     });
                 }
 
                 resolve('1030');
-
-                // connection.query(sql, values, (error, result) => {
-                //     if (error) {
-                //         console.log(error)
-                //         reject(new responseInstance(new status(7002), "this is a backend issue"));
-                //     } else {
-                //         if (result[0][0].status == 1091) {
-                //             reject(new responseInstance(new status(1091), "profila data push failed!"));
-                //         } else {
-                //             resolve(result[0][0]);
-                //         }
-                //     }
-                // })
             })
         })
     }

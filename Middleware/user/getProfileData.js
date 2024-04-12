@@ -20,10 +20,11 @@ module.exports = (req, res) => {
                 let values = [body.username];
 
                 connection.query(sql, values, (err, result) => {
+                    // console.log(result[0][0].kindOfPerson);
                     if (err)
                         console.log(err);
                     else {
-                        result[0][0].kindOfPerson = result[1];
+                        result[0][0].kindOfPerson = result[0][0].kindOfPerson;
                         resolve(result[0][0]);
                     }
                 });
