@@ -7,7 +7,7 @@ class Window {
       return { data: result[0] };
     } catch (error) {
       console.log(error);
-      return { err: "Faild to load windows" };
+      return { message: "Faild to load windows", error: error };
     }
   }
   static async updateWindow(windowData) {

@@ -4,6 +4,7 @@ class FindMatches {
   static async allUserAnswers(windowId) {
     try {
       const [result] = await pool.query(`CALL FindMatches(?)`, [windowId]);
+      console.log("Users from the database in the given window Id", result);
       return result[0];
     } catch (error) {
       console.log(error);

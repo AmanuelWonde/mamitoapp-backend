@@ -7,7 +7,8 @@ const findUserMatches = (userAnswers, allUserAnswers) => {
       yourMatches[currentMatchingId] = {
         user_username: currentMatchingId,
         matchPercentage: 0,
-        profileImage: userData.profile_image,
+        profileImages: userData.profile_images,
+        bio: userData.bio,
         name: userData.name,
       };
     }
@@ -23,7 +24,7 @@ const findUserMatches = (userAnswers, allUserAnswers) => {
       );
 
       if (foundAnswer) {
-        matchPercentage += foundAnswer.question_value;
+        matchPercentage += parseFloat(foundAnswer.question_value);
       }
     }
 
