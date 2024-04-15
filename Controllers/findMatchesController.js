@@ -1,16 +1,27 @@
 const FindMatches = require("../Models/FindMatches");
-const findUserMatches = require("../helpers/findUserMatches");
+const findUserMatches = require("../helpers/match/findUserMatches");
 const Answers = require("../Models/Answers");
+const User = require("../Models/User");
 
 const findMatches = async (req, res) => {
   try {
-    const { windowId, userName, myAnswers } = req.body;
+    const { windowId, userName, answers, mood } = req.body;
+    const { success, profileData, message } = await User.getUserProfileData(
+      userName
+    );
+
+    if (!success) return res.status(400).json({ message });
+
     const allUserAnswers = await FindMatches.allUserAnswers(windowId);
 
-    console.log("users who answerd the currect window", allUserAnswers);
+    req.body.gender = profileData.gender;
+    req.body.verified = profileData.verified;
+    req.body.birthdate = profileData.birthdate;
+    req.body.religion = profileData.religion;
 
-    const yourMatches = findUserMatches(myAnswers, allUserAnswers);
-    await Answers.addAnswers(windowId, userName, myAnswers);
+    const yourMatches = findUserMatches(req.body, allUserAnswers);
+
+    await Answers.addAnswers(windowId, userName, answers, mood);
 
     return res
       .status(200)
