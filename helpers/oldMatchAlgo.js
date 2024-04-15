@@ -2,10 +2,11 @@ const findUserMatches = (userAnswers, allUserAnswers) => {
   const yourMatches = {};
 
   for (const userData of allUserAnswers) {
-    const currentMatchingId = userData.user_username;
+    const currentMatchingId = userData.username;
+
     if (!yourMatches[currentMatchingId]) {
       yourMatches[currentMatchingId] = {
-        user_username: currentMatchingId,
+        username: currentMatchingId,
         matchPercentage: 0,
         profileImages: userData.profile_images,
         bio: userData.bio,
@@ -18,7 +19,7 @@ const findUserMatches = (userAnswers, allUserAnswers) => {
     for (let i = 0; i < userAnswers.length; i++) {
       const foundAnswer = allUserAnswers.find(
         (answer) =>
-          answer.user_username === currentMatchingId &&
+          answer.username === currentMatchingId &&
           answer.questions_id === userAnswers[i].questionId &&
           answer.choice_id === userAnswers[i].choiceId
       );
@@ -37,5 +38,3 @@ const findUserMatches = (userAnswers, allUserAnswers) => {
 
   return sortedMatches;
 };
-
-module.exports = findUserMatches;
