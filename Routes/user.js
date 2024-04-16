@@ -9,6 +9,7 @@ const {
   deleteProfileImage,
   viewProfileImage,
 } = require("../Controllers/profileImageController");
+const getUserDetail = require("../Controllers/user/getUserDetail");
 
 router.post("/signup", require("../Middleware/user/signup"));
 
@@ -34,11 +35,8 @@ router.post(
   require("../Middleware/user/profileDataPush")
 );
 
-router.get(
-  "/getprofiledata",
-  auth,
-  require("../Middleware/user/getProfileData")
-);
+router.get("/profile-detail/:username", getUserDetail);
+router.get("/getprofiledata", require("../Middleware/user/getProfileData"));
 
 router.put("/forgotpassword", require("../Middleware/user/forgotpassword"));
 
