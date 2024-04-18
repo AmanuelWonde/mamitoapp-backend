@@ -5,7 +5,7 @@ const User = require("../Models/User");
 
 const findMatches = async (req, res) => {
   try {
-    const { windowId, userName, kanswers, mood } = req.body;
+    const { windowId, userName, answers, mood } = req.body;
     const { success, profileData, message } = await User.getUserProfileData(
       userName
     );
@@ -22,7 +22,7 @@ const findMatches = async (req, res) => {
     console.log(req.body);
     const yourMatches = findUserMatches(req.body, allUserAnswers);
 
-    await Answers.addAnswers(windowId, userName, kanswers, mood);
+    await Answers.addAnswers(windowId, userName, answers, mood);
 
     return res
       .status(200)
