@@ -6,6 +6,7 @@ class User {
       const [userProfileData] = await pool.query(`CALL UserProfileData(?)`, [
         username,
       ]);
+
       if (!userProfileData[0].length)
         return { success: false, message: "Invalide username." };
 

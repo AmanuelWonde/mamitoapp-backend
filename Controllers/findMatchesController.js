@@ -19,7 +19,6 @@ const findMatches = async (req, res) => {
     req.body.birthdate = profileData.birthdate;
     req.body.religion = profileData.religion;
 
-    console.log(req.body);
     const yourMatches = findUserMatches(req.body, allUserAnswers);
 
     await Answers.addAnswers(windowId, userName, answers, mood);
