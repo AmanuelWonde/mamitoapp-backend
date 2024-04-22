@@ -7,7 +7,7 @@ class FindMatches {
       return result[0];
     } catch (error) {
       console.log(error);
-      return { err: "can't load user answers please try again!", error };
+      return { err: "Can't load user answers please try again!", error };
     }
   }
 }
