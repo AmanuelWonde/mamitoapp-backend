@@ -68,7 +68,7 @@ const dbOperation = (body, operationType) => {
                     connection.release();
 
                     if (error) {
-                        debug(`Error: ${error}`);
+                        console.log(error)
                         reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
                     } else {
                         if (result[0][0].status == 1101) {
@@ -159,7 +159,6 @@ const dbOperation = (body, operationType) => {
                     }
                 })
             } else if (operationType == 'getchat') {
-
                 sql = 'CALL GetLast20Messages(?, ?)';
                 values = [body.conversationId, body.earliestMessage];
 
@@ -170,7 +169,7 @@ const dbOperation = (body, operationType) => {
                         debug(`Error: ${error}`);
                         reject(new responseInstance(new status(7003, documentation[7003]), 'this is a backend issue'));
                     } else {
-                        debug(result);
+                        console.log(result);
                         if (0) {
                             reject(new responseInstance(new status(1104, documentation[1104]), 'there is no chat with the given details'));
                         } else {

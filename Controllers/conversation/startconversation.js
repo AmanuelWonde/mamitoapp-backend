@@ -43,6 +43,7 @@ const insertConversation = (body) => {
                     reject(new responseInstance(new status(7002, documentation[7002]), 'this is a backend issue'));
                     return;
                 } else {
+                    console.log(result)
                     if (result[0][0].status == 1021) {
                         reject(new responseInstance(new status(1021, documentation[1021]), "the coversation with the user is already existed"));
                     } else {

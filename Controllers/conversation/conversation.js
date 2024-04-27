@@ -39,6 +39,7 @@ const op1 = (body) => {
                 if (error) {
                     reject(new responseInstance(new status(7002, documentation[7002]), 'this is a backend issue'));
                 } else {
+                    console.log(result)
                     if (result[0][0].status == 1040) {
                         resolve(new responseInstance(new status(1040), result[0][0]));
                     } else if (result[0][0].status == 1041) {
