@@ -2,12 +2,14 @@ const findUserMatches = (userAnswers, allUserAnswers) => {
   const yourMatches = {};
 
   for (const userData of allUserAnswers) {
-    const currentMatchingId = userData.user_username;
+    const currentMatchingId = userData.username;
+
     if (!yourMatches[currentMatchingId]) {
       yourMatches[currentMatchingId] = {
-        user_username: currentMatchingId,
+        username: currentMatchingId,
         matchPercentage: 0,
-        profileImage: userData.profile_image,
+        profileImages: userData.profile_images,
+        bio: userData.bio,
         name: userData.name,
       };
     }
@@ -17,13 +19,13 @@ const findUserMatches = (userAnswers, allUserAnswers) => {
     for (let i = 0; i < userAnswers.length; i++) {
       const foundAnswer = allUserAnswers.find(
         (answer) =>
-          answer.user_username === currentMatchingId &&
+          answer.username === currentMatchingId &&
           answer.questions_id === userAnswers[i].questionId &&
           answer.choice_id === userAnswers[i].choiceId
       );
 
       if (foundAnswer) {
-        matchPercentage += foundAnswer.question_value;
+        matchPercentage += parseFloat(foundAnswer.question_value);
       }
     }
 
@@ -36,5 +38,3 @@ const findUserMatches = (userAnswers, allUserAnswers) => {
 
   return sortedMatches;
 };
-
-module.exports = findUserMatches;

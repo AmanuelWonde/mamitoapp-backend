@@ -53,6 +53,7 @@ app.use("/verify-user", require("./Routes/userVerificationRoutes"));
 app.use("/admin", require("./Routes/adminRoutes"));
 app.use("/windows", require("./Routes/windowRoutes"));
 
+
 server.listen(3000, "0.0.0.0", () => {
   console.log("server started");
 });

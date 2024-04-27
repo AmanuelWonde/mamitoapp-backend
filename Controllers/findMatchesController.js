@@ -1,18 +1,31 @@
 const FindMatches = require("../Models/FindMatches");
-const findUserMatches = require("../services/matching/findUserMatches");
+const findUserMatches = require("../helpers/match/findUserMatches");
 const Answers = require("../Models/Answers");
+const User = require("../Models/User");
 
 const findMatches = async (req, res) => {
   try {
-    const { windowId, userName, myAnswers } = req.body;
+    const { windowId, userName, answers, mood } = req.body;
+    const { success, profileData, message } = await User.getUserProfileData(
+      userName
+    );
+
+    if (!success) return res.status(400).json({ message });
+
     const allUserAnswers = await FindMatches.allUserAnswers(windowId);
 
-    const yourMatches = findUserMatches(myAnswers, allUserAnswers);
-    await Answers.addAnswers(windowId, userName, myAnswers);
+    req.body.gender = profileData.gender;
+    req.body.verified = profileData.verified;
+    req.body.birthdate = profileData.birthdate;
+    req.body.religion = profileData.religion;
+
+    const yourMatches = findUserMatches(req.body, allUserAnswers);
+
+    await Answers.addAnswers(windowId, userName, answers, mood);
 
     return res
       .status(200)
-      .json({ message: "your matches", matches: yourMatches });
+      .json({ message: "Your matches", matches: yourMatches });
   } catch (err) {
     console.log(err);
     return res.status(501).json({
@@ -21,16 +34,3 @@ const findMatches = async (req, res) => {
   }
 };
 module.exports = { findMatches };
-// if a user fails to get a matche in a window why do we save his answers
-// {"windowId": 5, "userName":amanuel, "myAnswers":  {
-//     questionId: 1,
-//     choiceId: 1,
-//   },
-//   {
-//     questionId: 2,
-//     choiceId: 2,
-//   },
-//   {
-//     questionId: 3,
-//     choiceId: 3,
-//   },}

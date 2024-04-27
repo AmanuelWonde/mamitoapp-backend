@@ -1,5 +1,4 @@
 const pool = require("../Config/dbConfig");
-const deleteImage = require("../utils/deleteImage");
 
 class Questions {
   static async addQuestions(questions, images, windowName, startDate, endDate) {
@@ -73,16 +72,19 @@ class Questions {
       const windowId = currentWindow[0].CurrentWindowID;
 
       if (windowId) {
-        const [isUserAnswerdWindow] = await pool.query(
+        const [isUserAnsweredWindow] = await pool.query(
           ` CALL CheckIfUserAnswersWindow(?, ?)`,
           [username, windowId]
         );
-        const [isAnswerd] = isUserAnswerdWindow[0];
+        const [isAnswered] = isUserAnsweredWindow[0];
 
-        if (isAnswerd.UserAnsweredWindow) {
+        if (isAnswered.UserAnsweredWindow) {
           return {
-            window: false,
-            nextWindowStartTime: currentWindow[0].NextWindowStartTime,
+            message: "success",
+            data: {
+              window: false,
+              nextWindowStartTime: currentWindow[0].NextWindowStartTime,
+            },
           };
         }
 

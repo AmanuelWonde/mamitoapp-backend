@@ -1,7 +1,6 @@
 const multer = require("multer");
 const path = require("path");
 
-// Function to generate storage based on directory
 const generateStorage = (directory) => {
   return multer.diskStorage({
     destination: (req, file, cb) => {
@@ -16,9 +15,8 @@ const generateStorage = (directory) => {
   });
 };
 
-// Function to upload to specific directory
 const upload = (directory) => {
-  return multer({ storage: generateStorage(directory) }); // Change 'image' to your field name
+  return multer({ storage: generateStorage(directory) });
 };
 
 module.exports = { upload };

@@ -1,19 +1,19 @@
 const pool = require("../Config/dbConfig");
 
 class Answers {
-  static async addAnswers(windowId, userName, answers) {
+  static async addAnswers(windowId, userName, answers, mood) {
     try {
       await pool.query("START TRANSACTION");
 
       for (let i = 0; i < answers.length; i++) {
         const questionId = answers[i].questionId;
         const choiceId = answers[i].choiceId;
-
-        await pool.query(`CALL InsertUserAnswers(?, ?, ?, ?)`, [
+        await pool.query(`CALL InsertUserAnswers(?, ?, ?, ?, ?)`, [
           windowId,
           userName,
           questionId,
           choiceId,
+          mood,
         ]);
       }
 

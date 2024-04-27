@@ -44,6 +44,7 @@ const deleteSampleImage = async (req, res) => {
       .json({ message: "failed to delete image", deleted: true });
   }
 };
+
 const addUserVerificationImage = async (req, res) => {
   try {
     const { sampleImageId, username } = req.body;
@@ -77,6 +78,7 @@ const viewUserVerificationImages = async (req, res) => {
     return res.status(501).send("Faild to retrieve user verification images!");
   }
 };
+
 const validateUser = async (req, res) => {
   try {
     const { status, sampleImageId, username } = req.body;
