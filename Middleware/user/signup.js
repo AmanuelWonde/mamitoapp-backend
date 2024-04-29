@@ -8,7 +8,7 @@ const db = require('../../Config/config');
 
 
 // model imports
-const { userSchema } = require('../../Models/user');
+const { userSchema } = require('../../Models/User');
 const { status, responseInstance } = require('../../Models/response');
 const documentation = require('../../documentation/statusCodeDocumentation.json');
 

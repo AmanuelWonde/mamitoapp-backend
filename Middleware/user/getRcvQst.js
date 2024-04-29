@@ -3,7 +3,7 @@ const db = require('../../Config/config');
 
 // component imports
 const { status, responseInstance } = require('../../Models/response');
-const { getRcvQst } = require('../../Models/user');
+const { getRcvQst } = require('../../Models/User');
 const documentation = require('../../documentation/statusCodeDocumentation')
 
 module.exports = (req, res) => {

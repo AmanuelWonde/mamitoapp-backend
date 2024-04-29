@@ -5,7 +5,7 @@ const JWT = require('jsonwebtoken');
 const db = require('../../Config/config');
 
 // model imports
-const { userUpdateSchema } = require('../../Models/user');
+const { userUpdateSchema } = require('../../Models/User');
 const { status, responseInstance } = require('../../Models/response');
 const documentation = require('../../documentation/statusCodeDocumentation.json');
 

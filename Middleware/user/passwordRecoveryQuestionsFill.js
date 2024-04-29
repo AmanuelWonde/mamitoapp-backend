@@ -2,7 +2,7 @@
 const db = require('../../Config/config');
 
 // model imports
-const { questionFillSchema } = require('../../Models/user');
+const { questionFillSchema } = require('../../Models/User');
 const { status, responseInstance } = require('../../Models/response');
 const documentation = require('../../documentation/statusCodeDocumentation.json');
 
