@@ -21,7 +21,7 @@ module.exports = (req, res) => {
                     if (err)
                         console.log(err);
                     else
-                        console.log();
+                        console.log(result);
                 });
                 
                 sql = 'CALL insertKindOfPerson(?, ?, ?)';
@@ -31,7 +31,7 @@ module.exports = (req, res) => {
                         if (err)
                             console.log(err);
                         else
-                            console.log();
+                            console.log(console.log);
                     });
                 }
 

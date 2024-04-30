@@ -24,8 +24,9 @@ module.exports = (req, res) => {
                     if (err)
                         console.log(err);
                     else {
-                        result[0][0].kindOfPerson = result[0][0].kindOfPerson;
-                        resolve(result[0][0]);
+                        // if(result[0][0].kindOfPerson)
+                        // result[0][0].kindOfPerson = result[0][0].kindOfPerson;
+                        resolve(result[0]);
                     }
                 });
             })
@@ -33,7 +34,7 @@ module.exports = (req, res) => {
     }
 
     let sender = (result) => {
-        res.send(new responseInstance(new status(1030), result));
+        res.send(new responseInstance(new status(1035), result));
     }
 
     update(req.body)
