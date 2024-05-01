@@ -29,19 +29,21 @@ const viewSampleVerifyImages = async (req, res) => {
 
 const deleteSampleImage = async (req, res) => {
   try {
-    const deleteImage = await UserVerification.deleteSampleImage(req.body.id);
-    if (deleteImage)
+    const deleteImage = await UserVerification.deleteSampleImage(
+      parseInt(req.params.id)
+    );
+    if (deleteImage.deleted)
       return res
         .status(200)
         .json({ message: "deleted successfully", deleted: true });
     else
       return res
         .status(500)
-        .json({ message: "failed to delete image", deleted: true });
+        .json({ message: "failed to delete image", deleted: false });
   } catch (error) {
     return res
       .status(500)
-      .json({ message: "failed to delete image", deleted: true });
+      .json({ message: "failed to delete image", deleted: false });
   }
 };
 

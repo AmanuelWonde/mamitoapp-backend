@@ -9,6 +9,7 @@ const {
   deleteProfileImage,
   viewProfileImage,
 } = require("../Controllers/profileImageController");
+
 const getUserDetail = require("../Controllers/user/getUserDetail");
 
 router.post("/signup", require("../Middleware/user/signup"));

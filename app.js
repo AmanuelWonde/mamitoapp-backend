@@ -30,14 +30,6 @@ io.on("connection", (socket) => {
   });
 });
 
-// let { initializeApp, applicationDefault } = require('firebase-admin/app');
-// let { getMessaging } = require('firebase-admin/messaging');
-
-// initializeApp({
-//     credential: applicationDefault(),
-//     projectId: 'mamito-c049d'
-// })
-
 const FCM = require("fcm-node");
 const serverKey =
   "AAAAToRy9cA:APA91bEC4cBdt5QkicMBLfakStE4p7fSg1moUMBoEkGP5GmHxHEe8fPl3aQShFkx30h6_gYXeZhaoPCJSVRhgbNHdc_MTiTb1Yhbh3piwHyMgOc4azrOe_CxxY3hsDGj-bYBADBiBrsx";
@@ -53,9 +45,8 @@ app.use("/verify-user", require("./Routes/userVerificationRoutes"));
 app.use("/admin", require("./Routes/adminRoutes"));
 app.use("/windows", require("./Routes/windowRoutes"));
 
-
 server.listen(3000, "0.0.0.0", () => {
-  console.log("server started");
+  console.log("server started at localhost:3000");
 });
 
 module.exports = { io, fcm };
