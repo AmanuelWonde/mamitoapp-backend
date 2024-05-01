@@ -24,12 +24,15 @@ class UserVerification {
 
   static async deleteSampleImage(id) {
     try {
-      await pool.query(`CALL DeleteSampleImage(?)`, [id]);
-      return { deleted: true };
+      const deletedImage = await pool.query(`CALL DeleteSampleImage(?)`, [id]);
+
+      if (deletedImage[0].affectedRows) return { deleted: true };
     } catch (error) {
-      return { deleted: false };
+      console.log(error);
+      return { deleted: false, error };
     }
   }
+
   static async addUserVerificationImage(image, sampleImageId, username) {
     try {
       await pool.query(`CALL AddVerificationImage(?, ?, ?)`, [
