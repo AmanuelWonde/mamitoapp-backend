@@ -29,7 +29,7 @@ module.exports = (req, res) => {
       const debug = require("debug")("login:userVerification");
       db.getConnection((error, connection) => {
         if (error) {
-          debug(`Error: ${error}`);
+          console.log(`Error: ${error}`);
           reject(
             new responseInstance(
               new status(7001, documentation[7001]),
