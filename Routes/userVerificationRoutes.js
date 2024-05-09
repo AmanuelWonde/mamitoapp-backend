@@ -7,6 +7,7 @@ const {
   validateUser,
   deleteSampleImage,
 } = require("../Controllers/userVerificationController");
+
 const { upload } = require("../Config/multerConfig");
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.post(
   addSampleVerifyImage
 );
 
-router.post("/delete-sample-image", deleteSampleImage);
+router.delete("/delete-sample-image/:id", deleteSampleImage);
 router.get("/view-sample-images", viewSampleVerifyImages);
 
 router.post(
