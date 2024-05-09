@@ -63,7 +63,7 @@ const forgotPassword = Joi.object({
 const getRcvQst = Joi.object({
   username: Joi.string().required()
 })
-
+// adf
 const updateVerification = Joi.object({
   username: Joi.string().required(),
   verfication: Joi.boolean().required(),
