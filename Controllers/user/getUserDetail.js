@@ -1,4 +1,4 @@
-const User = require("../../Models/User");
+const User = require("../../Models/UserProfile");
 
 const getUserDetail = async (req, res) => {
   const { username } = req.params;
@@ -6,6 +6,7 @@ const getUserDetail = async (req, res) => {
     const { success, profileData, message } = await User.getUserProfileData(
       username
     );
+
     if (!success) return res.status(400).json({ message });
 
     let { password, phone, ...extracted } = profileData;
