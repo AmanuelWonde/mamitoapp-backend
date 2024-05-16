@@ -29,7 +29,7 @@ const pool = mysql.createPool({
   keepAliveInitialDelay: 0,
 });
 
-// Set the time zone for each connection when it is created
+// Set the time zone for each connection when it is created.
 pool.on("connection", function (connection) {
   connection.query("SET time_zone = '+03:00'", (err) => {
     if (err) {

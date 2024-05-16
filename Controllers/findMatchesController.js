@@ -1,7 +1,7 @@
 const FindMatches = require("../Models/FindMatches");
 const findUserMatches = require("../helpers/match/findUserMatches");
 const Answers = require("../Models/Answers");
-const User = require("../Models/User");
+const User = require("../Models/UserProfile");
 
 const findMatches = async (req, res) => {
   try {
