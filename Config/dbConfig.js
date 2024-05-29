@@ -1,9 +1,10 @@
 const mysql = require("mysql2/promise");
+// Localhost connection
 // const pool = mysql.createPool({
 //   host: "localhost",
-//   user: "amanuelwt",
-//   password: "*rgz1BT)WrV4cXs*",
-//   database: "mamito_app",
+//   user: "root",
+//   password: "wonde67@AM",
+//   database: "mamitoapp",
 //   waitForConnections: true,
 //   connectionLimit: 0,
 //   maxIdle: 10,
@@ -27,7 +28,8 @@ const pool = mysql.createPool({
   enableKeepAlive: true,
   keepAliveInitialDelay: 0,
 });
-// Set the time zone for each connection when it is created
+
+// Set the time zone for each connection when it is created.
 pool.on("connection", function (connection) {
   connection.query("SET time_zone = '+03:00'", (err) => {
     if (err) {
