@@ -49,6 +49,7 @@ const getProfileMatchPercentage = (matchFinder, toBeMatchedWith) => {
     profileMatchPercentage,
     distance: distanceBetween,
     age: new AgeFromDateString(toBeMatchedWith.birthdate).age,
+    verified: toBeMatchedWith.verified,
   };
 };
 

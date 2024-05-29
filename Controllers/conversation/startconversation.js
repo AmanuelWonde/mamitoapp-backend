@@ -32,8 +32,8 @@ const insertConversation = (body) => {
                 reject(new responseInstance(new status(7001, documentation[7001]), 'this is backend issue'));
             }
 
-            const sql = 'CALL InsertConversation(?, ?)';
-            const values = [body.user1, body.user2];
+            const sql = 'CALL InsertConversation(?, ?, ?)';
+            const values = [body.user1, body.user2, body.match];
 
             connection.query(sql, values, (error, result, fields) => {
                 connection.release();

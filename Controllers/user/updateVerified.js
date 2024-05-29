@@ -79,16 +79,16 @@ const sender = (req, res, result) => {
   );
 
   getFCMtoken(req.body.username).then((fcmToken) => {
-    // console.log(fcmToken)
+    console.log("req.body: ", req.body);
+    console.log("result: ", result)
     fcm.send(
       {
         notification: {
-          title: "new message",
-          body: result.sender,
+          title: "Verification Status",
+          body: req.body.verification == 0 ? "your are not verified, please try with another image" : "you are successfully verified",
         },
         data: {
-          sender: result.sender,
-          message: result.message,
+          message: req.body.verification == 0 ? "verified user" : "unverified user",
         },
         android: {
           priority: "high",
@@ -97,7 +97,7 @@ const sender = (req, res, result) => {
       },
       (err, response) => {
         if (err) console.log(err);
-        // else console.log(response)
+        else console.log(response)
       }
     );
   });

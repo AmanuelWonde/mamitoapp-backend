@@ -5,10 +5,8 @@ const findUserMatches = (matchFinder, allUserAnswers) => {
   const yourMatches = [];
 
   for (let i = 0; i < allUserAnswers.length; i++) {
-    let { profileMatchPercentage, distance, age } = getProfileMatchPercentage(
-      matchFinder,
-      allUserAnswers[i]
-    );
+    let { profileMatchPercentage, distance, age, verified } =
+      getProfileMatchPercentage(matchFinder, allUserAnswers[i]);
 
     let windowMatch = getWindowMatchPercentage(
       matchFinder.answers,
@@ -22,6 +20,7 @@ const findUserMatches = (matchFinder, allUserAnswers) => {
       matchPercentage: profileMatchPercentage + windowMatch / 2,
       distance: distance,
       age,
+      verified,
     });
   }
 
@@ -29,4 +28,3 @@ const findUserMatches = (matchFinder, allUserAnswers) => {
 };
 
 module.exports = findUserMatches;
-
