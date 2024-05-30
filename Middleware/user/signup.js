@@ -119,8 +119,17 @@ module.exports = (req, res) => {
   function sender(result) {
     const auth_token = JWT.sign(
       {
-        username: req.body.username,
-        birthdate: req.body.birthdate,
+        username: result.username,
+        name: result.name,
+        gender: result.gender,
+        birthdate: result.birthdate,
+        phone: result.phone,
+        bio: result.bio,
+        religion: result.religion,
+        changeOneSelf: result.changeOneSelf,
+        longitude: result.longitude,
+        latitude: result.latitude,
+        verfied: result.verified
       },
       "hiruy"
     );
@@ -134,8 +143,38 @@ module.exports = (req, res) => {
       );
   }
 
+  const deviceId = (body) => {
+    return new Promise((resolve, reject) => {
+      db.getConnection((error, connection) => {
+        if (error) {
+          debug(`Error: ${error}`);
+          reject(
+            new responseInstance(
+              new status(7001, documentation[7001]),
+              "this is backend issue"
+            )
+          );
+        }
+
+        const sql = "CALL InsertDeviceId(?, ?)";
+        const values = [body.username, req.header("deviceId")];
+
+        connection.query(sql, values, (error, result) => {
+          connection.release();
+
+          if (error) {
+            console.log(error);
+          } else {
+            resolve(body);
+          }
+        });
+      });
+    });
+  };
+
   p1.then((body) => passwordEncryption(body))
     .then((body) => insertData(body))
+    .then((body) => deviceId(body))
     .then((result) => sender(result))
     .catch((error) => {
       res.send(error);
