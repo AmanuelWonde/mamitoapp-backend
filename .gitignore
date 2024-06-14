@@ -2,3 +2,5 @@ node_modules/
 .vscode/
 .vs/
 a.zip
+
+*.lock
