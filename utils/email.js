@@ -1,33 +1,26 @@
-const nodemailer = require("nodemailer");
-const sendEmail = async (
-    sendTo,
-    subject,
-    text,
-    html,
+const nodemailer = require('nodemailer');
+
+const sendEmail = (
+  sendTo,
+  subject,
+  html,
 ) => {
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: "triptransports@gmail.com",
-            pass: "bvrc qvpj lpqt weas",
-        },
-    });
+  const transporter = nodemailer.createTransport({
+    host: "mamitoapp.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "admin@mamitoapp.com",
+      pass: "YdSV5O!&D4@t",
+    },
+  });
 
-    try {
-        const info = await transporter.sendMail({
-            from: "mamito",
-            to: sendTo,
-            subject: subject,
-            text: text,
-            html: html,
-        });
-
-        console.log(info);
-        return info;
-    } catch (error) {
-        console.log(error);
-        return error;
-    }
+  return transporter.sendMail({
+    from: "admin@mamitoapp.com",
+    to: sendTo,
+    subject: subject,
+    html: html,
+  });
 };
 
 module.exports = sendEmail;
