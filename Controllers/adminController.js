@@ -1,17 +1,22 @@
-const fs = require('fs');
-const bcrypt = require('bcryptjs');
+const fs = require("fs").promises;
+const bcrypt = require("bcryptjs");
 
 const loginAdmin = async (req, res) => {
-  const email = "amanuel@admin.com";
-  const password = fs.readSync('.admin_password', 'utf-8');
-        // "mamito@heruy55";
+  try {
+    const email = "amanuel@admin.com";
+    const password = await fs.readFile(".admin_password", "utf-8");
 
-  if (req.body.email == email && bcrypt.compareSync(req.body.password, password)) {
+    const passwordMatch = await bcrypt.compare(req.body.password, password);
+
+    if (req.body.email === email && passwordMatch) {
+      return res.status(200).json({ message: "User authenticated", email });
+    } else {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+  } catch (error) {
     return res
-      .status(200)
-      .json({ message: "user authenticated", email, password });
-  } else {
-    return res.status(401).json("Invalide credentail");
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };
 
