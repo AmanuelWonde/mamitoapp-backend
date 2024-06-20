@@ -55,4 +55,10 @@ router.get(
   require("../Controllers/viewDeeleteAccountStep")
 );
 
+router.get("/view/privacy-policy", require("../Controllers/getPrivacyPolicy"));
+router.get(
+  "/view/term-and-conditions",
+  require("../Controllers/getTermAndConditions")
+);
+router.get("/view/about-us", require("../Controllers/getAboutUs"));
 module.exports = { router };
