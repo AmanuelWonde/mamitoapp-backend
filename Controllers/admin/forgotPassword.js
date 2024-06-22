@@ -12,12 +12,9 @@ module.exports = async (req, res) => {
     const newPassword = random.string(8, characters);
 
     try {
-        // Use 10 salt rounds for bcrypt hashing
         const saltRounds = 10;
         const encPassword = bcrypt.hashSync(newPassword, saltRounds);
-        console.log(encPassword);
 
-        // Write the encrypted password to the file
         fs.writeFile('.admin_password', encPassword, 'utf8', (err) => {
             if (err) {
                 console.error('Error writing to file:', err);
@@ -27,8 +24,7 @@ module.exports = async (req, res) => {
         });
 
         console.log('here')
-        // Send an email with the new password
-        await emailto('abelrighthere@gmail.com', 'Forgot Password', `
+        await emailto('amanuel@admin.com', 'Forgot Password', `
 <!DOCTYPE html>
 <html lang="en">
 <head>
