@@ -30,6 +30,8 @@ router.put("/changepassword", require("../Middleware/user/changepassword"));
 
 router.post("/getrcvqst", require("../Middleware/user/getRcvQst"));
 
+router.delete("/", require("../Controllers/user/deleteUser"));
+
 router.post(
   "/profiledatapush",
   auth,
