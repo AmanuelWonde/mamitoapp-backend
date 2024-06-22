@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-
 const http = require("http");
 const server = http.createServer(app);
 
@@ -35,7 +34,7 @@ const serverKey =
   "AAAAToRy9cA:APA91bEC4cBdt5QkicMBLfakStE4p7fSg1moUMBoEkGP5GmHxHEe8fPl3aQShFkx30h6_gYXeZhaoPCJSVRhgbNHdc_MTiTb1Yhbh3piwHyMgOc4azrOe_CxxY3hsDGj-bYBADBiBrsx";
 const fcm = new FCM(serverKey);
 
-app.use("/app-info", require("./Routes/appInfo"))
+app.use("/app-info", require("./Routes/appInfo"));
 app.use("/user", require("./Routes/user").router);
 app.use("/conversation", require("./Routes/conversation").router);
 app.use("/chats", require("./Routes/chat").router);

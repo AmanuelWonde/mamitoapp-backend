@@ -52,5 +52,15 @@ router.post(
 
 router.post("/deleteprofileimage", auth, deleteProfileImage);
 router.get("/viewprofileimages/:userName", auth, viewProfileImage);
+router.get(
+  "/view/how-to-delete-account",
+  require("../Controllers/viewDeeleteAccountStep")
+);
 
+router.get("/view/privacy-policy", require("../Controllers/getPrivacyPolicy"));
+router.get(
+  "/view/term-and-conditions",
+  require("../Controllers/getTermAndConditions")
+);
+router.get("/view/about-us", require("../Controllers/getAboutUs"));
 module.exports = { router };
