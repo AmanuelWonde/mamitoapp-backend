@@ -1,11 +1,23 @@
 const pool = require("../Config/dbConfig");
 
 class Questions {
-  static async addQuestions(questions, images, windowName, startDate, endDate) {
+  static async addQuestions(
+    questions,
+    images,
+    windowName,
+    startDate,
+    endDate,
+    mood,
+    minAge,
+    maxAge
+  ) {
     try {
       await pool.query("START TRANSACTION");
-      await pool.query(`CALL InsertWindow (?, ?, ?, @insertedId)`, [
+      await pool.query(`CALL InsertWindow (?, ?, ?, ?, ?, ?, @insertedId)`, [
         windowName,
+        mood,
+        parseInt(minAge),
+        parseInt(maxAge),
         startDate,
         endDate,
       ]);
@@ -14,15 +26,16 @@ class Questions {
         "SELECT @insertedId AS inserted_id"
       );
       const windowId = windowIdResult[0].inserted_id;
-
+      console.log(questions);
       for (let i = 0; i < questions.length; i++) {
         const question = questions[i].question;
         const value = questions[i].value;
-
-        await pool.query(`CALL InsertQuestion (?, ?, ?, @inserted_id)`, [
+        const targetGender = questions[i].targetGender;
+        await pool.query(`CALL InsertQuestion (?, ?, ?, ?, @inserted_id)`, [
           question,
           windowId,
           value,
+          targetGender,
         ]);
 
         const [insertedIdResult] = await pool.query(

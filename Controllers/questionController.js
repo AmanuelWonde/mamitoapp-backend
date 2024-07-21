@@ -2,10 +2,9 @@ const Questions = require("../Models/Questions");
 
 const addQuestions = async (req, res) => {
   try {
-    const questions = req.body.questions;
-    const windowName = req.body.windowName;
-    const startAt = req.body.startAt;
-    const endAt = req.body.endAt;
+    const { questions, windowName, startAt, endAt, mood, minAge, maxAge } =
+      req.body;
+
     const images = req.files;
 
     const addQuestions = await Questions.addQuestions(
@@ -13,7 +12,10 @@ const addQuestions = async (req, res) => {
       images,
       windowName,
       startAt,
-      endAt
+      endAt,
+      mood,
+      minAge,
+      maxAge
     );
 
     if (addQuestions.err) {
