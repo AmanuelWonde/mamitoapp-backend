@@ -10,6 +10,7 @@ class Window {
       return { message: "Faild to load windows", error: error };
     }
   }
+
   static async updateWindow(windowData) {
     try {
       const { windowId, windowName, startAt, endAt } = windowData;
