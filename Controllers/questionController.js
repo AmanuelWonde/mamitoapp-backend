@@ -1,4 +1,5 @@
 const Questions = require("../Models/Questions");
+const User = require("../Models/UserProfile");
 
 const addQuestions = async (req, res) => {
   try {
@@ -35,7 +36,14 @@ const addQuestions = async (req, res) => {
 const viewQuestions = async (req, res) => {
   try {
     const username = req.params.username;
-    const getQuestions = await Questions.viewQuestions(username);
+    const { success, profileData, message } = await User.getUserProfileData(
+      username
+    );
+
+    const getQuestions = await Questions.viewQuestions(
+      username,
+      profileData.gender
+    );
 
     if (getQuestions.err)
       return res.status(500).json({ error: getQuestions.err });
