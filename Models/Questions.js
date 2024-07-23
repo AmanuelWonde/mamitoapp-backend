@@ -75,7 +75,7 @@ class Questions {
     }
   }
 
-  static async viewQuestions(username) {
+  static async viewQuestions(username, gender) {
     try {
       const [getCurrentWindow] = await pool.query(
         `CALL GetCurrentOrNextWindow()`
@@ -101,8 +101,9 @@ class Questions {
           };
         }
 
-        const [result] = await pool.query(`CALL CurrentWindowQuestions(?)`, [
+        const [result] = await pool.query(`CALL CurrentWindowQuestions(?, ?)`, [
           windowId,
+          gender,
         ]);
 
         return {
