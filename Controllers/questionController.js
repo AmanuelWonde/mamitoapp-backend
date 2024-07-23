@@ -1,5 +1,6 @@
 const Questions = require("../Models/Questions");
 const User = require("../Models/UserProfile");
+const getAge = require("../utils/getAge");
 
 const addQuestions = async (req, res) => {
   try {
@@ -35,14 +36,15 @@ const addQuestions = async (req, res) => {
 
 const viewQuestions = async (req, res) => {
   try {
-    const username = req.params.username;
-    const { success, profileData, message } = await User.getUserProfileData(
-      username
-    );
+    const { username, mood } = req.query;
+    const { profileData } = await User.getUserProfileData(username);
 
+    const age = getAge(profileData.birthdate);
     const getQuestions = await Questions.viewQuestions(
       username,
-      profileData.gender
+      profileData.gender,
+      mood,
+      age
     );
 
     if (getQuestions.err)

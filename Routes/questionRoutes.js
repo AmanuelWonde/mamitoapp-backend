@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post("/add", upload("choiceImages").any(), addQuestions);
 router.post("/update", upload("choiceImages").any(), updateQuestions);
-router.get("/:username", viewQuestions);
+router.get("/current-window-questions", viewQuestions);
 
 module.exports = router;
