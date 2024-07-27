@@ -51,11 +51,6 @@ const getProfileMatchPercentage = (matchFinder, toBeMatchedWith) => {
     }
   }
 
-  if (matchFinder.mood === toBeMatchedWith.mood) {
-    profileMatchPercentage += 15;
-    matchDetail.Mood = 15;
-  }
-
   return {
     profileMatchPercentage,
     distance: distanceBetween,
