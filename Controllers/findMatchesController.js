@@ -12,10 +12,7 @@ const findMatches = async (req, res) => {
 
     if (!success) return res.status(400).json({ message });
 
-    const allUserAnswers = await FindMatches.allUserAnswers(
-      windowId,
-      profileData.gender
-    );
+    const allUserAnswers = await FindMatches.allUserAnswers(windowId);
 
     req.body.gender = profileData.gender;
     req.body.verified = profileData.verified;
