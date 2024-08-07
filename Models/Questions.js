@@ -86,6 +86,20 @@ class Questions {
       const windowId = currentWindow[0].CurrentWindowID;
 
       if (windowId) {
+        const minAge = currentWindow[0].minAge;
+        const maxAge = currentWindow[0].maxAge;
+
+        if (age < minAge || age > maxAge)
+          return {
+            message: "success",
+            data: {
+              window: false,
+              nextWindowStartTime: currentWindow[0].NextWindowStartTime,
+              message:
+                "Questions based on your selected emotion are available! Tailored questions for your age group aren’t available yet. Please check back soon!",
+            },
+          };
+
         const [isUserAnsweredWindow] = await pool.query(
           ` CALL CheckIfUserAnswersWindow(?, ?)`,
           [username, windowId]
@@ -122,6 +136,8 @@ class Questions {
           data: {
             window: false,
             nextWindowStartTime: currentWindow[0].NextWindowStartTime,
+            message:
+              "Questions aren’t available at the moment. We’ll have them ready for you soon. Please check back shortly",
           },
         };
       }
