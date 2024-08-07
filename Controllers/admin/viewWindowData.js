@@ -12,14 +12,20 @@ SELECT
     (SELECT TIME(usr.\`created-at\`)) as "signUpTime",
     win.name as "collectionName",
     que.question as "questionType",
-    ans.mood as "stateOfMood",
+    win.mood as "stateOfMood",
     (SELECT choice FROM mamitogw_mamito.choices cho WHERE cho.questions_id = ans.questions_id LIMIT 1) AS "questionChoice1",
     (SELECT choice FROM mamitogw_mamito.choices cho WHERE cho.questions_id = ans.questions_id LIMIT 1 OFFSET 1) AS "questionChoice2",
     (SELECT choice FROM mamitogw_mamito.choices cho WHERE cho.id = ans.choice_id LIMIT 1) AS "choosenAnswer",
     (SELECT DATE(ans.created_at)) as "windowLoggedInDate",
     (SELECT TIME(ans.created_at)) as "windowLoggedInTime",
-    (SELECT COUNT(DISTINCT mood) FROM mamitogw_mamito.answers ans2 WHERE ans.user_username = ans2.user_username) as "totalEmotionsLogged",
-    (SELECT GROUP_CONCAT(DISTINCT mood SEPARATOR ", ") FROM mamitogw_mamito.answers as ans3 WHERE ans.user_username = ans3.user_username) as "listOfLoggedInEmotions",
+    (SELECT COUNT(DISTINCT win2.mood) 
+     FROM mamitogw_mamito.windows win2
+     JOIN mamitogw_mamito.answers ans2 ON win2.id = ans2.window_id
+     WHERE ans.user_username = ans2.user_username) as "totalEmotionsLogged",
+    (SELECT GROUP_CONCAT(DISTINCT win3.mood SEPARATOR ", ") 
+     FROM mamitogw_mamito.windows win3
+     JOIN mamitogw_mamito.answers ans3 ON win3.id = ans3.window_id
+     WHERE ans.user_username = ans3.user_username) as "listOfLoggedInEmotions",
     (SELECT COUNT(DISTINCT window_id) FROM mamitogw_mamito.answers ans4 WHERE ans.user_username = ans4.user_username) as "totalWindowLogged",
     (SELECT "android") as "deviceType"
 FROM mamitogw_mamito.answers ans
@@ -29,7 +35,8 @@ LEFT JOIN mamitogw_mamito.windows win
   ON ans.window_id = win.id
 LEFT JOIN mamitogw_mamito.questions que
   ON que.windows_id = win.id
-ORDER BY window_id DESC, user_username`;
+ORDER BY window_id DESC, user_username
+`;
 
   db.query(sql, (err, result) => {
     if (err) {
