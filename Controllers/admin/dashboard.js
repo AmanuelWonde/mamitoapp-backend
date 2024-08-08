@@ -5,8 +5,10 @@ const controller = (req, res) => {
   const sql2 = `
   SELECT
     (SELECT COUNT(*) FROM mamitogw_mamito.user) AS "totalUsers",
+    (SELECT COUNT(*) FROM mamitogw_mamito.user WHERE gender = "M") AS "maleUsers",
+    (SELECT COUNT(*) FROM mamitogw_mamito.user WHERE gender = "F") AS "femaleUsers",
     (SELECT COUNT(*) FROM mamitogw_mamito.user WHERE verified = TRUE) AS "verifiedUsers",
-    (SELECT COUNT(*) FROM mamitogw_mamito.user WHERE \`created-at\`  >= DATE_SUB(NOW(), INTERVAL 3 DAY)) AS "newUsers",
+    (SELECT COUNT(*) FROM mamitogw_mamito.user WHERE \`created-at\`  >= DATE_SUB(NOW(), INTERVAL 1 DAY)) AS "newUsers",
     (SELECT COUNT(*) FROM mamitogw_mamito.windows) AS "totalWindows",
     (SELECT COUNT(DISTINCT window_id) FROM mamitogw_mamito.answers) AS "answeredWindows",
     (SELECT COUNT(*) FROM mamitogw_mamito.questions) AS "questions"
