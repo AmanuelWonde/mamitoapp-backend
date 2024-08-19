@@ -26,16 +26,13 @@ class Questions {
         "SELECT @insertedId AS inserted_id"
       );
       const windowId = windowIdResult[0].inserted_id;
-      console.log(questions);
       for (let i = 0; i < questions.length; i++) {
         const question = questions[i].question;
         const value = questions[i].value;
-        const targetGender = questions[i].targetGender;
-        await pool.query(`CALL InsertQuestion (?, ?, ?, ?, @inserted_id)`, [
+        await pool.query(`CALL InsertQuestion (?, ?, ?, @inserted_id)`, [
           question,
           windowId,
           value,
-          targetGender,
         ]);
 
         const [insertedIdResult] = await pool.query(
@@ -47,21 +44,35 @@ class Questions {
 
         for (let j = 0; j < choices.length; j++) {
           const choice = choices[j].choice;
-          let image;
+          let maleImage = null;
+          let femaleImage = null;
           const findImage = images.find(
             (element) =>
               element.fieldname === `questions[${i}][choices][${j}][image]`
           );
           if (findImage) {
-            image = findImage.filename;
+            maleImage = findImage.filename;
+            femaleImage = findImage.filename;
           } else {
-            image = null;
+            const findMaleImage = images.find(
+              (element) =>
+                element.fieldname ===
+                `questions[${i}][choices][${j}][maleimage]`
+            );
+            const findFemaleImage = images.find(
+              (element) =>
+                element.fieldname ===
+                `questions[${i}][choices][${j}][femaleimage]`
+            );
+            maleImage = findMaleImage.filename;
+            femaleImage = findFemaleImage.filename;
           }
 
-          await pool.query(`CALL InsertChoice (?, ?, ?)`, [
+          await pool.query(`CALL InsertChoice (?, ?, ?, ?)`, [
             questionId,
             choice,
-            image,
+            maleImage,
+            femaleImage,
           ]);
         }
       }
@@ -84,7 +95,6 @@ class Questions {
 
       const [currentWindow] = [getCurrentWindow[0]];
       const windowId = currentWindow[0].CurrentWindowID;
-
       if (windowId) {
         const minAge = currentWindow[0].minAge;
         const maxAge = currentWindow[0].maxAge;
@@ -112,6 +122,8 @@ class Questions {
             data: {
               window: false,
               nextWindowStartTime: currentWindow[0].NextWindowStartTime,
+              message:
+                "Questions aren’t available at the moment. We’ll have them ready for you soon. Please check back shortly",
             },
           };
         }
