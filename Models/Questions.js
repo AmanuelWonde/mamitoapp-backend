@@ -59,13 +59,13 @@ class Questions {
                 element.fieldname ===
                 `questions[${i}][choices][${j}][maleimage]`
             );
+            if (findMaleImage) maleImage = findMaleImage.filename;
             const findFemaleImage = images.find(
               (element) =>
                 element.fieldname ===
                 `questions[${i}][choices][${j}][femaleimage]`
             );
-            maleImage = findMaleImage.filename;
-            femaleImage = findFemaleImage.filename;
+            if (findFemaleImage) femaleImage = findFemaleImage.filename;
           }
 
           await pool.query(`CALL InsertChoice (?, ?, ?, ?)`, [
