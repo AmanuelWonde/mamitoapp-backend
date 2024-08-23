@@ -10,7 +10,7 @@ const { status, responseInstance } = require('../../Models/response');
 const documentation = require('../../documentation/statusCodeDocumentation.json');
 const deleteConv = Joi.object({
     conversationId: Joi.number().required(),
-    username: Joi.string().min(6).required()
+    username: Joi.string().min(6).required(),
 });
 
 const p1 = (req) => {
@@ -50,7 +50,7 @@ const deleteConversation = (body) => {
                     if (result[0][0].status == 1024) {
                         reject(new responseInstance(new status(1024, documentation[1024]), "the coversation with the user does not exit"));
                     } else {
-                        resolve({ username: result[0][0].username, body: result[0][0] });
+                        resolve({ username: result[1][0] });
                     }
                 }
             });
@@ -59,8 +59,10 @@ const deleteConversation = (body) => {
 }
 
 const sender = (res, result) => {
-    res.status(200).send(new responseInstance(new status(1025), result.body));
-    io.emit(result.username, new responseInstance(new status(1025), result.body));
+    res.send(new responseInstance(new status(1025), { conversationId: result.username.conversationId }));
+    console.log('result', result);
+    // console.log();
+    io.emit(result.username.participant_2, new responseInstance(new status(1025), result.conversationId));
 }
 
 module.exports = { p1, deleteConversation, sender }; 
