@@ -62,7 +62,7 @@ const sender = (res, result) => {
     res.send(new responseInstance(new status(1025), { conversationId: result.username.conversationId }));
     console.log('result', result);
     // console.log();
-    io.emit(result.username.participant_2, new responseInstance(new status(1025), result.conversationId));
+    io.emit(result.username.participant_2, new responseInstance(new status(1025), { conversationId: result.username.conversationId }));
 }
 
 module.exports = { p1, deleteConversation, sender }; 
