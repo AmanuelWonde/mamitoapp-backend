@@ -161,7 +161,7 @@ class Questions {
 
   static async adminViewQuestions(windowId) {
     try {
-      const [result] = await pool.query(`CALL CurrentWindowQuestions(?)`, [
+      const [result] = await pool.query(`CALL AdminWindowDetail(?)`, [
         windowId,
       ]);
       return { questions: result[0] };
