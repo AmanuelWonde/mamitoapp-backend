@@ -7,7 +7,7 @@ const userSchema = Joi.object({
   birthdate: Joi.string().length(10).pattern(/^\d{4}-\d{2}-\d{2}$/).required(),
   password: Joi.string().min(8).required(),
   phone: Joi.string().pattern(/^251[7,9]\d{8}$/),
-  bio: Joi.string().allow(null).required(),
+  bio: Joi.string().max(90).allow(null).required(),
   religion: Joi.number().integer().positive().required(),
   changeOneSelf: Joi.number().integer().positive().required(),
   latitude: Joi.number().required(),
