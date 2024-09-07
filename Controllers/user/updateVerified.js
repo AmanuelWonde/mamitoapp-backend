@@ -78,29 +78,28 @@ const sender = (req, res, result) => {
     new responseInstance(new status(result.status), "verification updated")
   );
 
-  getFCMtoken(req.body.username).then((fcmToken) => {
-    console.log("req.body: ", req.body);
-    console.log("result: ", result)
-    fcm.send(
-      {
-        notification: {
-          title: "Verification Status",
-          body: req.body.verification == 0 ? "your are not verified, please try with another image" : "you are successfully verified",
-        },
-        data: {
-          message: req.body.verification == 0 ? "verified user" : "unverified user",
-        },
-        android: {
-          priority: "high",
-        },
-        to: fcmToken,
-      },
-      (err, response) => {
-        if (err) console.log(err);
-        else console.log(response)
-      }
-    );
-  });
+    getFCMtoken(req.body.username).then((fcmToken) => {
+        console.log("req.body: ", req.body);
+        console.log("result: ", result)
+        if (fcmToken)
+        fcm.messaging()
+            .send({
+                token: fcmToken,
+                notification: {
+                    title: "Verification Status",
+                    body: req.body.verification == 0 ? "your are not verified, please try with another image" : "you are successfully verified",
+                },
+                android: {
+                    priority: "high",
+                }
+            })
+            .then(response => {
+                console.log('notification success: ', response);
+            })
+            .catch(error => {
+                console.log('notification error: ', error);
+            })
+    });
 };
 
 module.exports = { validateSchema, update, sender };
