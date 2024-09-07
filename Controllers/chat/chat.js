@@ -219,23 +219,6 @@ const sender = (result, operationType, res) => {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
 
         getFCMtoken(result.receiver).then(fcmToken => {
-            // fcm.send({
-            //     notification: {
-            //         title: "new message",
-            //         body: result.sender
-            //     },
-            //     data: {
-            //         sender: result.sender,
-            //         message: result.message
-            //     },
-            //     android: {
-            //         priority: 'high',
-            //     },
-            //     to: fcmToken
-            // }, (err, response) => {
-            //     if (err) console.log(err)
-            //     else console.log(response)
-            // })
             fcm.messaging()
             .send({
                     token: fcmToken,
