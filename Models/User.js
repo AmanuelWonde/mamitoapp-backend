@@ -50,12 +50,6 @@ const changePassword = Joi.object({
 
 const forgotPassword = Joi.object({
   username: Joi.string().required(),
-  id1: Joi.number().required(),
-  id2: Joi.number().required(),
-  id3: Joi.number().required(),
-  ans1: Joi.string().required(),
-  ans2: Joi.string().required(),
-  ans3: Joi.string().required(),
   newpassword: Joi.string().required()
 
 })
