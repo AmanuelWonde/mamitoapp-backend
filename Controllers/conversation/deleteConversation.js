@@ -46,7 +46,6 @@ const deleteConversation = (body) => {
                     reject(new responseInstance(new status(7002, documentation[7002]), 'this is a backend issue'));
                     return;
                 } else {
-                    console.log(result);
                     if (result[0][0].status == 1024) {
                         reject(new responseInstance(new status(1024, documentation[1024]), "the coversation with the user does not exit"));
                     } else {
@@ -60,8 +59,6 @@ const deleteConversation = (body) => {
 
 const sender = (res, result) => {
     res.send(new responseInstance(new status(1025), { conversationId: result.username.conversationId }));
-    console.log('result', result);
-    // console.log();
     io.emit(result.username.participant_2, new responseInstance(new status(1025), { conversationId: result.username.conversationId }));
 }
 

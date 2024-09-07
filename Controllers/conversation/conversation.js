@@ -39,7 +39,6 @@ const op1 = (body) => {
                 if (error) {
                     reject(new responseInstance(new status(7002, documentation[7002]), 'this is a backend issue'));
                 } else {
-                    console.log(result)
                     if (result[0][0].status == 1040) {
                         resolve(new responseInstance(new status(1040), result[0][0]));
                     } else if (result[0][0].status == 1041) {
@@ -55,25 +54,31 @@ const op1 = (body) => {
 }
 
 const sender = (result, res) => {
-    
+    console.log('status', result.status);
+    console.log('content', result.content);
     if (result.status.code == 1040) {
         res.send(result);
-        io.emit(result.content.receiver, result);
+        io.emit(result.content['user-1'], result);
 
-        getFCMtoken(result.content.receiver).then(fcmToken => {
-            fcm.send({
-                notification: {
-                    title: "request accepted",
-                    body: result.content.sender
-                },
-                android: {
-                    priority: 'high',
-                },
-                to: fcmToken
-            }, (err, response) => {
-                if (err) console.log(err)
-                else console.log(response)
-            })
+        getFCMtoken(result.content['user-1']).then(fcmToken => {
+            if (fcmToken)
+            fcm.messaging()
+                .send({
+                    token: fcmToken,
+                    notification: {
+                        title: "request accepted",
+                        body: result
+                    },
+                    android: {
+                        priority: "high",
+                    }
+                })
+                .then(response => {
+                    console.log('notification success: ', response);
+                })
+                .catch(error => {
+                    console.log('notification error: ', error);
+                })
         })
     } else if (result.status.code == 1041) {
         res.send(result);
