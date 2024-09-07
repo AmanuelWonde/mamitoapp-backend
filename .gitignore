@@ -6,3 +6,4 @@ a.zip
 firebase_sdk.json
 
 *.lock
+.env
