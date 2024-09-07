@@ -38,8 +38,8 @@ const viewQuestions = async (req, res) => {
   try {
     const { username, mood } = req.query;
     const { profileData } = await User.getUserProfileData(username);
-
     const age = getAge(profileData.birthdate);
+
     const getQuestions = await Questions.viewQuestions(
       username,
       profileData.gender,
