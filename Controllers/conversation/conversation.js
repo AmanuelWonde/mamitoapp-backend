@@ -67,7 +67,7 @@ const sender = (result, res) => {
                     token: fcmToken,
                     notification: {
                         title: "request accepted",
-                        body: result
+                        body: JSON.stringify(result)
                     },
                     android: {
                         priority: "high",
