@@ -25,8 +25,7 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
   console.log(socket.id);
   socket.on("typing", (data) => {
-    console.log(data);
-    io.mit(data.receiver, new responseInstance(new status(1301), data));
+    io.emit(data.receiver, new responseInstance(new status(1301), data));
   });
 });
 
