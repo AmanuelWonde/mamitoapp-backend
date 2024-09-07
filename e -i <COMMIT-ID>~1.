@@ -1,0 +1,1339 @@
+[33mcommit 24725b5d4df04edd6929db1ee4aa8785e2a23f26[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Sep 7 07:39:03 2024 +0300
+
+    firebase configured with .env
+
+[33mcommit 88c0474afbb0df748e354e447e436abed73e8f6f[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Sep 7 07:31:37 2024 +0300
+
+    firebase configured
+
+[33mcommit 5a835f5efa6c52bb15d0b5ddfc442671ff60c074[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Sep 7 07:30:32 2024 +0300
+
+    -a
+
+[33mcommit 6ae1b297df20d9dc7d017cf08f7b68a21b598b07[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Sep 7 07:20:52 2024 +0300
+
+    firbase messaging fixed
+
+[33mcommit 8d071550aa91e9a1915e5c02b9c2d1624849fad4[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Sep 4 14:10:17 2024 +0300
+
+    bio length set to max 90
+
+[33mcommit b596c072524aeda51393362d6c254a5e43fec950[m
+Merge: 43af358 51e8f33
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sun Aug 25 21:10:45 2024 +0300
+
+    Merge branch 'main' of https://github.com/AmanuelWonde/mamitoapp-backend
+
+[33mcommit 43af358c9d77d6b52516da7adcd0ddfa11a86662[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sun Aug 25 21:10:24 2024 +0300
+
+    fixing admin side window detail
+
+[33mcommit 51e8f3314b9fe4c42dbe6df0b704b0992a9ac977[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Aug 23 13:38:54 2024 +0300
+
+    delete convesation fixed. name added to start conversation api
+
+[33mcommit e84733f56934f513f53b580e3a61a43f3bd8f187[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Aug 23 13:38:54 2024 +0300
+
+    delete convesation fixed. name added to start conversation api
+
+[33mcommit 07138b1c4489e6a2def89c6e339b063c7d2a563d[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Thu Aug 22 22:39:45 2024 +0300
+
+    fixing posting only choice without image
+
+[33mcommit a3e9d65f82409fdc48366b8bbf3cf8ab995b60db[m
+Merge: a2520fb d965a74
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Mon Aug 19 19:53:23 2024 +0300
+
+    Merge branch 'main' of https://github.com/AmanuelWonde/mamitoapp-backend
+
+[33mcommit a2520fb126cef32bb2b8c9e116684c3f55f4380e[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Mon Aug 19 19:52:42 2024 +0300
+
+    adding images with gender for question choices
+
+[33mcommit d965a74b8ab7ae170bc78d37b4789b31cb7e72c9[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu Aug 8 11:39:55 2024 +0300
+
+    maleUsers and femaleUsers added to admin dashboard; newUsers interval set to 1 DAY
+
+[33mcommit 1657c61551f59dbe3932bbe6ae5924aa803040dc[m
+Merge: c195a3c d4bf4f1
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Wed Aug 7 12:37:29 2024 +0300
+
+    Merge pull request #26 from AmanuelWonde/AddExpressiveMessage
+    
+    Add expressive message
+
+[33mcommit d4bf4f1facc66aa3c2c3bb3aee97da7c177ef08a[m[33m ([m[1;31morigin/AddExpressiveMessage[m[33m)[m
+Merge: c080722 c195a3c
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Wed Aug 7 12:35:39 2024 +0300
+
+    Merge branch 'main' of https://github.com/AmanuelWonde/mamitoapp-backend into AddExpressiveMessage
+
+[33mcommit c080722a1790e5d2dd650ac9eac13ab5f5b0039a[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Wed Aug 7 12:33:10 2024 +0300
+
+    In this update i have added message key to display in the time when there is a window but not in thier age or thier is not window and count down
+
+[33mcommit c195a3cc964579d707cfe21fa49625c8baa2d249[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Jul 29 18:38:36 2024 +0300
+
+    view-window-data added
+
+[33mcommit e891d5fb850279db938bff9e605ed208ce863e90[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Jul 29 18:38:36 2024 +0300
+
+    view-window-data added
+
+[33mcommit 650b95eb5c093e1df05df3576c40df1bb6514440[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sat Jul 27 19:09:21 2024 +0300
+
+    adding gender key in match respose error fix
+
+[33mcommit de44d41c66aaaa1b278556ec45c9b606179d21ed[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sat Jul 27 19:01:13 2024 +0300
+
+    add gender key in response for matchs
+
+[33mcommit b27af77f3912401a3aac3824af80b0f82b4ceed6[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sat Jul 27 15:34:25 2024 +0300
+
+    db cridential edited
+
+[33mcommit da457d7ff07e5306e270543a4d671a68f45817f7[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sat Jul 27 14:49:46 2024 +0300
+
+    removing mood key from answers table
+
+[33mcommit 9dc11f494a0e4fcf0ab8753d3d5b651b010bc4bb[m
+Merge: 5e9044a 1645091
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sat Jul 27 12:37:26 2024 +0300
+
+    Merge branch 'main' of https://github.com/AmanuelWonde/mamitoapp-backend
+
+[33mcommit 5e9044aaaeb080c81683499126269c374dd09cea[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sat Jul 27 12:36:36 2024 +0300
+
+    Removing unnessaccery gender propps in
+    FindMatches procedure
+
+[33mcommit 1645091615f3e5e2b755e784e8eb3f8cf04636d6[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Jul 24 16:49:46 2024 +0300
+
+    window additional data router created
+
+[33mcommit 2b01666127dbdcd58f2b65bdab9fd70f6e8991c7[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Jul 24 16:14:50 2024 +0300
+
+    windows data removed from admin dashboard request handler
+
+[33mcommit fa439676d12de8a9526e24507d807707c9f98703[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Jul 24 16:05:51 2024 +0300
+
+    stats added to dashboard
+
+[33mcommit c47ddce3972f8072d96e629e90c2e35d72b86ae4[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Jul 24 15:18:14 2024 +0300
+
+    admin dashboard
+
+[33mcommit 39f433f5e8e5ce54348cfce83c30bb4fe19103f6[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Wed Jul 24 12:04:08 2024 +0300
+
+    changing keys for viewng window data
+
+[33mcommit 231c2ad0fff68b6f23f04611ba26a6ff21869f85[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Tue Jul 23 23:52:02 2024 +0300
+
+    view windows data for admin
+
+[33mcommit acb8c2cf395f48f2a9576633eed36865a2bb703e[m
+Merge: 0650227 bbb136b
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Tue Jul 23 17:39:36 2024 +0300
+
+    Merge pull request #25 from AmanuelWonde/FilterByMoodAndAge
+    
+    Filtering window questions based on mood and their age
+
+[33mcommit bbb136bd3c249bb8a218dff0841ac3df0c97e483[m[33m ([m[1;31morigin/FilterByMoodAndAge[m[33m)[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Tue Jul 23 17:38:32 2024 +0300
+
+    Filtering window questions based on mood and their age
+
+[33mcommit 0650227555c7766b95124ea398461de33f3c58a7[m
+Merge: faedb46 1e17258
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Tue Jul 23 13:37:24 2024 +0300
+
+    Merge pull request #24 from AmanuelWonde/SelectGenderBasedOnGender
+    
+    Selecting window questions based on gender
+
+[33mcommit 1e172582aaad4af4238614fc0a19f3cab092d558[m[33m ([m[1;31morigin/SelectGenderBasedOnGender[m[33m)[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Tue Jul 23 13:35:37 2024 +0300
+
+    Selecting window questions based on gender
+
+[33mcommit faedb465f800d3c06e4891d0dced2e0a3ba8ac8b[m
+Merge: 5bc1d0a 2e7512c
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Mon Jul 22 23:27:04 2024 +0300
+
+    Merge pull request #23 from AmanuelWonde/DisplayMatchDetail
+    
+    Displaying match percentage for each match count
+
+[33mcommit 2e7512c9cf8ffd59e32df997280ac84b5058617b[m[33m ([m[1;31morigin/DisplayMatchDetail[m[33m)[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Mon Jul 22 23:24:59 2024 +0300
+
+    Displaying match percentage for each match count
+
+[33mcommit 5bc1d0a6f73a10f0f817c03bc337d369dece7755[m
+Merge: 5803d5e 709d2a1
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Sun Jul 21 21:33:47 2024 +0300
+
+    Merge pull request #22 from AmanuelWonde/FilteredAddQuestions
+    
+    Filtered add questions
+
+[33mcommit 709d2a1c90f987f63c2a3b264015b26770161dc4[m[33m ([m[1;31morigin/FilteredAddQuestions[m[33m)[m
+Merge: 5db14e1 5803d5e
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sun Jul 21 21:32:14 2024 +0300
+
+    Merge branch 'main' of https://github.com/AmanuelWonde/mamitoapp-backend into FilteredAddQuestions
+
+[33mcommit 5db14e1419fbec6d2421dd75f57a333ec30d34fa[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sun Jul 21 21:31:52 2024 +0300
+
+    Adding questions based on gender and adding windwo based on age range and mood
+
+[33mcommit 5803d5e689049dbf291a11f2a02533291b9a1d3b[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Jun 22 11:52:28 2024 +0300
+
+    admin login fixed
+
+[33mcommit 20feccd84d98a3bd6563bfbf05141a646433a282[m
+Merge: 79334c8 af32009
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Jun 22 10:44:44 2024 +0300
+
+    Merge branch 'main' of https://github.com/AmanuelWonde/mamitoapp-backend
+
+[33mcommit 79334c84a4609344a919791547a3c39f577533d3[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Jun 22 10:41:27 2024 +0300
+
+    -a
+
+[33mcommit af320091421e5f4bd10a4550505e59b4182c7b28[m
+Merge: 6cc0102 518c332
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Thu Jun 20 04:20:17 2024 -0600
+
+    Merge pull request #21 from AmanuelWonde/privacy_policy
+    
+    adding endpoints to get about us, privacy policy and term and conditi…
+
+[33mcommit 518c332dc03d39bf4a6fb267a8437cad52bd6b26[m[33m ([m[1;31morigin/privacy_policy[m[33m)[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Thu Jun 20 13:13:05 2024 +0300
+
+    adding endpoints to get about us, privacy policy and term and conditions page.
+
+[33mcommit 6cc0102b10caf834de95d12646985bf183b6d1ad[m
+Merge: 02b9215 6bef856
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Thu Jun 20 01:03:48 2024 -0600
+
+    Merge pull request #20 from AmanuelWonde/delete_account_steps_html
+    
+    adding endpoint where it serves html file that shows steps how to del…
+
+[33mcommit 6bef8562b1dc9a99367b84335b84cc531c311671[m[33m ([m[1;31morigin/delete_account_steps_html[m[33m)[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Thu Jun 20 10:02:35 2024 +0300
+
+    adding endpoint where it serves html file that shows steps how to delete account
+
+[33mcommit 02b921599b70bc8cbdb67a67bdf98803f4534cca[m
+Merge: e74c3e5 b0ac811
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sun Jun 16 11:07:14 2024 +0300
+
+    Merge branch 'main' of https://github.com/AmanuelWonde/mamitoapp-backend
+
+[33mcommit b0ac8112b70f0c25198dce4edd8a6097c04a9244[m
+Merge: 351e9c4 11dba9b
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sun Jun 16 01:13:41 2024 +0300
+
+    Merge branch 'main' of https://github.com/AmanuelWonde/mamitoapp-backend
+
+[33mcommit 351e9c4bef2080b56e956fa4e94f619d7a5e6a46[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sun Jun 16 01:13:32 2024 +0300
+
+    Merge branch 'main' of https://github.com/AmanuelWonde/mamitoapp-backend
+
+[33mcommit e74c3e56c0efcf7a64820ce82952d54df87c7661[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Jun 15 12:34:10 2024 +0300
+
+    -a
+
+[33mcommit 11dba9b5f83396cc0354cdff2cb499e145efabfb[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Jun 14 18:44:50 2024 +0300
+
+    forget password and change password for admin, crud for app infos
+
+[33mcommit 37821940399a97c7267ef8ff66d72babe11f1f2e[m
+Merge: 62209d6 4cd9800
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu May 30 07:03:25 2024 +0300
+
+    Merge branch 'main' of https://github.com/amanuelWonde/MAMITO
+
+[33mcommit 62209d60405f047a4be03743c4a8cfadbba2bfec[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu May 30 07:03:14 2024 +0300
+
+    -a
+
+[33mcommit 4cd98008db987beb3cd5ce6d23d7a2451d8b3769[m
+Merge: 824fce8 2d54a39
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Wed May 29 16:10:06 2024 +0300
+
+    Merge branch 'main' of https://github.com/AmanuelWonde/mamitoapp-backend
+
+[33mcommit 824fce812694da30e4ec178279dd054906d1098c[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Wed May 29 16:06:55 2024 +0300
+
+    -a
+
+[33mcommit 2d54a39193e3003e194e9ff056d35d40cbc69bd6[m
+Merge: 9209979 bfe1f6b
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed May 29 09:45:44 2024 +0300
+
+    -a
+
+[33mcommit 9209979fdc3cb1a9f043b3d0f66c16007270694d[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed May 29 09:41:56 2024 +0300
+
+    -a
+
+[33mcommit cdc69c827b7baca277faaed034c1070f61382841[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed May 29 09:40:55 2024 +0300
+
+    -a
+
+[33mcommit bfe1f6bf0b81edb4eddf59669e1937ca814d29b4[m
+Author: amanuel <amanuelwt@gmail.com>
+Date:   Tue May 28 15:13:12 2024 -0600
+
+    Send verification status with match requests
+
+[33mcommit 7ebfe289454bfb5d141261055cfd9c81deae143c[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Thu May 16 14:10:24 2024 +0300
+
+    Fixing User.js file conflict
+
+[33mcommit a70296b41d3713cfeff9bf2c8a0c7e53c0d58db2[m
+Merge: f546ef4 53fe824
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Thu May 16 14:04:49 2024 +0300
+
+    Merge pull request #19 from AmanuelWonde/Userjs_file
+    
+    Changing User.js ot TempUser.js
+
+[33mcommit 53fe8247d9f9a7411ee98ed5b449427312e08e84[m[33m ([m[1;31morigin/Userjs_file[m[33m)[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Thu May 16 14:01:51 2024 +0300
+
+    Changing User.js ot TempUser.js
+
+[33mcommit f546ef447d6ec36f3850af36ae847b1302a62f55[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Thu May 16 13:39:27 2024 +0300
+
+    fixing user.js file confilict
+
+[33mcommit 4e7c0bf6cf114313642ed3984d79b5926702e937[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Thu May 16 12:00:40 2024 +0300
+
+    adding file that holds all our current sql code
+
+[33mcommit fb14fc810490be303d54b2c6d8bbb523534ab886[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sun May 12 06:44:09 2024 +0300
+
+    notification for updated verification
+
+[33mcommit 6b99dfdf8f5a0c2d2f36966e815a700ebef1e9df[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri May 10 10:57:26 2024 +0300
+
+    user to working version
+
+[33mcommit a37c87fb58e68c81ebdcf04e9ae9f9f4dd549748[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri May 10 10:54:29 2024 +0300
+
+    reverting user
+
+[33mcommit e8806679b251f0297ade7fab1dd78a1b86c6eca9[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri May 10 10:50:34 2024 +0300
+
+    separating user dertail and use constraint
+
+[33mcommit 2371497f538cb9aa6659948386437bb3bea072e5[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu May 9 11:56:39 2024 +0300
+
+    -a
+
+[33mcommit f3d6107e1f93720036629953c314cd5dec7ab167[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu May 9 11:08:08 2024 +0300
+
+    -a
+
+[33mcommit f6e802c824a6677bf38110f4126b93502335300a[m
+Merge: 2afc042 0be36d6
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu May 9 11:06:36 2024 +0300
+
+    Merge branch 'main' of https://github.com/amanuelWonde/MAMITO
+
+[33mcommit 2afc042c0537d2a99e3fbb45b059581822096338[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu May 9 11:05:41 2024 +0300
+
+    -a
+
+[33mcommit 0be36d6d5910468a8a14c90ab014986f649d4f67[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Thu May 2 01:50:48 2024 +0300
+
+    change db connection to db
+
+[33mcommit ba6ad345d8d580391e3c7ba75ed8476f7b988e66[m
+Merge: e14c423 15ea7a7
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Thu May 2 01:47:03 2024 +0300
+
+    Merge pull request #18 from AmanuelWonde/fix_verification_issues
+    
+    fixing verification issues in the admin and user side
+
+[33mcommit 15ea7a7f8ffb1874f19af4496c3febd4a9819054[m[33m ([m[1;31morigin/fix_verification_issues[m[33m)[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Thu May 2 01:38:03 2024 +0300
+
+    fixing verification issues in the admin and user side
+
+[33mcommit e14c4235809ea4b5d19176fe8181cbc1939e5197[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed May 1 01:41:12 2024 +0300
+
+    -a
+
+[33mcommit 192dab3626e46886ceb5e86261aac3dba9ce3f8e[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Apr 29 12:51:01 2024 +0300
+
+    -a
+
+[33mcommit bd631f761b9e808a23601cacb158b6053990a6d0[m
+Merge: d2c9c53 b41f966
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Apr 27 13:46:16 2024 +0300
+
+    Merge branch 'main' of https://github.com/amanuelWonde/MAMITO
+
+[33mcommit d2c9c539788f22b3e94221734ff3cddab8e872ee[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Apr 27 13:45:43 2024 +0300
+
+    -a
+
+[33mcommit b41f966fecea8def4c9c0a48f54855313664b0cf[m
+Merge: 09a7a42 0269379
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Mon Apr 22 12:12:52 2024 +0300
+
+    Merge pull request #17 from AmanuelWonde/set_time_zone
+    
+    adding query to excute each time there is a connection with the datab…
+
+[33mcommit 0269379208dc92bdedf450df1033e22deb509e17[m[33m ([m[1;31morigin/set_time_zone[m[33m)[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Mon Apr 22 12:11:39 2024 +0300
+
+    adding query to excute each time there is a connection with the database to adjust time zone to Africa/Nairobi
+
+[33mcommit 09a7a424b2fe187a46b4864428b0998d912c6580[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Sat Apr 20 20:56:29 2024 +0300
+
+    minor error on saving users
+
+[33mcommit f2147e8122997baf9ce712454d5c0f604f2a733b[m
+Merge: dfeaa4b 735c58d
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Thu Apr 18 08:09:17 2024 +0300
+
+    Merge pull request #16 from AmanuelWonde/save_answers_error_fixed
+    
+    fixing error while saving user answers
+
+[33mcommit 735c58df906bd551711712c144a5880b8e530fa2[m[33m ([m[1;31morigin/save_answers_error_fixed[m[33m)[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Thu Apr 18 08:05:32 2024 +0300
+
+    fixing error while saving user answers
+
+[33mcommit dfeaa4b3a341642027331598798949fb4db3b353[m
+Merge: c957282 5bec0ad
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Tue Apr 16 10:20:33 2024 +0300
+
+    Merge pull request #15 from AmanuelWonde/user_profile_detail_
+    
+    i have added endpoint to retrive all the details of a given user
+
+[33mcommit 5bec0ad9b3f990a135a13b1c14641189cd401222[m[33m ([m[1;31morigin/user_profile_detail_[m[33m)[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Tue Apr 16 10:19:32 2024 +0300
+
+    i have added endpoint to retrive all the details of a given user
+
+[33mcommit c9572829ff305aa3d2d654ebefc6eb7e7f418e71[m
+Merge: 6aaea24 90cb6db
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Tue Apr 16 00:08:40 2024 +0300
+
+    Merge pull request #14 from AmanuelWonde/matching_with_profile_data
+    
+    add profile data for matching like distance, age, gender, religios, l…
+
+[33mcommit 90cb6db6d2b0116420f6ce2c04f25b2ad759680f[m[33m ([m[1;31morigin/matching_with_profile_data[m[33m)[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Tue Apr 16 00:06:21 2024 +0300
+
+    add profile data for matching like distance, age, gender, religios, location and mood
+
+[33mcommit 6aaea245782cee2f3bb88af3bcc93a83c554db91[m
+Merge: 3f73259 5cfcaaa
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Fri Apr 12 16:41:06 2024 +0300
+
+    Merge pull request #13 from AmanuelWonde/matching_with_question_value
+    
+    I have fixed matching with question values
+
+[33mcommit 5cfcaaa81a5107fb5f5959b8ae8e240ade96e254[m[33m ([m[1;31morigin/matching_with_question_value[m[33m)[m
+Merge: d7a5bc7 3f73259
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Fri Apr 12 16:40:57 2024 +0300
+
+    Merge branch 'main' into matching_with_question_value
+
+[33mcommit d7a5bc7c087dc0764970f1f9a167e3c8dd23254f[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Fri Apr 12 16:35:30 2024 +0300
+
+    I have fixed matching with question values
+
+[33mcommit 3f732596ce9c78c88285ba0675c205b16e669f45[m
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Thu Mar 28 20:20:00 2024 +0300
+
+    Update deploy.yml
+
+[33mcommit c33d4cf7c935848f3a7b46eb63602fa80d039112[m
+Merge: bffe352 7d64e3d
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Thu Mar 28 10:09:19 2024 -0700
+
+    Merge pull request #12 from AmanuelWonde/fix_question_response_error
+    
+    fixing response error for questions by adding message attribute
+
+[33mcommit 7d64e3d52ae61ab1eb411f4280c653da59aca0fc[m[33m ([m[1;31morigin/fix_question_response_error[m[33m)[m
+Merge: db7c4c8 bffe352
+Author: Amanuel Wonde <134140189+AmanuelWonde@users.noreply.github.com>
+Date:   Thu Mar 28 10:09:11 2024 -0700
+
+    Merge branch 'main' into fix_question_response_error
+
+[33mcommit db7c4c8f694e62369774a1f90daac20c9a68e1c7[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Thu Mar 28 20:05:44 2024 +0300
+
+    fixing response error for questions by adding message attribute
+
+[33mcommit bffe35287e1760a66562386e0e01a70ba3e11ba5[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Mar 25 17:00:55 2024 +0300
+
+    adfad
+
+[33mcommit bc95c4d42a60f6423cb68c85716884de5ae39206[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Mar 25 12:44:04 2024 +0300
+
+    final
+
+[33mcommit 90c007264c2e719869168f603b9b5bbd502d354b[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Mon Mar 18 02:02:15 2024 +0300
+
+    deleting images
+
+[33mcommit 0f295b4d5c3c4f1f24931475d944cdb1d361b6e2[m
+Merge: 36c1afb 5dd8bd5
+Author: Amanuel Wonde <134140189+amanuelWonde@users.noreply.github.com>
+Date:   Mon Mar 18 02:01:00 2024 +0300
+
+    Merge pull request #11 from amanuelWonde/update_image
+    
+    fixing error when updating image in the state
+
+[33mcommit 5dd8bd5ba2bfe5f212a85a1e1fc11f315683b2ce[m[33m ([m[1;31morigin/update_image[m[33m)[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Mon Mar 18 01:58:34 2024 +0300
+
+    fixing error when updating image in the state
+
+[33mcommit 36c1afb23e97e082f560e2f456e8fc54cd4ebc4c[m
+Merge: c47d58f 597f9f5
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sun Mar 17 13:00:46 2024 +0300
+
+    Merge branch 'main' of https://github.com/amanuelWonde/MAMITO into delete-windows
+
+[33mcommit c47d58fecdf695b9556073d36f101f1459eaad99[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sun Mar 17 13:00:16 2024 +0300
+
+    delete windows initial commit
+
+[33mcommit 597f9f53fd40f49a28f528d1edd3098cfbb05322[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Fri Mar 15 23:59:58 2024 +0300
+
+    change databes credentials
+
+[33mcommit 00506df450904aedb170a6ec36d673e6a8ee364a[m
+Merge: 6208811 93f719d
+Author: Amanuel Wonde <134140189+amanuelWonde@users.noreply.github.com>
+Date:   Fri Mar 15 23:59:10 2024 +0300
+
+    Merge pull request #10 from amanuelWonde/update_question_delete_sample_image
+    
+    add functionality like, update questions delete sample images
+
+[33mcommit 93f719d9c343bb38246f23c1075424d047c3f872[m[33m ([m[1;31morigin/update_question_delete_sample_image[m[33m)[m
+Author: amanuel wonde <amanuelwt@gmail.com>
+Date:   Fri Mar 15 23:57:29 2024 +0300
+
+    add functionality like, update questions delete sample images
+
+[33mcommit 62088116375c0346387bc837c7c5a5ddc5c82c75[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Sun Mar 10 13:59:15 2024 +0300
+
+    profile data push and get
+
+[33mcommit 5f565b2393b3eff5e66eeaf46eca47b77bcab49a[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Tue Feb 27 16:50:28 2024 +0300
+
+    profile data
+
+[33mcommit 9f9b094dff05b89b81d5f32796c2bd8cc0478a27[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Tue Feb 20 15:45:00 2024 +0300
+
+    for aman
+
+[33mcommit 603b515df3aac9fda5fa5c1e6c20a36e8c2a8325[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Sun Feb 18 21:17:53 2024 +0300
+
+    sender added to send message notification
+
+[33mcommit 1ef926a7c0cc5e894dde52253d31c99a558b58a1[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Sun Feb 18 16:19:03 2024 +0300
+
+    notification fix 1
+
+[33mcommit f570ddc2190131faf979639308d6a295460f099f[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Sun Feb 18 12:00:15 2024 +0300
+
+    notifications
+
+[33mcommit 465a6b9a6d1c844dbc1ae13b11c17afe7d22c004[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Sun Feb 18 00:48:04 2024 +0300
+
+    notifications initial commit
+
+[33mcommit a703a964bbb2a2933a2c88c51d5061402877d473[m[33m ([m[1;31morigin/notification[m[33m)[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Sat Feb 17 12:30:02 2024 +0300
+
+    notification
+
+[33mcommit 97c981e4600b1da47fe4ad92e0ecb54992fe2817[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Sun Feb 4 11:31:20 2024 +0300
+
+    -a
+
+[33mcommit 031cd3a53bbaa88cd0b34ca0775861df5f3efd08[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Sat Feb 3 23:01:10 2024 +0300
+
+    -a
+
+[33mcommit 30983fa126ab6bb27526d863836c86e4347fe2ea[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Sat Feb 3 21:02:36 2024 +0300
+
+    -a
+
+[33mcommit f878401783743b3a8430c65330b19571af573dbf[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Sat Feb 3 21:02:12 2024 +0300
+
+    -a
+
+[33mcommit 783e633ba397183792ea8b7ade65c73b0a3b5783[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Sat Jan 20 18:11:46 2024 +0300
+
+    tokens are sended when profile is updated
+
+[33mcommit b827f489635d01abe804c1b657e4175d31f1122b[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Fri Jan 12 16:38:14 2024 +0300
+
+    -a
+
+[33mcommit d980f79d7f82b1e13b15ac0f4cabcdfa52d6bb2a[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Thu Jan 4 19:23:05 2024 +0300
+
+    -a
+
+[33mcommit f7dae2267fd25a85e648c5dde6cfd2213d4b47ca[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Dec 30 23:58:22 2023 +0300
+
+    -a
+
+[33mcommit a87e698e7b9495384f365e78e6e0a2c816558990[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Dec 30 11:24:44 2023 -0800
+
+    -a
+
+[33mcommit 8fcde67f398f6d1ea6ceeab85124bb48d6f0502f[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Dec 30 09:59:46 2023 -0800
+
+    -a
+
+[33mcommit 1240cca302677caa12b5d27b3aaa98d2dec76ffb[m
+Author: Your Name <your.email@example.com>
+Date:   Wed Dec 27 19:53:41 2023 +0300
+
+    -a
+
+[33mcommit e07117e380b6c9bc5191354d43f6fdef2ebefef3[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Mon Dec 25 22:35:58 2023 +0300
+
+    adding image path and id to upload profile response
+
+[33mcommit cfcc5b5fa97e92b766e9efaa584173def4f5096a[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sun Dec 24 14:26:14 2023 +0300
+
+    add profile image routes
+
+[33mcommit 0af697b5dd9413beb56371f0289ef9343d99547a[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Dec 23 22:45:46 2023 +0300
+
+    -a
+
+[33mcommit 4b4b102d021fe7415b114079026beee7ecdfe9bb[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Dec 23 21:03:49 2023 +0300
+
+    -a
+
+[33mcommit 7db50e7b0db6418e341b6be33b5b1d95b40c4485[m
+Merge: 526337f b117161
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Dec 23 09:07:40 2023 +0300
+
+    -a
+
+[33mcommit b1171617c6a7636d0ce29edd3f07a8e5f95658f0[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Fri Dec 22 19:33:35 2023 +0300
+
+    deleted test profileImages
+
+[33mcommit a962c5a8bad3805abc94f13777c6faf5d501b158[m
+Merge: 840d812 cc34120
+Author: Amanuel Wonde <134140189+amanuelWonde@users.noreply.github.com>
+Date:   Fri Dec 22 19:29:15 2023 +0300
+
+    Merge pull request #9 from amanuelWonde/profileImages
+    
+    Profile images
+
+[33mcommit cc341205fe2a5c5f3658b73941063d7fe522795c[m[33m ([m[1;31morigin/profileImages[m[33m)[m
+Merge: f06a54a 840d812
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Fri Dec 22 19:24:59 2023 +0300
+
+    Merge branch 'main' of https://github.com/AbelMaireg/MAMITO into profileImages
+
+[33mcommit f06a54a2a68779c4dac68bccbec4a6d411089edf[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Fri Dec 22 19:24:38 2023 +0300
+
+    adding features like adding, viewing and deleting features
+
+[33mcommit 526337f50086a86fc7e7ad1bf167df831f3d4a20[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Dec 22 16:12:26 2023 +0300
+
+    -a
+
+[33mcommit e1f6d3bb16508f3622e95caa09fef180ed066a05[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu Dec 21 16:16:33 2023 +0300
+
+    -a
+
+[33mcommit afed4cfd06b653deca690feac5887fe0faecbd20[m
+Merge: 48981d7 840d812
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Dec 15 14:52:48 2023 +0300
+
+    -a
+
+[33mcommit 48981d766a1b2649e6106c168d1fa9da639a7b60[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Dec 15 14:50:19 2023 +0300
+
+    -a
+
+[33mcommit 5bc5b718b32abd84e8abae9d63a3a9a9082c07eb[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu Dec 14 08:46:36 2023 +0300
+
+    -a
+
+[33mcommit 840d812b02c2eb255e1fae9054c7fc9add796066[m
+Author: AbelMaireg <126972775+AbelMaireg@users.noreply.github.com>
+Date:   Wed Dec 13 19:26:02 2023 +0300
+
+    Update config.js
+
+[33mcommit d6b999904820381a1b2d60d93a9614d53ca7aead[m
+Merge: bdcc285 959ded6
+Author: Amanuel Wonde <134140189+amanuelWonde@users.noreply.github.com>
+Date:   Wed Dec 13 17:21:23 2023 +0300
+
+    Merge pull request #8 from amanuelWonde/fixingAdminPageError
+    
+    Fixing admin page error
+
+[33mcommit 959ded6d29e5eafada29870d49bcfc9d95cd668e[m[33m ([m[1;31morigin/fixingAdminPageError[m[33m)[m
+Merge: dab0d4a bdcc285
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Wed Dec 13 17:14:47 2023 +0300
+
+    Merge branch 'main' of https://github.com/AbelMaireg/MAMITO into fixingAdminPageError
+
+[33mcommit dab0d4a434759090ae050f5b6ce76c57912f97f9[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Wed Dec 13 17:14:21 2023 +0300
+
+    fixing admin page error when getting window questions
+
+[33mcommit bdcc2856764aa1265075cf502d01eef5d277ffa5[m
+Merge: c6f9fe3 9edc430
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Dec 11 18:59:29 2023 +0300
+
+    Merge branch 'vr'
+
+[33mcommit 9edc430e99c5668b02a3501904c915380ddaabfe[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Dec 11 18:59:03 2023 +0300
+
+    -a
+
+[33mcommit c6f9fe32a8090227a412423503aba8014a726351[m
+Merge: e9acb84 f890d44
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Dec 11 18:45:19 2023 +0300
+
+    -a
+
+[33mcommit e9acb8468d025d7c830f432376ae12512839722e[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Dec 11 18:41:59 2023 +0300
+
+    -a
+
+[33mcommit bd95e9cbcbc8166684dafd995f6325ae1dbf6ed2[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sun Dec 10 14:26:27 2023 +0300
+
+    -a
+
+[33mcommit f890d442599ad3a6cdf1483332c08313d13e347d[m
+Merge: 8d15063 618176d
+Author: Amanuel Wonde <134140189+amanuelWonde@users.noreply.github.com>
+Date:   Sun Dec 10 12:03:39 2023 +0300
+
+    Merge pull request #7 from amanuelWonde/finishMatching
+    
+    matching algorithm finished
+
+[33mcommit 618176d6124d20fb080c1bffda1596c4d0b6b0c4[m[33m ([m[1;31morigin/finishMatching[m[33m)[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sun Dec 10 12:02:02 2023 +0300
+
+    matching algorithm finished
+
+[33mcommit b50400a3dd78c5218ebf21db7eecc3365fe48259[m
+Merge: 5682b38 8d15063
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Dec 9 16:31:39 2023 +0300
+
+    Merge branch 'main' of https://github.com/amanuelWonde/MAMITO
+
+[33mcommit 5682b38100c3887b029f704973e22939a0842f04[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Dec 9 16:31:06 2023 +0300
+
+    -a
+
+[33mcommit 8d15063d82d63c7384d1cc95420d88a3df7c5c29[m
+Merge: d663f0c d829a17
+Author: Amanuel Wonde <134140189+amanuelWonde@users.noreply.github.com>
+Date:   Sat Dec 9 11:01:09 2023 +0300
+
+    Merge pull request #6 from amanuelWonde/adminPageConfig
+    
+    Admin page config
+
+[33mcommit d829a17089939bf1557c7fe1f5c4664004ea05bd[m[33m ([m[1;31morigin/adminPageConfig[m[33m)[m
+Merge: 686520b d663f0c
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sat Dec 9 10:59:21 2023 +0300
+
+    Merge branch 'main' of https://github.com/AbelMaireg/MAMITO into adminPageConfig
+
+[33mcommit 686520bada40941c69ed2042ffc1f9909e51ec03[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sat Dec 9 10:56:30 2023 +0300
+
+    setting up the admin page main issues
+
+[33mcommit d663f0c014a1f4c5316729a3073379f8ce53bd21[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Dec 6 01:19:40 2023 +0300
+
+    -a
+
+[33mcommit 55bb7d068e0a809020a6e2b2e7908e18ab3d5cb5[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Dec 6 00:35:32 2023 +0300
+
+    merged server
+
+[33mcommit ab60c63ebe6ac68a66264c4df5b81edc1fbe53a5[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Dec 4 13:34:22 2023 +0300
+
+    -a
+
+[33mcommit 50738286513d0b47cf170b19f17c965f779e16f7[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Dec 4 13:30:24 2023 +0300
+
+    getmessagefixed
+
+[33mcommit 7a0c1072a98d403b8eabbb49e60c8e124afb2773[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Dec 2 20:06:27 2023 +0300
+
+    -a
+
+[33mcommit 33f0e0cfb2e4cd6d01f9b49ee074aa3b1b18efc4[m
+Merge: 8729eab 98d2833
+Author: Amanuel Wonde <134140189+amanuelWonde@users.noreply.github.com>
+Date:   Sat Dec 2 13:07:35 2023 +0300
+
+    Merge pull request #5 from amanuelWonde/adminSetup
+    
+    finishing admin page
+
+[33mcommit 98d2833ac9f08bbc2f43a77ca23b7eb98bc0edbd[m[33m ([m[1;31morigin/adminSetup[m[33m)[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sat Dec 2 13:03:07 2023 +0300
+
+    finishing admin page
+
+[33mcommit 8729eabfeaaa49d8666de151917a935656d33378[m
+Merge: fc5bce2 3185ff0
+Author: Amanuel Wonde <134140189+amanuelWonde@users.noreply.github.com>
+Date:   Sat Dec 2 08:14:00 2023 +0300
+
+    Merge pull request #4 from amanuelWonde/adminEndpoints
+    
+    Admin endpoints
+
+[33mcommit 3185ff0c4dc3d225c2f32ebc60d420d733119ede[m[33m ([m[1;31morigin/adminEndpoints[m[33m)[m
+Merge: 66fa271 fc5bce2
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sat Dec 2 08:12:43 2023 +0300
+
+    Merge branch 'main' of https://github.com/AbelMaireg/MAMITO into adminEndpoints
+
+[33mcommit 66fa27108d47231fffb541a8b13f9352b37cafef[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sat Dec 2 08:02:38 2023 +0300
+
+    admin endpoints finished
+
+[33mcommit fc5bce249b3b32e594bae748f52583b1a693db09[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Dec 1 11:03:23 2023 +0300
+
+    -a
+
+[33mcommit a25022304776372515f7003fac5c567f62486d03[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Dec 1 07:27:58 2023 +0300
+
+    -a
+
+[33mcommit 2f099e6fd2fcd3c71b9330eebd7fe8e4b778454f[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Dec 1 06:16:32 2023 +0300
+
+    -a
+
+[33mcommit a94a04533ad4d34fde8bbb1e1c14e241c69bcdde[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Dec 1 06:09:41 2023 +0300
+
+    -a
+
+[33mcommit 941c65f85b1a72c6d86edb5ef5d1084ada830025[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu Nov 30 10:01:40 2023 +0300
+
+    ready for initial test
+
+[33mcommit 7ff90f06a31085de29dc4b62261265653e3adf12[m
+Merge: 5931859 06088b0
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu Nov 30 09:33:39 2023 +0300
+
+    -a
+
+[33mcommit 5931859d96dd605f7ee836aceb93254dffbb8675[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu Nov 30 09:25:35 2023 +0300
+
+    -a
+
+[33mcommit 06088b017c06e59b73ab106555f58a19957a3c66[m
+Merge: e19e026 641398d
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Tue Nov 28 00:16:54 2023 +0300
+
+    Merge branch 'main' of https://github.com/AbelMaireg/MAMITO
+
+[33mcommit e19e026017f91b55c5ae61b4c55774b9ab1ac2a4[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Tue Nov 28 00:14:22 2023 +0300
+
+    adding matching and add question endpoint
+
+[33mcommit 641398da93a6e8553d127b3289196c7ed81d4a5f[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Nov 25 08:44:20 2023 +0300
+
+    bugfixes
+
+[33mcommit 9ea6039feee3c092cf5af51c3abf30d7046f65cc[m
+Merge: 9a2fe77 4a67a16
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu Nov 23 17:32:08 2023 +0300
+
+    Merge branch 'main' of https://github.com/AbelMaireg/MAMITO
+
+[33mcommit 9a2fe779033e06e8217b74f8293afa5c0e59231e[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu Nov 23 17:26:29 2023 +0300
+
+    -a
+
+[33mcommit 4a67a1639a866f9baff0c80c6724e00d7fef90bd[m
+Merge: 1d3c2e7 e039731
+Author: Amanuel Wonde <134140189+amanuelWonde@users.noreply.github.com>
+Date:   Thu Nov 23 08:52:39 2023 +0300
+
+    Merge pull request #3 from amanuelWonde/ci-cd
+    
+    Ci cd
+
+[33mcommit e03973157ca585c60fa0ace9de60f090364df59b[m[33m ([m[1;31morigin/ci-cd[m[33m)[m
+Merge: 9484673 1d3c2e7
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Thu Nov 23 08:36:28 2023 +0300
+
+    Merge branch 'main' of https://github.com/AbelMaireg/MAMITO into ci-cd
+
+[33mcommit 948467372088ac42f75f85f1a95f06af6b0736b1[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Thu Nov 23 08:27:39 2023 +0300
+
+    CI/CD setted up
+
+[33mcommit 1d3c2e7b6cbe55ade1f22469a3d2a1bde413c24f[m
+Merge: 6f41dae e41aa3b
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Nov 20 07:46:07 2023 +0300
+
+    first merge
+
+[33mcommit e41aa3b7cc0620986e615d98be6a1124b83e1a2b[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Nov 20 07:29:45 2023 +0300
+
+    -a
+
+[33mcommit 6f41daece1e3735f224edd6d764889f7cfb8c91a[m
+Merge: 639e5ea 7143ee6
+Author: Amanuel Wonde <134140189+amanuelWonde@users.noreply.github.com>
+Date:   Sun Nov 19 20:35:00 2023 +0300
+
+    Merge pull request #1 from AbelMaireg/addingQuestionsAndAnswersEndpoint
+    
+    adding add question, view question, and accept answer end points
+
+[33mcommit 7143ee654694cdaa304ac18ee46a3ca4edcc9386[m[33m ([m[1;31morigin/addingQuestionsAndAnswersEndpoint[m[33m)[m
+Merge: ea0401d 639e5ea
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sun Nov 19 20:34:05 2023 +0300
+
+    Merge branch 'main' of https://github.com/AbelMaireg/MAMITO into addingQuestionsAndAnswersEndpoint
+
+[33mcommit ea0401d3f96ba840d62ced58927e97b339276224[m
+Author: Amanuel Wonde <amanuelwt@gmail.com>
+Date:   Sun Nov 19 19:43:38 2023 +0300
+
+    adding add question, view question, and accept answer end points
+
+[33mcommit 639e5ea9acb2a0ad5599abd66dc41b2e8870645b[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Nov 18 16:49:52 2023 +0300
+
+    -a
+
+[33mcommit f4b7f5312894e6bce4d43fbe6622a5c8726c9dee[m
+Merge: a046c3e 2d5e5ef
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Nov 18 16:34:26 2023 +0300
+
+    Merge branch 'winque' of https://github.com/AbelMaireg/MAMITO
+
+[33mcommit 2d5e5ef7f1a983853f68ec50027340c5a8e81d42[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Sat Nov 18 16:28:37 2023 +0300
+
+    -a
+
+[33mcommit a046c3e9ca339c49f71edcdf475efff763f723ef[m
+Merge: 1250c59 e8c39fd
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Nov 13 20:46:56 2023 +0300
+
+    Merge branch 'login'
+
+[33mcommit e8c39fd88b4ee362c1ff54f09e68f042390cc61a[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Nov 13 20:42:36 2023 +0300
+
+    -a
+
+[33mcommit 1250c59294a30ece19b04199ec03d7696f448fca[m
+Merge: 97e8bb3 ed61646
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Nov 13 14:06:54 2023 +0300
+
+    Merge branch 'login'
+
+[33mcommit ed6164658a92806647d85e5df7d25ea95e1f3696[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Nov 13 13:59:44 2023 +0300
+
+    -a
+
+[33mcommit d7d7f4ad7bc6e395e5ce5739bb8422d16f5dae6f[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Mon Nov 13 13:58:53 2023 +0300
+
+    -a
+
+[33mcommit 97e8bb30d091db911c74c1efb9c71bcc60a3c0bd[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Nov 10 20:28:52 2023 +0300
+
+    -a
+
+[33mcommit ad70e6e04f8ca418ddfb42d0168f4b358dfe3c55[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Nov 10 15:53:32 2023 +0300
+
+    -a
+
+[33mcommit c8e0a578bc46754c6eb12376ebf3af2f8639d186[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Nov 10 15:14:27 2023 +0300
+
+    phone number validation
+
+[33mcommit 9de146d047cdfec008a14fe8c6edb94ba4260919[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Fri Nov 10 14:54:04 2023 +0300
+
+    -a
+
+[33mcommit 0b5510daf2c93b785ec5fa8218d3ccf91d35c9ea[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Thu Nov 9 18:21:46 2023 +0300
+
+    signup
+
+[33mcommit ac528f41c8030bc3706e43af7b706dafa39493ca[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Nov 8 23:05:31 2023 +0300
+
+    -a
+
+[33mcommit c7a1b114cc4e3e5a4151009112fa227be4c85a58[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Nov 8 16:59:10 2023 +0300
+
+    -a
+
+[33mcommit c6a783c73c04c500b777456214e864bc12f1c5d7[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Nov 8 15:52:27 2023 +0300
+
+    -a
+
+[33mcommit 252da805181e1b7dbca52e76bcb3a30c6da93a8b[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Nov 8 15:44:58 2023 +0300
+
+    -a
+
+[33mcommit a86a595c29ec32c28fb1fceb2e5f2162e2f57d03[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Nov 8 14:40:32 2023 +0300
+
+    server setup
+
+[33mcommit c131da0ddd601f8405a2060b30d8c33cc166aa5b[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Nov 8 07:38:39 2023 +0300
+
+    configs
+
+[33mcommit d003502a5276b13223c178a368974e7f6399bbfc[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Nov 8 07:18:56 2023 +0300
+
+    folder structure
+
+[33mcommit 21e0100868a6b3416bde9af1fd3be5e34aa033a7[m
+Author: AbelMaireg <abelrighthere@gmail.com>
+Date:   Wed Nov 8 07:11:46 2023 +0300
+
+    initialc

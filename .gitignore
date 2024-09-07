@@ -2,5 +2,7 @@ node_modules/
 .vscode/
 .vs/
 a.zip
+.env
+firebase_sdk.json
 
 *.lock
