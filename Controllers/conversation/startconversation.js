@@ -60,22 +60,26 @@ const insertConversation = (body) => {
 const sender = (result, res) => {
     res.send(new responseInstance(new status(1020), result));
     io.emit(result["user-2"], new responseInstance(new status(1020), result));
-    
+
     getFCMtoken(result['user-2']).then(fcmToken => {
         if (fcmToken)
-        fcm.send({
-            notification: {
-                title: "new request",
-                body: result["user-1"]
-            },
-            android: {
-                priority: 'high',
-            },
-            to: fcmToken
-        }, (err, response) => {
-                if (err) console.log(err)
-                else console.log(response)
-        })
+            fcm.messaging()
+            .send({
+                    token: fcmToken,
+                    notification: {
+                        title: 'new request',
+                        body: result["user-1"]
+                    },
+                    android: {
+                        priority: "high",
+                    }
+                })
+            .then(response => {
+                    console.log('notification success: ', response);
+                })
+            .catch(error => {
+                    console.log('notification error: ', error);
+                })
     });
 
 }
