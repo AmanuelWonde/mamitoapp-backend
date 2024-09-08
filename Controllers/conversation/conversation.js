@@ -67,7 +67,8 @@ const sender = (result, res) => {
                     token: fcmToken,
                     notification: {
                         title: "request accepted",
-                        body: JSON.stringify(result)
+                        body: JSON.stringify(result),
+                        sound: 'waterdrop.mp3'
                     },
                     android: {
                         priority: "high",

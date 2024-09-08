@@ -63,7 +63,8 @@ const sender = (result, res) => {
                     token: fcmToken,
                     notification: {
                         title: 'new request',
-                        body: result["user-1"]
+                        body: result["user-1"],
+                        sound: 'waterdrop.mp3'
                     },
                     android: {
                         priority: "high",

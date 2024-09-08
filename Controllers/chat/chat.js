@@ -224,11 +224,12 @@ const sender = (result, operationType, res) => {
                     token: fcmToken,
                     notification: {
                         title: 'new message',
-                        body: result.sender
+                        body: result.sender,
+                        sound: 'waterdrop.mp3'
                     },
                     data: {
                         sender: result.sender,
-                        message: result.message
+                        message: result.message,
                     },
                     android: {
                         priority: "high",

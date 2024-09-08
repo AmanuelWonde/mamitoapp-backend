@@ -88,6 +88,7 @@ const sender = (req, res, result) => {
                 notification: {
                     title: "Verification Status",
                     body: req.body.verification == 0 ? "your are not verified, please try with another image" : "you are successfully verified",
+                    sound: 'waterdrop.mp3'
                 },
                 android: {
                     priority: "high",
