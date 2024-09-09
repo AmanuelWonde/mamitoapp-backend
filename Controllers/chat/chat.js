@@ -225,7 +225,6 @@ const sender = (result, operationType, res) => {
                     notification: {
                         title: 'new message',
                         body: result.sender,
-                        sound: 'waterdrop.mp3'
                     },
                     data: {
                         sender: result.sender,

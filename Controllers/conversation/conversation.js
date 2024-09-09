@@ -68,7 +68,6 @@ const sender = (result, res) => {
                     notification: {
                         title: "request accepted",
                         body: JSON.stringify(result),
-                        sound: 'waterdrop.mp3'
                     },
                     android: {
                         priority: "high",

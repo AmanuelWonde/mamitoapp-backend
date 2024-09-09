@@ -64,7 +64,6 @@ const sender = (result, res) => {
                     notification: {
                         title: 'new request',
                         body: result["user-1"],
-                        sound: 'waterdrop.mp3'
                     },
                     android: {
                         priority: "high",

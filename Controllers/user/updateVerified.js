@@ -70,17 +70,15 @@ const update = (body) => {
 };
 
 const sender = (req, res, result) => {
-  io.emit(
-    req.body.username,
-    new responseInstance(new status(result.status), "verification updated")
-  );
-  res.send(
-    new responseInstance(new status(result.status), "verification updated")
-  );
+    io.emit(
+        req.body.username,
+        new responseInstance(new status(result.status), "verification updated")
+    );
+    res.send(
+        new responseInstance(new status(result.status), "verification updated")
+    );
 
     getFCMtoken(req.body.username).then((fcmToken) => {
-        console.log("req.body: ", req.body);
-        console.log("result: ", result)
         if (fcmToken)
         fcm.messaging()
             .send({
@@ -88,7 +86,6 @@ const sender = (req, res, result) => {
                 notification: {
                     title: "Verification Status",
                     body: req.body.verification == 0 ? "your are not verified, please try with another image" : "you are successfully verified",
-                    sound: 'waterdrop.mp3'
                 },
                 android: {
                     priority: "high",
