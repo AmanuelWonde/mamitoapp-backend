@@ -66,8 +66,11 @@ const sender = (result, res) => {
                 .send({
                     token: fcmToken,
                     notification: {
-                        title: "request accepted",
-                        body: JSON.stringify(result),
+                        title: "Request accepted",
+                        body: `${result.content['user-1']} accepted your chat request`,
+                    },
+                    data: {
+                        details: JSON.stringify(result)
                     },
                     android: {
                         priority: "high",
