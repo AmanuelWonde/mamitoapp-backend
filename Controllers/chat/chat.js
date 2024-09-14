@@ -228,7 +228,7 @@ const sender = (result, operationType, res) => {
                     },
                     data: {
                         sender: result.sender,
-                        message: result.message,
+                        message: result,
                     },
                     android: {
                         priority: "high",
