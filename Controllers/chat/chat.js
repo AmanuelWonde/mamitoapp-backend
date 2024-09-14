@@ -228,7 +228,7 @@ const sender = (result, operationType, res) => {
                     },
                     data: {
                         sender: result.sender,
-                        details: result,
+                        details: JSON.stringify(result),
                     },
                     android: {
                         priority: "high",
