@@ -217,26 +217,30 @@ const sender = (result, operationType, res) => {
     if (operationType == 'insert') {
         io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
-        
+
         getFCMtoken(result.receiver).then(fcmToken => {
-            fcm.send({
-                notification: {
-                    title: "new message",
-                    body: result.sender
-                },
-                data: {
-                    sender: result.sender,
-                    message: result.message
-                },
-                android: {
-                    priority: 'high',
-                },
-                to: fcmToken
-            }, (err, response) => {
-                if (err) console.log(err)
-                else console.log(response)
-            })
-        })    
+            fcm.messaging()
+            .send({
+                    token: fcmToken,
+                    notification: {
+                        title: 'new message',
+                        body: result.sender,
+                    },
+                    data: {
+                        sender: result.sender,
+                        details: JSON.stringify(result),
+                    },
+                    android: {
+                        priority: "high",
+                    }
+                })
+            .then(response => {
+                    console.log('notification success: ', response);
+                })
+            .catch(error => {
+                    console.log('notification error: ', error);
+                })
+        })
     } else if (operationType == 'edit') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
         io.emit(result.receiver, new responseInstance(new status(statusCode, documentation.statusCode), result));

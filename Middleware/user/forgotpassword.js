@@ -20,32 +20,32 @@ module.exports = (req, res) => {
         else resolve(req.body);
     });
 
-    let checkAnswers = (body) => {
-        return new Promise((resolve, reject) => {
-            db.getConnection((error, connection) => {
-                if (error) {
-                    debug(`Error: ${error}`);
-                    reject(new responseInstance(new status(7001, documentation[7001]), 'this is backend issue'));
-                }
+    // let checkAnswers = (body) => {
+    //     return new Promise((resolve, reject) => {
+    //         db.getConnection((error, connection) => {
+    //             if (error) {
+    //                 debug(`Error: ${error}`);
+    //                 reject(new responseInstance(new status(7001, documentation[7001]), 'this is backend issue'));
+    //             }
 
-                const sql = 'CALL ValidateRecoveryAnswers(?,?,?,?,?,?,?)';
-                const values = [body.username, body.id1, body.id2, body.id3, body.ans1, body.ans2, body.ans3];
+    //             const sql = 'CALL ValidateRecoveryAnswers(?,?,?,?,?,?,?)';
+    //             const values = [body.username, body.id1, body.id2, body.id3, body.ans1, body.ans2, body.ans3];
 
-                connection.query(sql, values, (error, result) => {
-                    if (error) {
-                        debug(error);
-                    } else {
-                        // console.log(result)
-                        if (result[0][0].status == 1071) {
-                            reject(new responseInstance(new status(1071), 'give the correct answer to the questions'));
-                        } else if (result[0][0].status == 1070) {
-                            resolve(body);
-                        }
-                    }
-                })
-            })
-        })
-    }
+    //             connection.query(sql, values, (error, result) => {
+    //                 if (error) {
+    //                     debug(error);
+    //                 } else {
+    //                     // console.log(result)
+    //                     if (result[0][0].status == 1071) {
+    //                         reject(new responseInstance(new status(1071), 'give the correct answer to the questions'));
+    //                     } else if (result[0][0].status == 1070) {
+    //                         resolve(body);
+    //                     }
+    //                 }
+    //             })
+    //         })
+    //     })
+    // }
 
     const passwordEncryption = (body) => {
         return new Promise(async (resolve, reject) => {
@@ -100,7 +100,7 @@ module.exports = (req, res) => {
     }
 
     p1
-        .then((body) => checkAnswers(body))
+        // .then((body) => checkAnswers(body))
         .then((body) => passwordEncryption(body))
         .then((encrypted) => store(encrypted))
         .then((result) => sender(result))

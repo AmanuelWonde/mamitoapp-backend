@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const server = http.createServer(app);
+require('dotenv').config();
 
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -24,15 +25,15 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
   console.log(socket.id);
   socket.on("typing", (data) => {
-    console.log(data);
     io.emit(data.receiver, new responseInstance(new status(1301), data));
   });
 });
 
-const FCM = require("fcm-node");
-const serverKey =
-  "AAAAToRy9cA:APA91bEC4cBdt5QkicMBLfakStE4p7fSg1moUMBoEkGP5GmHxHEe8fPl3aQShFkx30h6_gYXeZhaoPCJSVRhgbNHdc_MTiTb1Yhbh3piwHyMgOc4azrOe_CxxY3hsDGj-bYBADBiBrsx";
-const fcm = new FCM(serverKey);
+const fcm = require('firebase-admin');
+const service_account = require(`./${process.env.firebase_sdk}`);
+fcm.initializeApp({
+    credential: fcm.credential.cert(service_account)
+});
 
 app.use("/app-info", require("./Routes/appInfo"));
 app.use("/user", require("./Routes/user").router);
