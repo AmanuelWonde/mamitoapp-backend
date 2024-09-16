@@ -9,7 +9,7 @@ const getUserDetail = async (req, res) => {
 
     if (!success) return res.status(400).json({ message });
 
-    let { password, phone, ...extracted } = profileData;
+    let { password, ...extracted } = profileData;
     return res.status(200).json({
       message: "User profile getted successfully.",
       data: extracted,
