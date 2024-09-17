@@ -83,9 +83,15 @@ const sender = (req, res, result) => {
         fcm.messaging()
             .send({
                 token: fcmToken,
-                notification: {
-                    title: "Verification Status",
-                    body: req.body.verification == 0 ? "your are not verified, please try with another image" : "you are successfully verified",
+                // notification: {
+                //     title: "Verification Status",
+                //     body: req.body.verification == 0 ? "your are not verified, please try with another image" : "you are successfully verified",
+                // },
+                data: {
+                    custom_notification: JSON.stringify({
+                        title: "Verification Status",
+                        body: req.body.verification == 0 ? "your are not verified, please try with another image" : "you are successfully verified",
+                    })
                 },
                 android: {
                     priority: "high",
