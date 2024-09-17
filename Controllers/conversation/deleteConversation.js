@@ -31,7 +31,7 @@ const p1 = (req) => {
     });
 };
 
-const deleteConversation = (body) => {
+const deleteConversation = (res, body) => {
     const debug = require("debug")("clearconversation:deleteconversation");
     return new Promise((resolve, reject) => {
         db.getConnection((error, connection) => {
@@ -62,14 +62,14 @@ const deleteConversation = (body) => {
                     return;
                 } else {
                     if (result[0][0].status == 1024) {
-                        reject(
+                        res.send(
                             new responseInstance(
                                 new status(1024, documentation[1024]),
                                 "the coversation with the user does not exit"
                             )
                         );
                     } else {
-                        resolve({ username: result[1][0] });
+                        resolve(result[1][0]);
                     }
                 }
             });
@@ -77,18 +77,17 @@ const deleteConversation = (body) => {
     });
 };
 
-const sender = (res, result) => {
+const sender = (res, req, result) => {
     res.send(
         new responseInstance(new status(1025), {
-            conversationId: result.username.conversationId,
+            conversationId: result.conversationId,
         })
     );
-    console.log("result", result);
-    // console.log();
-    io.emit(
-        result.username.participant_2,
-        new responseInstance(new status(1025), {
-            conversationId: result.username.conversationId,
+
+    let username = req.body.username == result.participant_1 ? result.participant_2: result.participant_1;
+
+    io.emit(username, new responseInstance(new status(1025), {
+            conversationId: result.conversationId,
         })
     );
 };

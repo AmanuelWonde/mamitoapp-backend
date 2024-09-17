@@ -93,7 +93,9 @@ const sender = (result, res) => {
             .catch((error) => {
                 console.log("notification error: ", error);
             });
-    });
+    }).catch((error) => {
+            console.log(error)
+        });
 };
 
 module.exports = { sender, insertConversation, p1 };
