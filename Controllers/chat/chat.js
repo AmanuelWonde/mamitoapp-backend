@@ -222,11 +222,12 @@ const sender = (result, operationType, res) => {
             fcm.messaging()
             .send({
                     token: fcmToken,
-                    notification: {
-                        title: 'new message',
-                        body: result.sender,
-                    },
+                    // notification: {
+                    //     title: 'new message',
+                    //     body: result.sender,
+                    // },
                     data: {
+                        custome_notification: JSON.stringify({ title: 'new message', body: result.sender }),
                         sender: result.sender,
                         details: JSON.stringify(result),
                     },
