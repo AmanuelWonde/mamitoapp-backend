@@ -219,8 +219,8 @@ const sender = (result, operationType, res) => {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
 
         getFCMtoken(result.receiver).then(fcmToken => {
-            fcm.messaging()
-            .send({
+            if (fcmToken != null) {
+                fcm.messaging() .send({
                     token: fcmToken,
                     // notification: {
                     //     title: 'new message',
@@ -235,12 +235,9 @@ const sender = (result, operationType, res) => {
                         priority: "high",
                     }
                 })
-            .then(response => {
-                    console.log('notification success: ', response);
-                })
-            .catch(error => {
-                    console.log('notification error: ', error);
-                })
+                    .then(response => { console.log('notification success: ', response); })
+                    .catch(error => { console.log('notification error: ', error); })
+            }
         })
     } else if (operationType == 'edit') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
