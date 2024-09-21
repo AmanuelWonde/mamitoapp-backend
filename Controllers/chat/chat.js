@@ -220,6 +220,7 @@ const sender = (result, operationType, res) => {
 
         getFCMtoken(result.receiver).then(fcmToken => {
             if (fcmToken != null) {
+                console.log(fcmToken)
                 fcm.messaging() .send({
                     token: fcmToken,
                     // notification: {
@@ -227,7 +228,7 @@ const sender = (result, operationType, res) => {
                     //     body: result.sender,
                     // },
                     data: {
-                        custome_notification: JSON.stringify({ title: 'new message', body: result.sender }),
+                        custom_notification: JSON.stringify({ title: 'new message', body: result.sender }),
                         sender: result.sender,
                         details: JSON.stringify(result),
                     },
