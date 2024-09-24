@@ -27,7 +27,7 @@ const getProfileMatchPercentage = (matchFinder, toBeMatchedWith) => {
 
   if (matchFinder.religios === toBeMatchedWith.religios) {
     profileMatchPercentage += 5;
-    matchDetail.Reigios = 5;
+    matchDetail.Religious = 5;
   }
 
   if (matchFinder.verified && toBeMatchedWith.verified) {
