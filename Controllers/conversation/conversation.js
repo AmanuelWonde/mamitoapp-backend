@@ -65,11 +65,15 @@ const sender = (result, res) => {
             fcm.messaging()
                 .send({
                     token: fcmToken,
-                    notification: {
-                        title: "Request accepted",
-                        body: `${result.content['user-1']} accepted your chat request`,
-                    },
+                    // notification: {
+                    //     title: "Request accepted",
+                    //     body: `${result.content['user-1']} accepted your chat request`,
+                    // },
                     data: {
+                        custom_notification: JSON.stringify({
+                            title: "Request accepted",
+                            body: `${result.content['user-1']} accepted your chat request`,
+                        }),
                         details: JSON.stringify(result)
                     },
                     android: {

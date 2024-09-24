@@ -13,10 +13,9 @@ function getFCMtoken(username) {
                 if (error) {
                     reject(error);
                 }
-                // console.log(result);
-                if (!result[0][0].diviceId)
-                    resolve(result[0][0].deviceId);
-                else resolve(null)
+
+                let token = result[0][0].deviceId? result[0][0].deviceId: null;
+                resolve(token);
             });
         });
     });

@@ -219,14 +219,16 @@ const sender = (result, operationType, res) => {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
 
         getFCMtoken(result.receiver).then(fcmToken => {
-            fcm.messaging()
-            .send({
+            if (fcmToken != null) {
+                console.log(fcmToken)
+                fcm.messaging() .send({
                     token: fcmToken,
-                    notification: {
-                        title: 'new message',
-                        body: result.sender,
-                    },
+                    // notification: {
+                    //     title: 'new message',
+                    //     body: result.sender,
+                    // },
                     data: {
+                        custom_notification: JSON.stringify({ title: 'new message', body: result.sender }),
                         sender: result.sender,
                         details: JSON.stringify(result),
                     },
@@ -234,12 +236,9 @@ const sender = (result, operationType, res) => {
                         priority: "high",
                     }
                 })
-            .then(response => {
-                    console.log('notification success: ', response);
-                })
-            .catch(error => {
-                    console.log('notification error: ', error);
-                })
+                    .then(response => { console.log('notification success: ', response); })
+                    .catch(error => { console.log('notification error: ', error); })
+            }
         })
     } else if (operationType == 'edit') {
         res.send(new responseInstance(new status(statusCode, documentation[statusCode]), result));
