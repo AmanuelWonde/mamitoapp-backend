@@ -38,7 +38,7 @@ module.exports = (req, res) => {
           );
         }
 
-        const sql = "CALL GetUserByUsername(?)";
+        const sql = "select * from user where username = ?";
         const values = [body.username];
 
         connection.query(sql, values, (error, result, field) => {
@@ -53,7 +53,7 @@ module.exports = (req, res) => {
               )
             );
           } else {
-            if (result[0][0].status != 1013) {
+            if (!result.length) {
               reject(
                 new responseInstance(
                   new status(1015, documentation[1015]),
@@ -61,7 +61,7 @@ module.exports = (req, res) => {
                 )
               );
             } else {
-              resolve(result[0][0]);
+              resolve(result[0]);
             }
           }
         });
@@ -81,7 +81,6 @@ module.exports = (req, res) => {
         } else {
           if (res) {
             delete body.password;
-            delete body.status;
             resolve(body);
           } else {
             reject(
@@ -138,7 +137,7 @@ module.exports = (req, res) => {
         changeOneSelf: body.changeOneSelf,
         longitude: body.longitude,
         latitude: body.latitude,
-        verfied: body.verified,
+        verified: body.verified,
         "created-at": body["created-at"],
         "updated-at": body["updated-at"],
       },
