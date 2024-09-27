@@ -129,7 +129,7 @@ module.exports = (req, res) => {
         changeOneSelf: result.changeOneSelf,
         longitude: result.longitude,
         latitude: result.latitude,
-        verfied: result.verified
+        verified: 0
       },
       "hiruy"
     );
