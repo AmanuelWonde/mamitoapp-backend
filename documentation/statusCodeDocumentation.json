@@ -6,6 +6,8 @@
     "1013": "logged in",
     "1014": "incorrect password",
     "1015": "no user found",
+    "1016": "account deleted successfully",
+    "1017": "account is not deleted",
     "1020": "new conversation created successfully",
     "1021": "conversation already existed",
     "1023": "got conversations",
