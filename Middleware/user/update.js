@@ -37,8 +37,7 @@ module.exports = (req, res) => {
                         if (result[0][0].status == 1031) {
                             reject(new responseInstance(new status(1031), "update failed!"));
                         } else {
-                            delete result[0][0].status;
-                            resolve(result[0][0]);
+                            resolve(body);
                         }
                     }
 
@@ -48,12 +47,59 @@ module.exports = (req, res) => {
         })
     }
 
+    const userVerification = (body) => {
+        return new Promise((resolve, reject) => {
+            const debug = require("debug")("login:userVerification");
+            db.getConnection((error, connection) => {
+                if (error) {
+                    console.log(`Error: ${error}`);
+                    reject(
+                        new responseInstance(
+                            new status(7001, documentation[7001]),
+                            "this is backend issue"
+                        )
+                    );
+                }
+
+                const sql = "select * from user where username = ?";
+                const values = [body.username];
+
+                connection.query(sql, values, (error, result, field) => {
+                    connection.release();
+
+                    if (error) {
+                        console.log(error);
+                        reject(
+                            new responseInstance(
+                                new status(7003, documentation[7003]),
+                                "this is a backend issue"
+                            )
+                        );
+                    } else {
+                        if (!result.length) {
+                            reject(
+                                new responseInstance(
+                                    new status(1015, documentation[1015]),
+                                    "user not registered"
+                                )
+                            );
+                        } else {
+                            delete result[0].password;
+                            resolve(result[0]);
+                        }
+                    }
+                });
+            });
+        });
+    };
+
     let sender = (result) => {
         res.setHeader('auth-token', JWT.sign(result, "hiruy")).send(new responseInstance(new status(1030), result));
     }
 
     p1
         .then((body) => update(body))
+        .then((body) => userVerification(body))
         .then((result) => sender(result))
         .catch((error) => { res.send(error) })
 }
