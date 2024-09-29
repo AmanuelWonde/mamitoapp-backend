@@ -39,9 +39,13 @@ module.exports = async (req, res) => {
 
                 db.query(sql, [ decoded.username ], (err, result) => {
                     if (err) return res.status(500).send('error while processing request')
-                    return res.status(200).json({
+                    res.status(200).json({
                         status: 1016,
                         discription: 'account deleted successfully'
+                    })
+                    db.query('delete from `profile-images` where user_username = ?', [decoded.username], (err, result) => {
+                        if (err) console.log(err)
+                        else { console.log(result) }
                     })
                 })
 
